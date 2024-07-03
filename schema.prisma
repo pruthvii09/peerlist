@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or any other supported provider
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int        @id @default(autoincrement())
+  username       String     @unique
+  email          String     @unique
+  password       String
+  bio            String?
+  profileImageUrl String?
+  createdAt      DateTime   @default(now())
+  posts          Post[]
+  comments       Comment[]
+  likes          Like[]
+  followers      Follow[]   @relation("UserFollowers")
+  following      Follow[]   @relation("UserFollowing")
+  jobs           Job[]
+  projects       Project[]
+}
+
+model Post {
+  id         Int        @id @default(autoincrement())
+  user       User       @relation(fields: [userId], references: [id])
+  userId     Int
+  content    String
+  createdAt  DateTime   @default(now())
+  comments   Comment[]
+  likes      Like[]
+}
+
+model Comment {
+  id         Int        @id @default(autoincrement())
+  post       Post       @relation(fields: [postId], references: [id])
+  postId     Int
+  user       User       @relation(fields: [userId], references: [id])
+  userId     Int
+  content    String
+  createdAt  DateTime   @default(now())
+}
+
+model Like {
+  id         Int        @id @default(autoincrement())
+  post       Post       @relation(fields: [postId], references: [id])
+  postId     Int
+  user       User       @relation(fields: [userId], references: [id])
+  userId     Int
+
+  @@unique([postId, userId])
+}
+
+model Follow {
+  follower   User       @relation("UserFollowers", fields: [followerId], references: [id])
+  followerId Int
+  followee   User       @relation("UserFollowing", fields: [followeeId], references: [id])
+  followeeId Int
+  createdAt  DateTime   @default(now())
+
+  @@id([followerId, followeeId])
+}
+
+model Job {
+  id         Int        @id @default(autoincrement())
+  user       User       @relation(fields: [userId], references: [id])
+  userId     Int
+  title      String
+  description String
+  location   String?
+  salary     String?
+  company    String
+  createdAt  DateTime   @default(now())
+}
+
+model Project {
+  id          Int        @id @default(autoincrement())
+  user        User       @relation(fields: [userId], references: [id])
+  userId      Int
+  title       String
+  description String
+  projectLink String
+  createdAt   DateTime   @default(now())
+}

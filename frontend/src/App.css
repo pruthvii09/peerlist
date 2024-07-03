@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@100..900&display=swap");
+.font-instrumentic {
+  font-family: "Instrument Serif", serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.paragraph-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.editor-container {
+  max-height: 200px;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+::-moz-selection {
+  background: #27ae60;
+  color: white;
+}
+::-webkit-selection {
+  background: #27ae60;
+  color: white;
+}
+::selection {
+  background: #27ae60;
+  color: white;
+}
