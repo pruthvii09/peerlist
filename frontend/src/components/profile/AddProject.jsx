@@ -4,7 +4,7 @@ import Button from "../utils/ui/Button";
 
 const AddProject = () => {
   return (
-    <div>
+    <div className="pb-16">
       <div className="flex py-10 px-4 items-center justify-between">
         <h1 className="flex items-center font-semibold gap-2">
           <Box strokeWidth={1.25} size={35} />

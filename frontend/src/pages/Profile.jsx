@@ -7,6 +7,7 @@ import GradientCard from "../components/utils/GradientCard";
 import UserProfile from "../components/profile/UserProfile";
 import { Link } from "react-router-dom";
 import AddProject from "../components/profile/AddProject";
+import GradientCard2 from "../components/utils/GradientCard2";
 
 const integrations = [
   {
@@ -57,7 +58,7 @@ const Profile = () => {
             </div>
             <div className="pt-8 pb-10 w-full px-6">
               <h1 className="font-medium mb-4">Showcase your work from:</h1>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
                 {integrations?.map((integration) => (
                   <div
                     key={integration.id}
@@ -86,8 +87,9 @@ const Profile = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 border-r">
+          <div className="mt-8 flex flex-col gap-4">
             <GradientCard />
+            <GradientCard2 />
           </div>
         </Rightsidebar>
       </div>

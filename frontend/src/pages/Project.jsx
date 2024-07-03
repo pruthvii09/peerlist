@@ -7,6 +7,7 @@ import ProjectCard from "../components/projects/ProjectCard";
 import { projects } from "../utils/data";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
+import GradientCard2 from "../components/utils/GradientCard2";
 const Project = () => {
   return (
     <Sidebar>
@@ -29,8 +30,9 @@ const Project = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 border-r">
+          <div className="mt-8 flex flex-col gap-4">
             <GradientCard />
+            <GradientCard2 />
           </div>
         </Rightsidebar>
       </div>

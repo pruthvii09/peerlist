@@ -5,6 +5,7 @@ import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import { ChevronDown } from "lucide-react";
 import ProfileCard from "../components/search/ProfileCard";
+import GradientCard2 from "../components/utils/GradientCard2";
 
 const Search = () => {
   return (
@@ -28,8 +29,9 @@ const Search = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 border-r">
+          <div className="mt-8 flex flex-col gap-4">
             <GradientCard />
+            <GradientCard2 />
           </div>
         </Rightsidebar>
       </div>

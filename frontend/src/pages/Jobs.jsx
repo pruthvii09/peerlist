@@ -5,6 +5,7 @@ import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import JobCard from "../components/jobs/JobCard";
+import GradientCard2 from "../components/utils/GradientCard2";
 
 const Jobs = () => {
   return (
@@ -27,8 +28,9 @@ const Jobs = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 border-r">
+          <div className="mt-8 flex flex-col gap-4">
             <GradientCard />
+            <GradientCard2 />
           </div>
         </Rightsidebar>
       </div>

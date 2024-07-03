@@ -7,8 +7,8 @@ const Select = ({ label, options }) => {
         {label}
       </label>
       <select className="w-full text-sm px-2 py-1.5 outline-none rounded border border-gray-300 transition-all duration-100 hover:border-gray-500">
-        {options?.map((option) => (
-          <option className="py-2" value={option.name}>
+        {options?.map((option, i) => (
+          <option key={i} className="py-2" value={option.name}>
             {option.name}
           </option>
         ))}

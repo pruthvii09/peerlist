@@ -9,7 +9,7 @@ const BasicProfile = () => {
     <div className="p-6">
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
       <div>
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input label="First name" placeholder="John" />
           <Input label="Last Name" placeholder="Doe" />
         </div>
@@ -30,7 +30,7 @@ const BasicProfile = () => {
             This is the very first thing peers read about you after your name.
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-10">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-10">
           <div className="grid grid-cols-2 gap-3">
             <Select
               label="Country"
@@ -62,7 +62,7 @@ const BasicProfile = () => {
             ]}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input label="Website" placeholder="" />
           <Input label="Calendar Link" placeholder="" />
         </div>

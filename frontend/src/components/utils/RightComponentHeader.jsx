@@ -5,9 +5,9 @@ import { Bell, Gift, Search } from "lucide-react";
 const RightComponentHeader = () => {
   const auth = true;
   return (
-    <div>
+    <div className="w-[348px] border-r border-b border-gray-300">
       {auth ? (
-        <div className="border-r border-b py-2.5 px-4 border-gray-300 fixed top-0 w-[348px] justify-around flex items-center gap-4">
+        <div className="py-2.5 px-4 flex items-center gap-4 justify-around">
           <div className="relative">
             <input
               className="outline-none hover:border-black text-sm border border-gray-200 py-1 rounded-md pl-6 w-[150px]"
@@ -38,7 +38,7 @@ const RightComponentHeader = () => {
           />
         </div>
       ) : (
-        <div className="border-r border-b py-3 px-4 border-gray-300 fixed top-0 w-[348px] flex items-center justify-end gap-4">
+        <div className="py-3 px-4 flex items-center justify-end gap-4">
           <Button
             title="Log in"
             className="bg-[#24292e] text-sm border-2 border-[#24292e] px-4 py-1 text-white rounded-full"
