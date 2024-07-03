@@ -42,7 +42,7 @@ const PostTextArea = ({ initialContent }) => {
   });
   return (
     <BlockNoteView
-      className="text-sm"
+      className="text-sm -z-20"
       theme="light"
       editable={false}
       editor={editor}

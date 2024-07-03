@@ -10,7 +10,7 @@ import {
 import PostTextArea from "./PostTextArea";
 const PostCard = ({ post }) => {
   return (
-    <div className="sm:px-6 px-3 sm:py-4 py-3 cursor-pointer border-r border-b border-gray-300 hover:bg-[#FAFBFC]">
+    <div className="sm:px-6 px-3 sm:py-4 py-3 cursor-pointer border-r border-b border-gray-300 ">
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
           <img
