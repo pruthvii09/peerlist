@@ -16,7 +16,7 @@ const initialState = {
           content: [
             {
               type: "text",
-              text: "Launched UserSoup here on Peerlist.",
+              text: "Launched UserSoup here on PeerHub.",
               styles: {},
             },
           ],
@@ -67,11 +67,11 @@ const initialState = {
           content: [
             {
               type: "link",
-              href: "https://peerlist.io/ilprdev/project/usersoup",
+              href: "https://PeerHub.io/ilprdev/project/usersoup",
               content: [
                 {
                   type: "text",
-                  text: "https://peerlist.io/ilprdev/project/usersoup",
+                  text: "https://PeerHub.io/ilprdev/project/usersoup",
                   styles: {},
                 },
               ],
@@ -95,7 +95,7 @@ const initialState = {
           content: [
             {
               type: "text",
-              text: "Launched UserSoup here on Peerlist.",
+              text: "Launched UserSoup here on PeerHub.",
               styles: {},
             },
           ],
@@ -146,11 +146,11 @@ const initialState = {
           content: [
             {
               type: "link",
-              href: "https://peerlist.io/ilprdev/project/usersoup",
+              href: "https://PeerHub.io/ilprdev/project/usersoup",
               content: [
                 {
                   type: "text",
-                  text: "https://peerlist.io/ilprdev/project/usersoup",
+                  text: "https://PeerHub.io/ilprdev/project/usersoup",
                   styles: {},
                 },
               ],

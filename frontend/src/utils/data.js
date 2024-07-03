@@ -282,7 +282,7 @@ export const projects = [
   },
   {
     title: "Hire my Peer",
-    tagline: "Designing a referral-reward feature for Peerlist",
+    tagline: "Designing a referral-reward feature for PeerHub",
     featuredOn: "2024-06-24T12:26:01.580Z",
     commentCount: 2,
     id: "PRJH7BJM97LOAPQN6FNMP966M7LB6K",

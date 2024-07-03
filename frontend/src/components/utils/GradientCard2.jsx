@@ -20,20 +20,20 @@ const GradientCard2 = () => {
       </h1>
       <div className="flex items-center flex-col gap-4 text-sm">
         <p className="text-center">
-          Project Spotlight by Peerlist is a weekly launchpad for your side
+          Project Spotlight by PeerHub is a weekly launchpad for your side
           projects to get early users, and collect feedback from fellow
           developers and designers!
         </p>
         <p className="text-center">
           Top 3 projects will get a shiny badge on their profile, feature in our
-          newsletter, and Peerlist merch
+          newsletter, and PeerHub merch
         </p>
         <p className="text-center">
           Launch opens every Monday from 12:00am to 11:59pm UTC.
         </p>
       </div>
       <Button
-        title="Join Peerlist"
+        title="Join PeerHub"
         className="bg-[#00aa45] text-white border-2 mt-3 border-[#219653] rounded-full text-sm px-3.5 py-0.5 hover:bg-[#219653]"
       />
     </div>

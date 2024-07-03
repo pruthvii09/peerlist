@@ -9,6 +9,7 @@ import {
 import Navlink from "./Navlink";
 import Button from "./ui/Button";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/Logo.svg";
 const routes = [
   {
     title: "Scroll",
@@ -37,13 +38,7 @@ const Sidebar = ({ children }) => {
     <div className="sm:flex block">
       <div className="sm:w-[212px] w-full fixed sm:h-screen h-auto border-r border-gray-300">
         <div className="sm:flex hidden flex-col gap-8">
-          <img
-            width={124}
-            height={32}
-            className="py-3"
-            src="https://dqy38fnwh4fqs.cloudfront.net/website/peerlist-logo-full.svg"
-            alt=""
-          />
+          <img width={124} height={32} className="py-3" src={Logo} alt="" />
         </div>
         <div className="fixed bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 sm:relative sm:bottom-auto sm:right-auto sm:left-auto sm:flex sm:flex-col sm:mt-5 sm:h-auto sm:bg-transparent sm:border-t-0">
           {routes.map((route, i) => (

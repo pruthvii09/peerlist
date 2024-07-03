@@ -15,8 +15,8 @@ const GradientCard = () => {
         Are you Hiring?
       </h1>
       <p className="text-center text-sm text-[#444d56]">
-        With Peerlist, the average time for posting a job to handing out an
-        offer is less than 2 weeks!
+        With PeerHub, the average time for posting a job to handing out an offer
+        is less than 2 weeks!
       </p>
       <Button
         title="Post a Job"

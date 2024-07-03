@@ -23,7 +23,7 @@ const BasicProfile = () => {
           <textarea
             name=""
             id=""
-            placeholder="Ex: Product Designer @ Peerlist •  Angel Investor"
+            placeholder="Ex: Product Designer @ PeerHub •  Angel Investor"
             className="outline-none w-full max-h-[144px] px-2 py-1 rounded-md text-sm resize-y border border-gray-300 hover:border-gray-500"
           ></textarea>
           <span className="text-[#6a737d] font-normal text-[10px]">

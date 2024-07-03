@@ -11,7 +11,7 @@ const RightComponentHeader = () => {
           <div className="relative">
             <input
               className="outline-none hover:border-black text-sm border border-gray-200 py-1 rounded-md pl-6 w-[150px]"
-              placeholder="Search Peerlist"
+              placeholder="Search PeerHub"
               type="text"
               name=""
               id=""
@@ -44,7 +44,7 @@ const RightComponentHeader = () => {
             className="bg-[#24292e] text-sm border-2 border-[#24292e] px-4 py-1 text-white rounded-full"
           />
           <Button
-            title="Join Peerlist"
+            title="Join PeerHub"
             className="bg-[#00aa45] text-white border-2 border-[#219653] rounded-full px-3.5 py-0.5 hover:bg-[#219653]"
           />
         </div>
