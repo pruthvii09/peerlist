@@ -9,7 +9,7 @@ const PostInput = () => {
   return (
     <div
       onClick={() => setPostModalOpen(true)}
-      className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 border-r flex flex-col gap-2"
+      className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 flex flex-col gap-2"
     >
       {postModalOpen && (
         <PostModal
