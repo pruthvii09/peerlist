@@ -1,12 +1,12 @@
 import React from "react";
 import Button from "./ui/Button";
 import { Bell, Gift, Search } from "lucide-react";
-
+import { useSelector } from "react-redux";
 const RightComponentHeader = () => {
-  const auth = true;
+  const { user } = useSelector((store) => store.user);
   return (
     <div className="w-[348px] border-r border-b border-gray-300">
-      {auth ? (
+      {user ? (
         <div className="py-2.5 px-4 flex items-center gap-4 justify-around">
           <div className="relative">
             <input

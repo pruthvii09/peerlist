@@ -7,7 +7,7 @@ const Post = () => {
   const posts = useSelector((store) => store?.post.posts);
   console.log(posts);
   return (
-    <div className="pt-14 h-full border-r border-gray-300">
+    <div className="pt-14 border-r border-gray-300">
       <PostInput />
       {posts?.map((post) => (
         <PostCard key={post?.id} post={post} />

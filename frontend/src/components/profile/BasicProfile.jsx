@@ -10,8 +10,8 @@ const BasicProfile = () => {
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
       <div>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
-          <Input label="First name" placeholder="John" />
-          <Input label="Last Name" placeholder="Doe" />
+          <Input type="text" label="First name" placeholder="John" />
+          <Input type="text" label="Last Name" placeholder="Doe" />
         </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
@@ -63,8 +63,8 @@ const BasicProfile = () => {
           />
         </div>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
-          <Input label="Website" placeholder="" />
-          <Input label="Calendar Link" placeholder="" />
+          <Input type="text" label="Website" placeholder="" />
+          <Input type="text" label="Calendar Link" placeholder="" />
         </div>
       </div>
     </div>

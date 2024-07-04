@@ -3,22 +3,38 @@ import { ImagePlus, Smile } from "lucide-react";
 import Button from "../utils/ui/Button";
 import PostModal from "../modals/PostModal";
 import LoginModal from "../modals/LoginModal";
+import { useDispatch, useSelector } from "react-redux";
+import { closeLoginModal, openLoginModal } from "../../store/modalSlice";
 const PostInput = () => {
   const [postModalOpen, setPostModalOpen] = useState(false);
-  const auth = true;
+  const { user } = useSelector((store) => store.user);
+  const { isLoginModalOpen } = useSelector((store) => store.modal); // Assuming you have a modal slice
+  const dispatch = useDispatch();
+
+  const handlePostClick = () => {
+    if (user) {
+      console.log("hello bhaii");
+      setPostModalOpen(true);
+    } else {
+      // Open login modal (assuming you have an action for this)
+      dispatch(openLoginModal());
+    }
+  };
+
+  const handleCloseLoginModal = () => {
+    dispatch(closeLoginModal());
+  };
+  console.log("user", user);
   return (
-    <div
-      onClick={() => setPostModalOpen(true)}
-      className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 flex flex-col gap-2"
-    >
+    <div className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 flex flex-col gap-2 w-full">
       {postModalOpen && (
         <PostModal
           postModalOpen={postModalOpen}
           setPostModalOpen={setPostModalOpen}
         />
       )}
-      {!auth && <LoginModal />}
-      <div className="flex items-center gap-2">
+      {isLoginModalOpen && <LoginModal onClose={handleCloseLoginModal} />}
+      <div onClick={handlePostClick} className="flex items-center gap-2">
         <img
           height={40}
           width={40}

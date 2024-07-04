@@ -35,7 +35,7 @@ const routes = [
 const Sidebar = ({ children }) => {
   const auth = true;
   return (
-    <div className="sm:flex block">
+    <div className="sm:flex block w-full">
       <div className="sm:w-[212px] w-full fixed sm:h-screen h-auto border-r border-gray-300">
         <div className="sm:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />

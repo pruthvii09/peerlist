@@ -8,20 +8,18 @@ import {
   Share2,
 } from "lucide-react";
 import PostTextArea from "./PostTextArea";
+
 const PostCard = ({ post }) => {
   return (
-    <div className="sm:px-6 px-3 sm:py-4 py-3 cursor-pointer border-b border-gray-300 ">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-3">
+    <div className="px-3 sm:px-6 py-3 sm:py-4 cursor-pointer border-b border-gray-300">
+      <div className="flex justify-between items-start sm:items-center">
+        <div className="flex gap-2 sm:gap-3">
           <img
-            height={40}
-            width={40}
-            className="rounded-full"
+            className="w-10 h-10 rounded-full"
             src="https://avatars.githubusercontent.com/u/101882373?v=4"
-            alt=""
+            alt="User avatar"
           />
-          {/* &nbsp;•&nbsp; */}
-          <div className="leading-[0]">
+          <div className="leading-tight">
             <h1 className="font-medium text-sm hover:underline">
               Nayan Jamdar
             </h1>
@@ -30,61 +28,55 @@ const PostCard = ({ post }) => {
             </span>
           </div>
         </div>
-        <div>
+        <div className="p-1">
           <EllipsisVertical size={16} />
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-2 sm:mt-3">
         <PostTextArea initialContent={post?.content} />
-        <div className="mt-3 sm:ml-12 ml-0 flex items-center justify-between">
-          <div className="flex items-center sm:gap-16 gap-4">
-            <div className="flex items-center gap-1">
-              <div className="p-2 rounded-full hover:bg-[#D6E7F8] hover:text-[#2F80ED]">
-                <MessageSquare className="" size={18} />
-              </div>
-              <span className="text-xs font-mono text-gray-600 font-medium mb-0.5">
-                0
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="p-2 rounded-full hover:bg-[#FFEBDA] hover:text-[#F66E10]">
-                <RefreshCw className="" size={18} />
-              </div>
-              <span className="text-xs font-mono text-gray-600 font-medium mb-0.5">
-                0
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="p-2 rounded-full hover:bg-[#E2F5EA] hover:text-[#00AA45]">
-                <ArrowBigUp className="" strokeWidth={1.5} size={22} />
-              </div>
-              <span className="text-xs font-mono text-gray-600 font-medium mb-0.5">
-                0
-              </span>
-            </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+            <ActionButton
+              Icon={MessageSquare}
+              count={0}
+              hoverColor="hover:text-[#2F80ED] hover:bg-[#D6E7F8]"
+            />
+            <ActionButton
+              Icon={RefreshCw}
+              count={0}
+              hoverColor="hover:text-[#F66E10] hover:bg-[#FFEBDA]"
+            />
+            <ActionButton
+              Icon={ArrowBigUp}
+              count={0}
+              hoverColor="hover:text-[#00AA45] hover:bg-[#E2F5EA]"
+            />
           </div>
-          <div className="flex items-center sm:gap-8 gap-4">
-            <div className="flex items-center gap-1">
-              <div className="p-2 rounded-full hover:bg-[#D6F6EF] hover:text-[#4FB6A0]">
-                <Bookmark className="" size={18} />
-              </div>
-              <span className="text-xs font-mono text-gray-600 font-medium mb-0.5">
-                0
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="p-2 rounded-full hover:bg-[#D6E7F8] hover:text-[#2F80ED]">
-                <Share2 className="" size={18} />
-              </div>
-              <span className="text-xs font-mono text-gray-600 font-medium mb-0.5">
-                0
-              </span>
-            </div>
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-6 mt-2 sm:mt-0">
+            <ActionButton
+              Icon={Bookmark}
+              count={0}
+              hoverColor="hover:text-[#4FB6A0] hover:bg-[#D6F6EF]"
+            />
+            <ActionButton
+              Icon={Share2}
+              count={0}
+              hoverColor="hover:text-[#2F80ED] hover:bg-[#D6E7F8]"
+            />
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+const ActionButton = ({ Icon, count, hoverColor }) => (
+  <div className="flex items-center gap-1">
+    <div className={`p-1.5 rounded-full ${hoverColor}`}>
+      <Icon size={18} strokeWidth={1.5} />
+    </div>
+    <span className="text-xs font-mono text-gray-600 font-medium">{count}</span>
+  </div>
+);
 
 export default PostCard;
