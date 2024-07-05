@@ -10,6 +10,7 @@ import Navlink from "./Navlink";
 import Button from "./ui/Button";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
+import { useSelector } from "react-redux";
 const routes = [
   {
     title: "Scroll",
@@ -33,7 +34,7 @@ const routes = [
   },
 ];
 const Sidebar = ({ children }) => {
-  const auth = true;
+  const { user } = useSelector((store) => store.user);
   return (
     <div className="sm:flex block w-full">
       <div className="sm:w-[212px] w-full fixed sm:h-screen h-auto border-r border-gray-300">
@@ -49,9 +50,9 @@ const Sidebar = ({ children }) => {
               icon={route.icon}
             />
           ))}
-          {auth && (
+          {user && (
             <Link
-              to="/id"
+              to={`/${user?.username}`}
               className="flex sm:flex-row flex-col sm:mt-4 mt-0 group items-center gap-2 sm:py-2.5 py-3 hover:cursor-pointer"
             >
               <img
@@ -62,7 +63,7 @@ const Sidebar = ({ children }) => {
                 alt=""
               />
               <span className="group-hover:translate-x-1 text-xs sm:text-base transition-all ease-in-out">
-                Pruthviraj
+                {user?.firstname ? user?.firstname : "Profile"}
               </span>
             </Link>
           )}

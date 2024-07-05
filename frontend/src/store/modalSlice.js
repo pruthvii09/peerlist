@@ -1,6 +1,5 @@
 // redux/slices/modalSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
   isLoginModalOpen: false,
 };

@@ -5,35 +5,22 @@ import PostModal from "../modals/PostModal";
 import LoginModal from "../modals/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { closeLoginModal, openLoginModal } from "../../store/modalSlice";
+import { useModal } from "../../context/ModalContext";
 const PostInput = () => {
-  const [postModalOpen, setPostModalOpen] = useState(false);
+  const { showModal } = useModal();
   const { user } = useSelector((store) => store.user);
-  const { isLoginModalOpen } = useSelector((store) => store.modal); // Assuming you have a modal slice
   const dispatch = useDispatch();
 
   const handlePostClick = () => {
     if (user) {
-      console.log("hello bhaii");
-      setPostModalOpen(true);
+      showModal("post");
     } else {
-      // Open login modal (assuming you have an action for this)
-      dispatch(openLoginModal());
+      showModal("login");
     }
-  };
-
-  const handleCloseLoginModal = () => {
-    dispatch(closeLoginModal());
   };
   console.log("user", user);
   return (
     <div className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 flex flex-col gap-2 w-full">
-      {postModalOpen && (
-        <PostModal
-          postModalOpen={postModalOpen}
-          setPostModalOpen={setPostModalOpen}
-        />
-      )}
-      {isLoginModalOpen && <LoginModal onClose={handleCloseLoginModal} />}
       <div onClick={handlePostClick} className="flex items-center gap-2">
         <img
           height={40}

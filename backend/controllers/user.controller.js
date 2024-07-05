@@ -3,8 +3,8 @@ import prisma from "../prisma/prisma.js";
 
 export const signup = async (req, res) => {
   try {
-    const { email, password, username } = req.body;
-    if (!email || !password || !username) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       return res
         .status(400)
         .json({ status: "error", error: "All Fields Required" });
@@ -23,7 +23,6 @@ export const signup = async (req, res) => {
       data: {
         email,
         password,
-        username,
       },
     });
     const token = createToken(user.id);
@@ -39,13 +38,11 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
     const user = await prisma.user.findUnique({
       where: {
         email: email,
       },
     });
-    console.log(user);
     if (!user) {
       return res
         .status(400)
@@ -58,13 +55,43 @@ export const login = async (req, res) => {
         .json({ status: "error", error: "Please Enter Correct Password" });
     }
     const token = createToken(user.id);
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "User Logged",
-        data: { ...user, token },
+    res.status(200).json({
+      status: "success",
+      message: "User Logged",
+      data: { ...user, token },
+    });
+  } catch (error) {
+    res.status(500).json({ status: "error", error: error.message });
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { firstname, lastname, bio, username } = req.body;
+
+    const userId = req.user.id; // Assuming the auth middleware adds user info to req
+    // Validate username uniqueness
+    if (username) {
+      const existingUser = await prisma.user.findUnique({
+        where: { username },
       });
+      if (existingUser && existingUser.id !== userId) {
+        return res
+          .status(400)
+          .json({ status: "error", error: "Username already taken" });
+      }
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { firstname, lastname, bio, username },
+    });
+
+    res.status(200).json({
+      status: "success",
+      message: "Profile updated successfully",
+      data: updatedUser,
+    });
   } catch (error) {
     res.status(500).json({ status: "error", error: error.message });
   }

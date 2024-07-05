@@ -4,13 +4,15 @@ import Editor from "../utils/Editor";
 import { useDispatch } from "react-redux";
 import { ImagePlus, Smile, X } from "lucide-react";
 import { addPost } from "../../store/postSlice";
+import { useModal } from "../../context/ModalContext";
 const PostModal = ({ postModalOpen, setPostModalOpen }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const { hideModal } = useModal();
   const handlePostClick = () => {
     if (content) {
       dispatch(addPost({ id: Date.now(), content })); // Dispatching the action with new post
-      setPostModalOpen(false); // Close the modal
+      hideModal();
     } else {
       alert("Title and content cannot be empty"); // Alert if title or content is empty
     }
@@ -34,7 +36,7 @@ const PostModal = ({ postModalOpen, setPostModalOpen }) => {
             className="hover:cursor-pointer"
             size={20}
             onClick={() => {
-              setPostModalOpen(false);
+              hideModal();
             }}
           />
         </div>

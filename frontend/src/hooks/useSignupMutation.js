@@ -2,22 +2,22 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../store/userSlice";
 import { useModal } from "../context/ModalContext";
+import { setUser } from "../store/userSlice";
 
-const loginUser = async (credentials) => {
+const signupUser = async (credentials) => {
   const response = await axios.post(
-    `http://localhost:4000/users/login`,
+    `http://localhost:4000/users/signup`,
     credentials
   );
   return response.data;
 };
 
-export const useLoginMutation = () => {
-  const { hideModal } = useModal();
+export const useSignupMutation = () => {
   const dispatch = useDispatch();
+  const { hideModal } = useModal();
   return useMutation({
-    mutationFn: loginUser,
+    mutationFn: signupUser,
     onSuccess: (data) => {
       localStorage.setItem("user", JSON.stringify(data.data));
       localStorage.setItem("token", JSON.stringify(data?.data?.token));
@@ -25,7 +25,7 @@ export const useLoginMutation = () => {
       hideModal();
     },
     onError: (error) => {
-      console.error("Login failed:", error.name);
+      console.error("Signup failed:", error.name);
       console.log(error.message);
     },
   });

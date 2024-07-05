@@ -6,11 +6,17 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Scroll from "./pages/Scroll";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce, ToastContainer } from "react-toastify";
+
 import Project from "./pages/Project";
 import Jobs from "./pages/Jobs";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import DetailModal from "./components/modals/DetailModal";
+import { useSelector } from "react-redux";
+import AddProject from "./pages/AddProject";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -37,13 +43,32 @@ const router = createBrowserRouter([
     path: "/:id/edit",
     element: <EditProfile />,
   },
+  {
+    path: "/projects/add-project",
+    element: <AddProject />,
+  },
 ]);
 function App() {
+  const { user } = useSelector((store) => store.user);
   return (
     <div className=" pl-0">
       <div className="lg:w-[1200px] w-full min-h-screen mx-auto flex font-body">
         <RouterProvider router={router} />
       </div>
+      {user && <>{!user.username && <DetailModal />}</>}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />
     </div>
   );
 }

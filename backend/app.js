@@ -11,8 +11,10 @@ app.use(express.static("public"));
 
 //routes import
 import userRoutes from "./routes/user.routes.js";
+import projectRoutes from "./routes/projects.routes.js";
 
 //routes declarationx
 app.use("/users", userRoutes);
+app.use("/projects", projectRoutes);
 
 export { app };

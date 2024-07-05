@@ -3,15 +3,27 @@ import Input from "../utils/ui/Input";
 import Select from "../utils/ui/Select";
 import ProfileSaparator from "./ProfileSaparator";
 import { CircleUserRound } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const BasicProfile = () => {
+  const { user } = useSelector((store) => store.user);
   return (
     <div className="p-6">
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
       <div>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
-          <Input type="text" label="First name" placeholder="John" />
-          <Input type="text" label="Last Name" placeholder="Doe" />
+          <Input
+            value={user.firstname}
+            type="text"
+            label="First name"
+            placeholder="John"
+          />
+          <Input
+            value={user.lastname}
+            type="text"
+            label="Last Name"
+            placeholder="Doe"
+          />
         </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
@@ -23,6 +35,7 @@ const BasicProfile = () => {
           <textarea
             name=""
             id=""
+            value={user.bio}
             placeholder="Ex: Product Designer @ PeerHub •  Angel Investor"
             className="outline-none w-full max-h-[144px] px-2 py-1 rounded-md text-sm resize-y border border-gray-300 hover:border-gray-500"
           ></textarea>
@@ -34,6 +47,7 @@ const BasicProfile = () => {
           <div className="grid grid-cols-2 gap-3">
             <Select
               label="Country"
+              value={user.country}
               options={[
                 { id: 1, name: "India" },
                 { id: 2, name: "Australia" },
