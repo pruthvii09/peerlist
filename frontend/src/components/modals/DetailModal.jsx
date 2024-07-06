@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import { ArrowRight } from "lucide-react";
-import { useUpdateProfileMutation } from "../../hooks/useUpdateProfileMutation";
+import { useUpdateProfileMutation } from "../../hooks/profile/useUpdateProfileMutation";
 
 const DetailModal = () => {
   const [updateData, setUpdateData] = useState({

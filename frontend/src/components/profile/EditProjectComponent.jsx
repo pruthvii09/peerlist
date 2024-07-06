@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useAddProjectMutation } from "../../hooks/projects/useAddProjectMutation";
-const ProjectDetails = () => {
+import { useParams } from "react-router-dom";
+import useProjectById from "../../hooks/projects/useGetProject";
+import { useUpdateProjectMutation } from "../../hooks/projects/useUpdateProject";
+import { useModal } from "../../context/ModalContext";
+import { useDeleteProjectMutation } from "../../hooks/projects/useDeleteProject";
+const EditProjectComponent = () => {
+  const { id } = useParams();
+  const { showModal } = useModal();
+  const { data: project, isLoading } = useProjectById(id);
+  const { mutate: deleteProject } = useDeleteProjectMutation();
+
   const [projectData, setProjectData] = useState({
-    title: "",
-    tagline: "",
-    description: "",
-    projectLink: "",
-    opensource: false,
+    title: project?.data?.title || "",
+    tagline: project?.data?.tagline || "",
+    description: project?.data?.description || "",
+    projectLink: project?.data?.projectLink || "",
+    opensource: project?.data?.opensource || false,
   });
+  useEffect(() => {
+    if (project) {
+      setProjectData((prevData) => ({
+        ...prevData,
+        title: project?.data?.title || "",
+        tagline: project?.data?.tagline || "",
+        description: project?.data?.description || "",
+        projectLink: project?.data?.projectLink || "",
+        opensource: project?.data?.opensource || false,
+      }));
+    }
+  }, [project]);
   const modules = {
     toolbar: [
       ["bold", "italic", "underline"], // toggled buttons
@@ -23,10 +44,17 @@ const ProjectDetails = () => {
   const handleEditorChange = (content) => {
     setProjectData({ ...projectData, description: content }); // Update the state with the new content
   };
-  const addProjectMutation = useAddProjectMutation();
-  const handleProject = () => {
-    addProjectMutation.mutate(projectData);
+  const updateProjectMutation = useUpdateProjectMutation(id);
+  const handleProject = async () => {
+    updateProjectMutation.mutate({ id: id, data: projectData });
   };
+  const onConfirm = () => {
+    deleteProject(id);
+  };
+
+  if (isLoading) {
+    return <div className="mt-14 border-r h-full pb-14">Loading...</div>;
+  }
   return (
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 px-8 flex flex-col gap-6">
@@ -123,10 +151,15 @@ const ProjectDetails = () => {
           />
         </div>
       </div>
-      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
+      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-between px-6 py-4 bg-[#f6f8fa] border-t border-r">
+        <Button
+          title="Delete"
+          onClick={() => showModal("confirm", { onConfirm: onConfirm })}
+          className=" text-xs text-red-500 border border-red-400 rounded-full px-3 py-0.5 hover:text-red-600"
+        />
         <Button
           title="Save"
-          loading={addProjectMutation.isPending}
+          loading={updateProjectMutation.isPending}
           onClick={handleProject}
           className="bg-[#00aa45] text-xs text-white border-2 border-[#219653] rounded-full px-3 py-0.5 hover:bg-[#219653]"
         />
@@ -135,4 +168,4 @@ const ProjectDetails = () => {
   );
 };
 
-export default ProjectDetails;
+export default EditProjectComponent;

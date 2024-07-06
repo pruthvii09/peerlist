@@ -1,9 +1,14 @@
-import { Link, MapPin, UserRoundCog } from "lucide-react";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { MapPin, UserRoundCog, Link } from "lucide-react";
+import useUserProfile from "../../hooks/profile/useUserProfile";
 
 const UserProfile = () => {
-  const { user } = useSelector((store) => store.user);
+  const { username } = useParams();
+  const { data, isLoading, error } = useUserProfile(username);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -11,16 +16,41 @@ const UserProfile = () => {
       year: "numeric",
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="py-10 mt-14 px-4 flex flex-col sm:items-center items-start gap-4">
+        <Skeleton circle height={80} width={80} />
+        <div className="flex sm:items-center items-start flex-col gap-2 mt-4">
+          <Skeleton height={24} width={200} />
+          <Skeleton height={16} width={300} />
+        </div>
+        <div className="flex items-center flex-wrap gap-4 mt-4">
+          <Skeleton height={20} width={150} />
+          <Skeleton height={20} width={150} />
+          <Skeleton height={20} width={200} />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) return <div>Error: {error.message}</div>;
+
+  const user = data?.data;
+
   return (
     <div className="py-10 mt-14 px-4 flex flex-col sm:items-center items-start gap-4">
       <img
         height={80}
         width={80}
         className="rounded-full"
-        src="https://avatars.githubusercontent.com/u/101882373?v=4"
-        alt=""
+        src={
+          user?.profileImageUrl ||
+          "https://avatars.githubusercontent.com/u/101882373?v=4"
+        }
+        alt={user.username}
       />
-      <div className="flex items-center flex-col  gap-2">
+      <div className="flex sm:items-center items-start flex-col gap-2">
         <h1 className="font-semibold text-lg">
           {user.firstname} {user.lastname}
         </h1>
@@ -33,32 +63,18 @@ const UserProfile = () => {
         </span>
         <span className="flex items-center text-xs">
           <MapPin size={16} strokeWidth={1.5} className="mr-1" />
-          Remote
+          {user.city || "Remote"}
         </span>
-        {user.webiste && (
-          <span className="flex items-center text-xs hover:underline cursor-pointer">
+        {user.website && (
+          <a
+            href={user.website}
+            className="flex items-center text-xs hover:underline cursor-pointer"
+          >
             <Link size={16} strokeWidth={1.5} className="mr-1" />
-            portfoliobuilderprut...
-          </span>
+            {user.website}
+          </a>
         )}
       </div>
-      {/* <div className="mt-2 flex flex-wrap sm:items-center items-start sm:justify-center justify-start gap-3">
-        <p className="px-2 py-1 text-xs border border-gray-300 w-fit rounded-full">
-          NodeJs
-        </p>
-        <p className="px-2 py-1 text-xs border border-gray-300 w-fit rounded-full">
-          NodeJs
-        </p>
-        <p className="px-2 py-1 text-xs border border-gray-300 w-fit rounded-full">
-          NodeJs
-        </p>
-        <p className="px-2 py-1 text-xs border border-gray-300 w-fit rounded-full">
-          NodeJs
-        </p>
-        <p className="px-2 py-1 text-xs border border-gray-300 w-fit rounded-full">
-          NodeJs
-        </p>
-      </div> */}
     </div>
   );
 };

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Button from "../utils/ui/Button";
 import { ArrowRight, X } from "lucide-react";
 import Input from "../utils/ui/Input";
-import { useSignupMutation } from "../../hooks/useSignupMutation";
 import { useModal } from "../../context/ModalContext";
+import { useSignupMutation } from "../../hooks/profile/useSignupMutation";
 const SignupModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -5,9 +5,9 @@ import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import { ArrowLeft } from "lucide-react";
 import GradientCard2 from "../components/utils/GradientCard2";
-import ProjectDetails from "../components/profile/ProjectDetails";
 import { useSelector } from "react-redux";
-const AddProject = () => {
+import EditProjectComponent from "../components/profile/EditProjectComponent";
+const EditProject = () => {
   const { user } = useSelector((store) => store.user);
   return (
     <Sidebar>
@@ -18,7 +18,7 @@ const AddProject = () => {
             iconConfig={{ icon: ArrowLeft }}
             href={`/${user.username}`}
           />
-          <ProjectDetails />
+          <EditProjectComponent />
         </div>
         <Rightsidebar>
           <div className="mt-8 flex flex-col gap-4">
@@ -31,4 +31,4 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+export default EditProject;

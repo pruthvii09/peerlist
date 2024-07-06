@@ -3,17 +3,20 @@ import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
-import { SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, SlidersHorizontal } from "lucide-react";
 import EditComponent from "../components/profile/EditComponent";
 import GradientCard2 from "../components/utils/GradientCard2";
+import { useSelector } from "react-redux";
 const EditProfile = () => {
+  const { user } = useSelector((store) => store.user);
   return (
     <Sidebar>
       <div className="flex">
         <div className="sm:w-[640px] w-full">
           <ComponentHeader
             title="Edit Profile"
-            iconConfig={{ icon: SlidersHorizontal }}
+            iconConfig={{ icon: ArrowLeft }}
+            href={`/${user.username}`}
           />
           <EditComponent />
         </div>

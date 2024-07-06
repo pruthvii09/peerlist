@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Button from "../utils/ui/Button";
 import { ArrowRight, X } from "lucide-react";
 import Input from "../utils/ui/Input";
-import { useLoginMutation } from "../../hooks/useLoginMutation";
 import { useDispatch } from "react-redux";
-import { closeLoginModal } from "../../store/modalSlice";
 import { useModal } from "../../context/ModalContext";
+import { useLoginMutation } from "../../hooks/profile/useLoginMutation";
+import { closeLoginModal } from "../../store/modalSlice";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

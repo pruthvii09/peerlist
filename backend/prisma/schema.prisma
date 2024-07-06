@@ -21,6 +21,7 @@ model User {
   country         String?
   city            String?
   profileImageUrl String?
+  socialMedia     Json?
   createdAt       DateTime  @default(now())
   posts           Post[]
   comments        Comment[]

@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 import LoginModal from "../components/modals/LoginModal";
 import SignupModal from "../components/modals/SignupModal";
 import PostModal from "../components/modals/PostModal";
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 
 const ModalContext = createContext();
 
@@ -38,6 +39,8 @@ const ModalContainer = ({ modalType, modalProps }) => {
     // Add more cases for different modals as needed
     case "post":
       return <PostModal {...modalProps} />;
+    case "confirm":
+      return <ConfirmationModal {...modalProps} />;
     default:
       return null;
   }

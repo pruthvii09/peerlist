@@ -5,7 +5,7 @@ import ProfileSaparator from "./ProfileSaparator";
 import { CircleUserRound } from "lucide-react";
 import { useSelector } from "react-redux";
 
-const BasicProfile = () => {
+const BasicProfile = ({ basicProfile, setBasicProfile }) => {
   const { user } = useSelector((store) => store.user);
   return (
     <div className="p-6">
@@ -13,13 +13,19 @@ const BasicProfile = () => {
       <div>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input
-            value={user.firstname}
+            value={basicProfile.firstname}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, firstname: e.target.value })
+            }
             type="text"
             label="First name"
             placeholder="John"
           />
           <Input
-            value={user.lastname}
+            value={basicProfile.lastname}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, lastname: e.target.value })
+            }
             type="text"
             label="Last Name"
             placeholder="Doe"
@@ -35,7 +41,10 @@ const BasicProfile = () => {
           <textarea
             name=""
             id=""
-            value={user.bio}
+            value={basicProfile.bio}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, bio: e.target.value })
+            }
             placeholder="Ex: Product Designer @ PeerHub •  Angel Investor"
             className="outline-none w-full max-h-[144px] px-2 py-1 rounded-md text-sm resize-y border border-gray-300 hover:border-gray-500"
           ></textarea>
@@ -47,7 +56,10 @@ const BasicProfile = () => {
           <div className="grid grid-cols-2 gap-3">
             <Select
               label="Country"
-              value={user.country}
+              value={basicProfile.country}
+              onChange={(e) =>
+                setBasicProfile({ ...basicProfile, country: e.target.value })
+              }
               options={[
                 { id: 1, name: "India" },
                 { id: 2, name: "Australia" },
@@ -58,6 +70,10 @@ const BasicProfile = () => {
             />
             <Select
               label="City"
+              value={basicProfile.city}
+              onChange={(e) =>
+                setBasicProfile({ ...basicProfile, city: e.target.value })
+              }
               options={[
                 { id: 1, name: "Pune" },
                 { id: 2, name: "Mumbai" },
@@ -69,6 +85,10 @@ const BasicProfile = () => {
           </div>
           <Select
             label="Country"
+            value={basicProfile.gender}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, gender: e.target.value })
+            }
             options={[
               { id: 1, name: "he/him" },
               { id: 2, name: "she/her" },
@@ -77,8 +97,24 @@ const BasicProfile = () => {
           />
         </div>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
-          <Input type="text" label="Website" placeholder="" />
-          <Input type="text" label="Calendar Link" placeholder="" />
+          <Input
+            value={basicProfile.website}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, website: e.target.value })
+            }
+            type="text"
+            label="Website"
+            placeholder=""
+          />
+          <Input
+            value={basicProfile.calendar}
+            onChange={(e) =>
+              setBasicProfile({ ...basicProfile, calendar: e.target.value })
+            }
+            type="text"
+            label="Calendar Link"
+            placeholder=""
+          />
         </div>
       </div>
     </div>

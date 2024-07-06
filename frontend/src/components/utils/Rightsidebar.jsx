@@ -4,12 +4,15 @@ import { LogOut } from "lucide-react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 const Rightsidebar = ({ children }) => {
   const [showSheet, setShowSheet] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("user");
     dispatch(logoutUser());
+    navigate("/scroll");
     setShowSheet(!showSheet);
   };
   return (

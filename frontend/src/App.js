@@ -17,6 +17,8 @@ import EditProfile from "./pages/EditProfile";
 import DetailModal from "./components/modals/DetailModal";
 import { useSelector } from "react-redux";
 import AddProject from "./pages/AddProject";
+import EditProject from "./pages/EditProject";
+import ViewProject from "./pages/ViewProject";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/:id",
+    path: "/:username",
     element: <Profile />,
   },
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
   {
     path: "/projects/add-project",
     element: <AddProject />,
+  },
+  {
+    path: "/projects/edit-project/:id",
+    element: <EditProject />,
+  },
+  {
+    path: "/projects/view/:id",
+    element: <ViewProject />,
   },
 ]);
 function App() {
