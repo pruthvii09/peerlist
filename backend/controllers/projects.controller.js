@@ -13,7 +13,6 @@ export const addProject = async (req, res) => {
         error: "Title and tagline are required fields.",
       });
     }
-    console.log(req.body);
     // Create the project in the database
     const newProject = await prisma.project.create({
       data: {

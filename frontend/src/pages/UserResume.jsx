@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/utils/Sidebar";
-import {
-  Briefcase,
-  BriefcaseBusiness,
-  ChevronDown,
-  Edit,
-  Plus,
-} from "lucide-react";
+import { BriefcaseBusiness, ChevronDown, Edit, Plus } from "lucide-react";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
@@ -15,82 +9,25 @@ import { Link, useParams } from "react-router-dom";
 import GradientCard2 from "../components/utils/GradientCard2";
 import useUserProfile from "../hooks/profile/useUserProfile";
 import { useSelector } from "react-redux";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import PostCard from "../components/scroll/PostCard";
 import useGetPostsByUsername from "../hooks/post/useGetPostbyUsername";
+import WorkCard from "../components/work/WorkCard";
+import useFetchWork from "../hooks/work/useGetWork";
+import ProfileSkeleton from "../components/utils/ProfileSkeleton";
 
 const UserResume = () => {
   const { id } = useParams();
   const [showOptions, setShowOptions] = useState(false);
-  const { data, isLoading, error } = useUserProfile(id);
-  const {
-    data: userPosts,
-    isLoading: isUserPostsLoading,
-    error: userPostsError,
-  } = useGetPostsByUsername(id);
-  const posts = userPosts?.data;
+  const { data, isLoading } = useUserProfile(id);
+  const { data: userPosts } = useGetPostsByUsername(id);
   console.log(userPosts);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
   const isOwnProfile = loggedInUser?.username === user?.username;
+  const { data: workExp } = useFetchWork(id);
+  console.log(workExp);
+  const works = workExp?.data;
   if (isLoading) {
-    return (
-      <Sidebar>
-        <div className="flex">
-          <div className="sm:w-[640px] border-r w-full">
-            <div className="mb-4">
-              <Skeleton height={40} />
-            </div>
-            <div className="">
-              {/* UserProfile skeleton */}
-              <div className="mb-6">
-                <Skeleton height={200} />
-              </div>
-
-              {/* Navigation links skeleton */}
-              <div className="mx-6 flex items-center justify-center gap-10 border-b border-gray-300 pb-2.5">
-                {[1, 2, 3, 4].map((item) => (
-                  <Skeleton key={item} width={60} />
-                ))}
-              </div>
-
-              {/* Showcase section skeleton */}
-              <div className="pt-8 pb-10 w-full px-6">
-                <Skeleton width={200} height={24} className="mb-4" />
-                <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((item) => (
-                    <Skeleton key={item} height={40} />
-                  ))}
-                </div>
-              </div>
-
-              {/* AddProject skeleton */}
-              <div className="px-6 mb-8">
-                <Skeleton height={200} />
-              </div>
-
-              {/* Social links skeleton */}
-              <div className="px-8 w-full">
-                <div className="pt-14 border-t border-gray-300 flex items-center justify-center gap-3">
-                  {[1, 2, 3, 4].map((item) => (
-                    <Skeleton key={item} circle width={16} height={16} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right sidebar skeleton */}
-          <div className="hidden sm:block w-[320px]">
-            <div className="mt-8 px-8 flex flex-col gap-4">
-              <Skeleton height={200} />
-              <Skeleton height={200} />
-            </div>
-          </div>
-        </div>
-      </Sidebar>
-    );
+    return <ProfileSkeleton />;
   }
   return (
     <Sidebar>
@@ -169,8 +106,15 @@ const UserResume = () => {
                   <span className="text-xs">Job Preferences</span>
                 </div>
               </div>
-              <div className="mt-8 text-xs text-gray-600">
-                Noting to show Here
+              <div className="mt-8 ">
+                <div>
+                  <h1 className="font-base font-semibold">Experience</h1>
+                  <div className="mt-4 flex flex-col gap-2">
+                    {works?.map((work) => (
+                      <WorkCard work={work} key={work.id} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

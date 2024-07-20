@@ -11,73 +11,17 @@ import GradientCard2 from "../components/utils/GradientCard2";
 import useUserProfile from "../hooks/profile/useUserProfile";
 import { useSelector } from "react-redux";
 import { integrations } from "../utils/data";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import ProfileSkeleton from "../components/utils/ProfileSkeleton";
 const Profile = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useUserProfile(id);
+  const { data, isLoading } = useUserProfile(id);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
   console.log(user);
 
   const isOwnProfile = loggedInUser?.username === user?.username;
   if (isLoading) {
-    return (
-      <Sidebar>
-        <div className="flex">
-          <div className="sm:w-[640px] border-r w-full">
-            <div className="mb-4">
-              <Skeleton height={40} />
-            </div>
-            <div className="">
-              {/* UserProfile skeleton */}
-              <div className="mb-6">
-                <Skeleton height={200} />
-              </div>
-
-              {/* Navigation links skeleton */}
-              <div className="mx-6 flex items-center justify-center gap-10 border-b border-gray-300 pb-2.5">
-                {[1, 2, 3, 4].map((item) => (
-                  <Skeleton key={item} width={60} />
-                ))}
-              </div>
-
-              {/* Showcase section skeleton */}
-              <div className="pt-8 pb-10 w-full px-6">
-                <Skeleton width={200} height={24} className="mb-4" />
-                <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((item) => (
-                    <Skeleton key={item} height={40} />
-                  ))}
-                </div>
-              </div>
-
-              {/* AddProject skeleton */}
-              <div className="px-6 mb-8">
-                <Skeleton height={200} />
-              </div>
-
-              {/* Social links skeleton */}
-              <div className="px-8 w-full">
-                <div className="pt-14 border-t border-gray-300 flex items-center justify-center gap-3">
-                  {[1, 2, 3, 4].map((item) => (
-                    <Skeleton key={item} circle width={16} height={16} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right sidebar skeleton */}
-          <div className="hidden sm:block w-[320px]">
-            <div className="mt-8 px-8 flex flex-col gap-4">
-              <Skeleton height={200} />
-              <Skeleton height={200} />
-            </div>
-          </div>
-        </div>
-      </Sidebar>
-    );
+    return <ProfileSkeleton />;
   }
   return (
     <Sidebar>
