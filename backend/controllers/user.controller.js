@@ -7,7 +7,7 @@ export const signup = async (req, res) => {
     if (!email || !password) {
       return res
         .status(400)
-        .json({ status: "error", error: "All Fields Required" });
+        .json({ status: "error", message: "All Fields Required" });
     }
     const exist = await prisma.user.findUnique({
       where: {
@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
     if (exist) {
       return res
         .status(400)
-        .json({ status: "error", error: "Already Registred" });
+        .json({ status: "error", message: "Already Registred" });
     }
     const user = await prisma.user.create({
       data: {
@@ -32,55 +32,54 @@ export const signup = async (req, res) => {
       data: { ...user, token },
     });
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ status: "error", message: error.message });
   }
 };
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
+      where: { email: email },
     });
+
     if (!user) {
       return res
         .status(400)
-        .json({ status: "error", error: "Please Enter Correct Email Id" });
+        .json({ status: "error", message: "Invalid email or password" });
     }
+
     const match = user.password === password;
     if (!match) {
       return res
         .status(400)
-        .json({ status: "error", error: "Please Enter Correct Password" });
+        .json({ status: "error", message: "Invalid email or password" });
     }
+
     const token = createToken(user.id);
     res.status(200).json({
       status: "success",
-      message: "User Logged",
+      message: "Login successful",
       data: { ...user, token },
     });
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({
+      status: "error",
+      message: "An unexpected error occurred. Please try again later.",
+    });
   }
 };
 export const primaryDetails = async (req, res) => {
   try {
     const userId = req.user.id;
-    // const { firstname, lastname, bio, username } = req.body;
-    // const currentUser = await prisma.user.findUnique({ where: { id: userId } });
-    // if (currentUser.username && currentUser.username !== username) {
-    //   return res.status(400).json({
-    //     status: "error",
-    //     error: "Username cannot be changed once set",
-    //   });
-    // }
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: req.body,
     });
+    console.log(req.body);
     if (!updatedUser) {
-      return res.status(500).json({ status: "error", error: "Error Occoured" });
+      return res
+        .status(500)
+        .json({ status: "error", message: "Error Occoured" });
     }
     res.status(200).json({
       status: "success",
@@ -88,7 +87,7 @@ export const primaryDetails = async (req, res) => {
       data: updatedUser,
     });
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ status: "error", message: error.message });
   }
 };
 export const updateProfile = async (req, res) => {
@@ -138,7 +137,7 @@ export const updateProfile = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ status: "error", message: error.message });
   }
 };
 
@@ -161,8 +160,10 @@ export const getUserByUsername = async (req, res) => {
         calendar: true,
         country: true,
         city: true,
+        skills: true,
         profileImageUrl: true,
         createdAt: true,
+        _count: { select: { posts: true } },
         projects: {
           select: {
             id: true,
@@ -182,7 +183,7 @@ export const getUserByUsername = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         status: "error",
-        error: "User not found",
+        message: "User not found",
       });
     }
 
@@ -194,7 +195,29 @@ export const getUserByUsername = async (req, res) => {
     console.error("Error fetching user by username:", error);
     res.status(500).json({
       status: "error",
-      error:
+      message:
+        "An error occurred while fetching the user profile. Please try again later.",
+    });
+  }
+};
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    if (!users) {
+      return res.status(404).json({
+        status: "error",
+        messaeg: "Users not found",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      data: users,
+    });
+  } catch (error) {
+    console.error("Error fetching user by username:", error);
+    res.status(500).json({
+      status: "error",
+      message:
         "An error occurred while fetching the user profile. Please try again later.",
     });
   }

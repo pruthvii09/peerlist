@@ -10,40 +10,74 @@ import AddProject from "../components/profile/AddProject";
 import GradientCard2 from "../components/utils/GradientCard2";
 import useUserProfile from "../hooks/profile/useUserProfile";
 import { useSelector } from "react-redux";
-// import Instagram from "../assets/instagram.svg";
-// import Linkedin from "../assets/linkedin.svg";
-// import Twitter from "../assets/twitter.svg";
-// import Leetcode from "../assets/leetcode.svg";
-
-const integrations = [
-  {
-    id: 1,
-    title: "DEV",
-    image:
-      "https://media.dev.to/cdn-cgi/image/quality=100/https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png",
-  },
-  {
-    id: 2,
-    title: "Github",
-    image:
-      "https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png",
-  },
-  {
-    id: 3,
-    title: "Youtube",
-    image:
-      "https://t3.ftcdn.net/jpg/07/22/13/68/240_F_722136822_VIVcS7fxKb4ippA6kRYCoLwvS0J69hpB.jpg",
-  },
-];
-
+import { integrations } from "../utils/data";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const Profile = () => {
-  const { username } = useParams();
-  const { data, isLoading, error } = useUserProfile(username);
+  const { id } = useParams();
+  const { data, isLoading, error } = useUserProfile(id);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
+  console.log(user);
+
   const isOwnProfile = loggedInUser?.username === user?.username;
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Sidebar>
+        <div className="flex">
+          <div className="sm:w-[640px] border-r w-full">
+            <div className="mb-4">
+              <Skeleton height={40} />
+            </div>
+            <div className="">
+              {/* UserProfile skeleton */}
+              <div className="mb-6">
+                <Skeleton height={200} />
+              </div>
+
+              {/* Navigation links skeleton */}
+              <div className="mx-6 flex items-center justify-center gap-10 border-b border-gray-300 pb-2.5">
+                {[1, 2, 3, 4].map((item) => (
+                  <Skeleton key={item} width={60} />
+                ))}
+              </div>
+
+              {/* Showcase section skeleton */}
+              <div className="pt-8 pb-10 w-full px-6">
+                <Skeleton width={200} height={24} className="mb-4" />
+                <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
+                  {[1, 2, 3, 4, 5, 6].map((item) => (
+                    <Skeleton key={item} height={40} />
+                  ))}
+                </div>
+              </div>
+
+              {/* AddProject skeleton */}
+              <div className="px-6 mb-8">
+                <Skeleton height={200} />
+              </div>
+
+              {/* Social links skeleton */}
+              <div className="px-8 w-full">
+                <div className="pt-14 border-t border-gray-300 flex items-center justify-center gap-3">
+                  {[1, 2, 3, 4].map((item) => (
+                    <Skeleton key={item} circle width={16} height={16} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right sidebar skeleton */}
+          <div className="hidden sm:block w-[320px]">
+            <div className="mt-8 px-8 flex flex-col gap-4">
+              <Skeleton height={200} />
+              <Skeleton height={200} />
+            </div>
+          </div>
+        </div>
+      </Sidebar>
+    );
   }
   return (
     <Sidebar>
@@ -53,7 +87,7 @@ const Profile = () => {
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
               iconConfig={{ icon: Edit }}
-              href="/id/edit"
+              href={`/${user?.username}/edit`}
             />
           ) : (
             <ComponentHeader
@@ -70,11 +104,17 @@ const Profile = () => {
               <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
                 ABOUT
               </Link>
-              <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
+              <Link
+                to={`/${user?.username}/resume`}
+                className="py-2.5 hover:border-gray-600 hover:border-b-2"
+              >
                 RESUME
               </Link>
-              <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
-                POSTS
+              <Link
+                to={`/${user?.username}/posts`}
+                className="py-2.5 hover:border-gray-600 hover:border-b-2"
+              >
+                POSTS •&nbsp; {user?._count.posts}
               </Link>
             </div>
             <div className="pt-8 pb-10 w-full px-6">

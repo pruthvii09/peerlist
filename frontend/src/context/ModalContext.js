@@ -4,6 +4,7 @@ import LoginModal from "../components/modals/LoginModal";
 import SignupModal from "../components/modals/SignupModal";
 import PostModal from "../components/modals/PostModal";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
+import PreferenceModal from "../components/modals/PreferenceModal";
 
 const ModalContext = createContext();
 
@@ -41,6 +42,8 @@ const ModalContainer = ({ modalType, modalProps }) => {
       return <PostModal {...modalProps} />;
     case "confirm":
       return <ConfirmationModal {...modalProps} />;
+    case "preference":
+      return <PreferenceModal {...modalProps} />;
     default:
       return null;
   }

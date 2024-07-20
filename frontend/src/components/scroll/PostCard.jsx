@@ -7,7 +7,7 @@ import {
   Bookmark,
   Share2,
 } from "lucide-react";
-import PostTextArea from "./PostTextArea";
+import { timeAgo } from "../../utils/functions";
 
 const PostCard = ({ post }) => {
   return (
@@ -15,16 +15,17 @@ const PostCard = ({ post }) => {
       <div className="flex justify-between items-start sm:items-center">
         <div className="flex gap-2 sm:gap-3">
           <img
-            className="w-10 h-10 rounded-full"
-            src="https://avatars.githubusercontent.com/u/101882373?v=4"
+            className="w-10 h-10 rounded-full object-cover"
+            src={post?.user?.profileImageUrl}
             alt="User avatar"
           />
           <div className="leading-tight">
             <h1 className="font-medium text-sm hover:underline">
-              Nayan Jamdar
+              {post?.user.firstname} {post?.user.lastname}
             </h1>
             <span className="text-xs text-gray-600">
-              @nayan&nbsp;•&nbsp;#show&nbsp;•&nbsp;10h
+              @{post?.user.username}&nbsp;•&nbsp;#show&nbsp;•&nbsp;{" "}
+              {timeAgo(post?.createdAt)}
             </span>
           </div>
         </div>
@@ -33,7 +34,14 @@ const PostCard = ({ post }) => {
         </div>
       </div>
       <div className="flex flex-col mt-2 sm:mt-3">
-        <PostTextArea initialContent={post?.content} />
+        <div className="overflow-hidden">
+          {/* Ensure content doesn't overflow */}
+          <p
+            className="whitespace-pre-line post-content text-sm" // Adjusting whitespace handling
+            dangerouslySetInnerHTML={{ __html: post?.content }}
+          />
+        </div>
+
         <div className="mt-3 flex flex-wrap items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
             <ActionButton

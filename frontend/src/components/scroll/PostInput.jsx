@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { ImagePlus, Smile } from "lucide-react";
 import Button from "../utils/ui/Button";
-import PostModal from "../modals/PostModal";
-import LoginModal from "../modals/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
-import { closeLoginModal, openLoginModal } from "../../store/modalSlice";
 import { useModal } from "../../context/ModalContext";
 const PostInput = () => {
   const { showModal } = useModal();
@@ -18,15 +15,18 @@ const PostInput = () => {
       showModal("login");
     }
   };
-  console.log("user", user);
   return (
     <div className="sm:px-6 px-3 sm:py-4 py-3 hover:cursor-pointer border-b border-gray-300 flex flex-col gap-2 w-full">
       <div onClick={handlePostClick} className="flex items-center gap-2">
         <img
           height={40}
           width={40}
-          className="rounded-full"
-          src="https://avatars.githubusercontent.com/u/101882373?v=4"
+          className="rounded-full h-10 w-10 object-cover"
+          src={
+            user?.profileImageUrl
+              ? user?.profileImageUrl
+              : "https://avatars.githubusercontent.com/u/101882373?v=4"
+          }
           alt=""
         />
         <p className="text-gray-600 text-sm">What are you working on?</p>

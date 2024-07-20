@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../utils/ui/Input";
 import Select from "../utils/ui/Select";
 import ProfileSaparator from "./ProfileSaparator";
-import { CircleUserRound } from "lucide-react";
-import { useSelector } from "react-redux";
+import { CircleUserRound, Tag } from "lucide-react";
+import TagInput from "../utils/ui/TagInput";
 
 const BasicProfile = ({ basicProfile, setBasicProfile }) => {
-  const { user } = useSelector((store) => store.user);
   return (
     <div className="p-6">
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
@@ -52,6 +51,7 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
             This is the very first thing peers read about you after your name.
           </span>
         </div>
+
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-10">
           <div className="grid grid-cols-2 gap-3">
             <Select
@@ -116,6 +116,19 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
             placeholder=""
           />
         </div>
+      </div>
+      <div className="mt-16">
+        <ProfileSaparator icon={Tag} title="PROFILE TAGS" />
+        <TagInput
+          label="Skills"
+          skills={basicProfile.skills}
+          onChange={(newSkills) =>
+            setBasicProfile((prevProfile) => ({
+              ...prevProfile,
+              skills: newSkills,
+            }))
+          }
+        />
       </div>
     </div>
   );

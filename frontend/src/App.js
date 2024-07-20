@@ -19,6 +19,10 @@ import { useSelector } from "react-redux";
 import AddProject from "./pages/AddProject";
 import EditProject from "./pages/EditProject";
 import ViewProject from "./pages/ViewProject";
+import JobPreference from "./pages/JobPreference";
+import UserPosts from "./pages/UserPosts";
+import UserResume from "./pages/UserResume";
+import AddExperience from "./pages/AddExperience";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -38,12 +42,28 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/:username",
+    path: "/:id",
     element: <Profile />,
   },
   {
     path: "/:id/edit",
     element: <EditProfile />,
+  },
+  {
+    path: "/:id/job-preference",
+    element: <JobPreference />,
+  },
+  {
+    path: "/:id/posts",
+    element: <UserPosts />,
+  },
+  {
+    path: "/:id/resume",
+    element: <UserResume />,
+  },
+  {
+    path: "/:id/resume/add-experience",
+    element: <AddExperience />,
   },
   {
     path: "/projects/add-project",

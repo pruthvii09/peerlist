@@ -40,7 +40,6 @@ const EditProjectComponent = () => {
       [{ list: "ordered" }, { list: "bullet" }], // lists
     ],
   };
-  //   const addProject =
   const handleEditorChange = (content) => {
     setProjectData({ ...projectData, description: content }); // Update the state with the new content
   };

@@ -36,7 +36,7 @@ const ViewProject = () => {
                     width={40}
                     height={40}
                     className="rounded-full"
-                    src="https://avatars.githubusercontent.com/u/101882373?v=4"
+                    src={project?.user.profileImageUrl}
                     alt=""
                   />
                   <div className="flex flex-col">

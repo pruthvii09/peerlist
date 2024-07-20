@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const updateProject = async ({ id, data }) => {
-  console.log("data", data);
   const response = await axios.patch(
     `http://localhost:4000/projects/${id}`,
     data,
@@ -25,14 +24,11 @@ export const useUpdateProjectMutation = () => {
   return useMutation({
     mutationFn: updateProject,
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Project Updated Successfully!");
       navigate(`/${user.username}`);
     },
     onError: (error) => {
-      console.error("Project failed:", error.name);
-      console.log(error.message);
-      toast.error(error.name);
+      toast.error(error.response?.data?.message);
     },
   });
 };

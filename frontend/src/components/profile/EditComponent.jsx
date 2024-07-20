@@ -4,6 +4,7 @@ import SocialLinks from "./SocialLinks";
 import Button from "../utils/ui/Button";
 import { useSelector } from "react-redux";
 import { useUpdateProfileMutation } from "../../hooks/profile/useUpdateProfileMutation";
+
 const EditComponent = () => {
   const { user } = useSelector((store) => store.user);
   const [basicProfile, setBasicProfile] = useState({
@@ -11,6 +12,7 @@ const EditComponent = () => {
     lastname: user.lastname || "",
     bio: user.bio || "",
     country: user.country || "",
+    skills: user.skills || [],
     city: user.city || "",
     gender: user.gender || "",
     website: user.website || "",
@@ -23,6 +25,7 @@ const EditComponent = () => {
     linkedin: user.socialMedia?.linkedin || "",
     leetcode: user.socialMedia?.leetcode || "",
   });
+
   const updateMutation = useUpdateProfileMutation();
 
   const handleSave = () => {
@@ -32,8 +35,9 @@ const EditComponent = () => {
     };
     updateMutation.mutate(updatedProfile);
   };
+
   return (
-    <div className="mt-14 flex flex-col sm:gap-20 gap-10 border-r border-gray-300 pb-24">
+    <div className="mt-14 flex flex-col sm:gap-10 gap-8 border-r border-gray-300 pb-24">
       <BasicProfile
         basicProfile={basicProfile}
         setBasicProfile={setBasicProfile}

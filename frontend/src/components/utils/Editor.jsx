@@ -1,56 +1,31 @@
-import React, { useEffect } from "react";
-import "@blocknote/core/fonts/inter.css";
-import { useCreateBlockNote } from "@blocknote/react";
-import { BlockNoteView } from "@blocknote/mantine";
-import "@blocknote/mantine/style.css";
+import React, { useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css"; // import bubble theme styles
 
-const Editor = ({ value, onChange, initialContent, editable }) => {
-  const editor = useCreateBlockNote({
-    initialContent:
-      initialContent && initialContent.length > 0
-        ? initialContent
-        : [
-            {
-              id: "ec289355-81dc-4f57-a829-8f6fd755b539",
-              type: "paragraph",
-              props: {
-                textColor: "default",
-                backgroundColor: "default",
-                textAlignment: "left",
-              },
-              content: [
-                {
-                  type: "text",
-                  text: "Share Your Thoughts...",
-                  styles: {},
-                },
-              ],
-              children: [],
-            },
-          ], // Set initial content if provided and non-empty
-  });
+const QuillEditor = ({ value, onChange, initialContent, editable }) => {
+  const [content, setContent] = useState(
+    initialContent || "<p>Write Something...</p>"
+  );
 
   useEffect(() => {
-    if (editor) {
-      editor.onChange(() => {
-        const content = editor.document;
-        // Filter out empty blocks
-        const filteredContent = content.filter(
-          (block) => block.content.length > 0 || block.children.length > 0
-        );
-        onChange({ target: { value: filteredContent } });
-        console.log(filteredContent);
-      });
+    if (initialContent && !content) {
+      setContent(initialContent);
     }
-  }, [editor, onChange]);
+  }, [initialContent]);
+
+  const handleChange = (html) => {
+    setContent(html);
+    onChange({ target: { value: html } });
+  };
 
   return (
-    <BlockNoteView
+    <ReactQuill
+      theme="bubble"
+      value={content}
+      onChange={handleChange}
       className="h-[200px] overflow-y-auto"
-      theme="light"
-      editor={editor}
     />
   );
 };
 
-export default Editor;
+export default QuillEditor;

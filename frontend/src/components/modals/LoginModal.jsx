@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 import { useLoginMutation } from "../../hooks/profile/useLoginMutation";
 import { closeLoginModal } from "../../store/modalSlice";
+import { toast } from "react-toastify";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +15,9 @@ const LoginModal = () => {
   const loginMutation = useLoginMutation();
 
   const handleSubmit = async () => {
-    if (!email || !password) return;
+    if (!email || !password) {
+      return toast.error("All Fields Required");
+    }
     loginMutation.mutate({ email, password });
   };
   return (
@@ -47,7 +50,6 @@ const LoginModal = () => {
         <div className="absolute top-3 right-3">
           <X
             onClick={() => {
-              console.log("hello");
               hideModal();
               dispatch(closeLoginModal());
             }}

@@ -1,21 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import { ArrowRight } from "lucide-react";
 import { useUpdateProfileMutation } from "../../hooks/profile/useUpdateProfileMutation";
-
+import useImageUpload from "../../hooks/useImageUpload.js";
 const DetailModal = () => {
   const [updateData, setUpdateData] = useState({
     firstname: "",
     lastname: "",
     bio: "",
     username: "",
+    profileImageUrl: "https://dqy38fnwh4fqs.cloudfront.net/website/emptyDP.png",
   });
+
   const updateMutation = useUpdateProfileMutation();
+  const { imageUrl, uploading, error, uploadImage, getImage } =
+    useImageUpload();
+  const [file, setFile] = useState(null);
+
+  useEffect(() => {
+    if (file) {
+      uploadImage(file);
+    }
+  }, [file]);
+
+  useEffect(() => {
+    if (imageUrl) {
+      const img = getImage(imageUrl);
+      if (img?.publicID) {
+        setUpdateData((prevData) => ({
+          ...prevData,
+          profileImageUrl: img.publicID,
+        }));
+      }
+    }
+  }, [imageUrl]);
+
   const onSubmit = () => {
-    console.log(updateData);
     updateMutation.mutate(updateData);
   };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (uploading) {
+    console.log(uploading);
+  }
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -29,6 +64,28 @@ const DetailModal = () => {
           First things first, tell us a bit about yourself!
         </p>
         <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="file"
+              id="file_input"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <label
+              htmlFor="file_input"
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <img
+                id="image_preview"
+                height="40"
+                width="40"
+                className="rounded-full h-12 w-12 object-cover"
+                src={updateData.profileImageUrl}
+                alt="Profile Picture"
+              />
+              <span className="text-sm font-semibold">Upload Image</span>
+            </label>
+          </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <Input
               onChange={(e) =>

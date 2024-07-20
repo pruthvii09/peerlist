@@ -54,3 +54,12 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
+.post-content a {
+  color: #6a737d;
+  text-decoration: underline;
+  text-decoration-color: #6a737d;
+}
+.post-content a:hover {
+  color: black;
+  text-decoration: underline;
+}

@@ -5,8 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const AddProject = ({ projects, isOwnProfile }) => {
   const navigate = useNavigate();
-  console.log(projects);
-  // /projects/view/:id
   return (
     <div className="pb-16 ">
       <div className="flex py-10 px-4 items-center justify-between">
@@ -14,12 +12,14 @@ const AddProject = ({ projects, isOwnProfile }) => {
           <Box strokeWidth={1.25} size={35} />
           My Projects
         </h1>
-        <Button
-          title="Add project"
-          onClick={() => navigate("/projects/add-project")}
-          className="text-white font-medium bg-black rounded-full text-xs px-2 py-1"
-          iconConfig={{ icon: Plus, size: 16 }}
-        />
+        {isOwnProfile && (
+          <Button
+            title="Add project"
+            onClick={() => navigate("/projects/add-project")}
+            className="text-white font-medium bg-black rounded-full text-xs px-2 py-1"
+            iconConfig={{ icon: Plus, size: 16 }}
+          />
+        )}
       </div>
       <div className="grid grid-cols-2 gap-4 px-4">
         {projects?.map((project) => (
@@ -45,7 +45,7 @@ const AddProject = ({ projects, isOwnProfile }) => {
                   height={24}
                   width={24}
                   className="rounded-full"
-                  src="https://avatars.githubusercontent.com/u/101882373?v=4"
+                  src={project?.user?.profileImageUrl}
                   alt=""
                 />
                 {isOwnProfile && (

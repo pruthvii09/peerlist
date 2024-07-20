@@ -6,9 +6,8 @@ import { MapPin, UserRoundCog, Link } from "lucide-react";
 import useUserProfile from "../../hooks/profile/useUserProfile";
 
 const UserProfile = () => {
-  const { username } = useParams();
-  const { data, isLoading, error } = useUserProfile(username);
-
+  const { id } = useParams();
+  const { data, isLoading, error } = useUserProfile(id);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -43,16 +42,13 @@ const UserProfile = () => {
       <img
         height={80}
         width={80}
-        className="rounded-full"
-        src={
-          user?.profileImageUrl ||
-          "https://avatars.githubusercontent.com/u/101882373?v=4"
-        }
-        alt={user.username}
+        className="rounded-full h-20 w-20 object-cover"
+        src={user?.profileImageUrl}
+        alt={user?.username}
       />
       <div className="flex sm:items-center items-start flex-col gap-2">
         <h1 className="font-semibold text-lg">
-          {user.firstname} {user.lastname}
+          {user?.firstname} {user?.lastname}
         </h1>
         <p className="text-sm">{user.bio}</p>
       </div>
@@ -75,6 +71,25 @@ const UserProfile = () => {
           </a>
         )}
       </div>
+      {user?.skills && (
+        <div className="flex items-center justify-center gap-1 flex-wrap">
+          {user?.skills.map((skill) => (
+            <div
+              key={skill.id}
+              className="flex items-center text-xs gap-1 px-3 py-1 border border-gray-200 rounded-full"
+            >
+              <img
+                height={16}
+                width={16}
+                className="w-4 h-4"
+                src={skill.logo}
+                alt=""
+              />
+              <span>{skill.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

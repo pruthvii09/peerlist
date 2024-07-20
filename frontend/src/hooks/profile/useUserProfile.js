@@ -7,7 +7,6 @@ const fetchUserProfile = async (username) => {
       Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
     },
   });
-  console.log(response);
   return response.data;
 };
 

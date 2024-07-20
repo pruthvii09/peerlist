@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const addProject = async (data) => {
-  console.log("data", data);
   const response = await axios.post(`http://localhost:4000/projects`, data, {
     headers: {
       Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -21,13 +20,11 @@ export const useAddProjectMutation = () => {
   return useMutation({
     mutationFn: addProject,
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Project Added Successfully!");
       navigate(`/${user.username}`);
     },
     onError: (error) => {
-      console.error("Project failed:", error.name);
-      console.log(error.message);
+      toast.error(error.response?.data?.message);
     },
   });
 };

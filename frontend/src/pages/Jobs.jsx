@@ -6,8 +6,10 @@ import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import JobCard from "../components/jobs/JobCard";
 import GradientCard2 from "../components/utils/GradientCard2";
+import { useNavigate } from "react-router-dom";
 
 const Jobs = () => {
+  const navigate = useNavigate();
   return (
     <Sidebar>
       <div className="flex">
@@ -15,6 +17,7 @@ const Jobs = () => {
           <ComponentHeader
             title="All Jobs"
             iconConfig={{ icon: Settings, text: "Job Preferences" }}
+            onIconClick={() => navigate(`/id/job-preference`)}
           />
           <div className="mt-14 flex flex-col border-r border-gray-300">
             <JobCard />

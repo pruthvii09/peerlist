@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 import { setUser } from "../../store/userSlice";
+import { toast } from "react-toastify";
 
 const signupUser = async (credentials) => {
   const response = await axios.post(
@@ -25,8 +26,7 @@ export const useSignupMutation = () => {
       hideModal();
     },
     onError: (error) => {
-      console.error("Signup failed:", error.name);
-      console.log(error.message);
+      toast.error(error.response?.data?.message);
     },
   });
 };

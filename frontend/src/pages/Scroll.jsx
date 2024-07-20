@@ -6,8 +6,13 @@ import Post from "../components/scroll/Post";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import GradientCard2 from "../components/utils/GradientCard2";
+import { useModal } from "../context/ModalContext";
 
 const Scroll = () => {
+  const { showModal } = useModal();
+  const handleIconClick = () => {
+    showModal("preference");
+  };
   return (
     <Sidebar>
       <div className="flex">
@@ -15,6 +20,7 @@ const Scroll = () => {
           <ComponentHeader
             title="Scroll"
             iconConfig={{ icon: SlidersHorizontal }}
+            onIconClick={handleIconClick}
           />
           <Post />
         </div>

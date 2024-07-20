@@ -25,14 +25,12 @@ export const useUpdateProfileMutation = () => {
     mutationFn: updateProfile,
     onSuccess: (data) => {
       localStorage.setItem("user", JSON.stringify(data.data));
-      console.log("data.data", data.data);
       dispatch(setUser(data.data));
       hideModal();
       toast.success("Profile Updated!");
     },
     onError: (error) => {
-      console.error("Profile update failed:", error.name);
-      console.log(error.message);
+      toast.error(error.response?.data?.message);
     },
   });
 };

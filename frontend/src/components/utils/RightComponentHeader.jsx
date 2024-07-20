@@ -10,7 +10,7 @@ const RightComponentHeader = ({ showSheet, setShowSheet }) => {
 
   const { showModal } = useModal();
   return (
-    <div className="w-[348px] border-r border-b border-gray-300">
+    <div className="w-[348px] h-[56px] border-r border-b border-gray-300">
       {user ? (
         showSheet ? (
           <motion.div
@@ -52,8 +52,8 @@ const RightComponentHeader = ({ showSheet, setShowSheet }) => {
             <img
               height={32}
               width={32}
-              className="rounded-full cursor-pointer"
-              src="https://avatars.githubusercontent.com/u/101882373?v=4"
+              className="rounded-full h-8 w-8 object-cover cursor-pointer"
+              src={user?.profileImageUrl}
               alt=""
               onClick={() => setShowSheet(!showSheet)}
             />

@@ -7,10 +7,9 @@ import Leetcode from "../../assets/leetcode.svg";
 import Linkedin from "../../assets/linkedin.svg";
 
 const SocialLinks = ({ socialLinks, setSocialLinks }) => {
-  console.log(socialLinks);
   return (
     <div className="p-6">
-      <ProfileSaparator icon={Link} title="PROFILE TAGS" />
+      <ProfileSaparator icon={Link} title="SOCIAL LINKS" />
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 mb-4">
         <div className="border rounded tex-sm border-gray-300 transition-none duration-150 ease-in-out p-2 flex items-center overflow-hidden hover:border-gray-500">
           <label className="flex items-center">

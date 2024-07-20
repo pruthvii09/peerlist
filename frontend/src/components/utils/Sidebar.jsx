@@ -58,8 +58,8 @@ const Sidebar = ({ children }) => {
               <img
                 width={24}
                 height={24}
-                className="rounded-full"
-                src="https://avatars.githubusercontent.com/u/101882373?v=4"
+                className="rounded-full h-6 w-6 object-cover"
+                src={user?.profileImageUrl}
                 alt=""
               />
               <span className="group-hover:translate-x-1 text-xs sm:text-base transition-all ease-in-out">

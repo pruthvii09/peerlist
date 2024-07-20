@@ -22,18 +22,12 @@ export const useDeleteProjectMutation = () => {
   return useMutation({
     mutationFn: deleteProject,
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Project Deleted Successfully!");
       hideModal();
       navigate(`/${user.username}`);
     },
     onError: (error) => {
-      console.error("Project deletion failed:", error.name);
-      console.log(error.message);
-      toast.error(
-        error.response?.data?.error ||
-          "An error occurred while deleting the project"
-      );
+      toast.error(error.response?.data?.message);
     },
   });
 };
