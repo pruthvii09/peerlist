@@ -1195,3 +1195,15 @@ export const years = Array.from({ length: 2024 - 2000 + 1 }, (_, i) => ({
   id: 2000 + i,
   name: 2000 + i,
 }));
+export const degrees = [
+  { id: 1, name: "Associate" },
+  { id: 2, name: "Bachelor" },
+  { id: 3, name: "Master" },
+  { id: 4, name: "Doctorate" },
+  { id: 5, name: "Professional" },
+  { id: 6, name: "Certificate" },
+  { id: 7, name: "Diploma" },
+  { id: 8, name: "Advanced Diploma" },
+  { id: 9, name: "Honours" },
+  { id: 10, name: "Fellowship" },
+];

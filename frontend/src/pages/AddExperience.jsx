@@ -5,7 +5,6 @@ import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import { ArrowLeft } from "lucide-react";
 import GradientCard2 from "../components/utils/GradientCard2";
-import ProjectDetails from "../components/profile/ProjectDetails";
 import { useSelector } from "react-redux";
 import WorkDetails from "../components/work/WorkDetails";
 const AddExperience = () => {
@@ -17,7 +16,7 @@ const AddExperience = () => {
           <ComponentHeader
             title="Add Work Experience"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/${user.username}`}
+            href={`/user/${user.username}`}
           />
           <WorkDetails />
         </div>

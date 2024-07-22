@@ -19,7 +19,7 @@ const ViewProject = () => {
           <ComponentHeader
             title="View Project"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/${user.username}`}
+            href={`/user/${user.username}`}
           />
           <ViewProjectDetails project={project} isLoading={isLoading} />
         </div>
@@ -29,13 +29,13 @@ const ViewProject = () => {
               <div className="flex flex-col gap-6">
                 <h1 className="text-sm font-semibold">Project By</h1>
                 <Link
-                  to={`/${project?.user.username}`}
+                  to={`/user/${project?.user.username}`}
                   className="flex items-start gap-2 group-[]:"
                 >
                   <img
                     width={40}
                     height={40}
-                    className="rounded-full"
+                    className="w-10 h-10 object-cover rounded-full"
                     src={project?.user.profileImageUrl}
                     alt=""
                   />

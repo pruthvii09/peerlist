@@ -17,7 +17,7 @@ const JobPreference = () => {
           <ComponentHeader
             title="Job Preference"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/${user.username}`}
+            href={`/user/${user.username}`}
           />
           <JobPreferenceComponent />
         </div>

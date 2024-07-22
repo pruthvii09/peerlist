@@ -3,7 +3,7 @@ import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
-import { ArrowLeft, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import EditComponent from "../components/profile/EditComponent";
 import GradientCard2 from "../components/utils/GradientCard2";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ const EditProfile = () => {
           <ComponentHeader
             title="Edit Profile"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/${user.username}`}
+            href={`/user/${user.username}`}
           />
           <EditComponent />
         </div>

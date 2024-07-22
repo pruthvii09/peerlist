@@ -16,7 +16,7 @@ const AddProject = () => {
           <ComponentHeader
             title="Add Project"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/${user.username}`}
+            href={`/user/${user.username}`}
           />
           <ProjectDetails />
         </div>

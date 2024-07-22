@@ -164,6 +164,20 @@ export const getUserByUsername = async (req, res) => {
         profileImageUrl: true,
         createdAt: true,
         _count: { select: { posts: true } },
+        work: {
+          select: {
+            title: true,
+            company_name: true,
+            end_date: true,
+          },
+        },
+        education: {
+          select: {
+            degree: true,
+            study: true,
+            institute_name: true,
+          },
+        },
         projects: {
           select: {
             id: true,
@@ -220,5 +234,51 @@ export const getAllUsers = async (req, res) => {
       message:
         "An error occurred while fetching the user profile. Please try again later.",
     });
+  }
+};
+export const searchUsersByUsername = async (req, res) => {
+  const { query } = req.query; // Assume query parameter is named `query`
+
+  if (!query) {
+    return res.status(400).json({ message: "Query parameter is required" });
+  }
+
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          {
+            username: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            firstname: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            lastname: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+      select: {
+        profileImageUrl: true,
+        firstname: true,
+        lastname: true,
+        bio: true,
+        username: true,
+      },
+    });
+
+    res.json(users);
+  } catch (error) {
+    console.error("Error in searchUsersByUsername:", error); // Log the error for debugging
+    res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -3,15 +3,14 @@ import Sidebar from "../components/utils/Sidebar";
 import { Edit, Loader2 } from "lucide-react";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
-import GradientCard from "../components/utils/GradientCard";
 import UserProfile from "../components/profile/UserProfile";
 import { Link, useParams } from "react-router-dom";
-import GradientCard2 from "../components/utils/GradientCard2";
 import useUserProfile from "../hooks/profile/useUserProfile";
 import { useSelector } from "react-redux";
 import PostCard from "../components/scroll/PostCard";
 import useGetPostsByUsername from "../hooks/post/useGetPostbyUsername";
 import ProfileSkeleton from "../components/utils/ProfileSkeleton";
+import HighlightCard from "../components/profile/HighlightCard";
 
 const UserPosts = () => {
   const { id } = useParams();
@@ -45,7 +44,7 @@ const UserPosts = () => {
             <UserProfile />
             <div className="mx-6 flex items-center justify-center gap-10 border-b border-gray-300 text-xs font-semibold">
               <Link
-                to={`/${user?.username}`}
+                to={`/user/${user?.username}`}
                 className="py-2.5 hover:border-gray-600 hover:border-b-2"
               >
                 WORK
@@ -80,8 +79,7 @@ const UserPosts = () => {
         </div>
         <Rightsidebar>
           <div className="mt-8 flex flex-col gap-4">
-            <GradientCard />
-            <GradientCard2 />
+            <HighlightCard user={user} />
           </div>
         </Rightsidebar>
       </div>

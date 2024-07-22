@@ -4,7 +4,7 @@ import { auth } from "../middleware/auth.js";
 import {
   createPost,
   getAllPosts,
-  getPostById,
+  getPostDetails,
   getPostsByUsername,
 } from "../controllers/posts.controller.js";
 
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/", auth, createPost);
 router.get("/", getAllPosts);
-router.get("/:id", getPostById);
+router.get("/:id", getPostDetails);
 router.get("/:username/posts", getPostsByUsername);
 // router.get("/:username", getUserByUsername);
 // router.patch("/", auth, primaryDetails);

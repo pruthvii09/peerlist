@@ -24,7 +24,7 @@ export const useDeleteProjectMutation = () => {
     onSuccess: (data) => {
       toast.success("Project Deleted Successfully!");
       hideModal();
-      navigate(`/${user.username}`);
+      navigate(`/user/${user.username}`);
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

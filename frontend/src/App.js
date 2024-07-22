@@ -23,11 +23,18 @@ import JobPreference from "./pages/JobPreference";
 import UserPosts from "./pages/UserPosts";
 import UserResume from "./pages/UserResume";
 import AddExperience from "./pages/AddExperience";
+import AddEducation from "./pages/AddEducation";
+import NotFound from "./pages/NotFound";
+import SinglePost from "./pages/SinglePost";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
     path: "/scroll",
     element: <Scroll />,
+  },
+  {
+    path: "/scroll/post/:id",
+    element: <SinglePost />,
   },
   {
     path: "/projects",
@@ -42,7 +49,7 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/:id",
+    path: "/user/:id",
     element: <Profile />,
   },
   {
@@ -66,6 +73,10 @@ const router = createBrowserRouter([
     element: <AddExperience />,
   },
   {
+    path: "/:id/resume/add-education",
+    element: <AddEducation />,
+  },
+  {
     path: "/projects/add-project",
     element: <AddProject />,
   },
@@ -76,6 +87,10 @@ const router = createBrowserRouter([
   {
     path: "/projects/view/:id",
     element: <ViewProject />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 function App() {

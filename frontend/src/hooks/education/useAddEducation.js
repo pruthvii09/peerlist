@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const addProject = async (data) => {
-  const response = await axios.post(`http://localhost:4000/projects`, data, {
+const addEducation = async (data) => {
+  const response = await axios.post(`http://localhost:4000/education`, data, {
     headers: {
       Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
     },
@@ -14,14 +14,14 @@ const addProject = async (data) => {
   return response.data;
 };
 
-export const useAddProjectMutation = () => {
+export const useAddEducation = () => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
   return useMutation({
-    mutationFn: addProject,
+    mutationFn: addEducation,
     onSuccess: (data) => {
-      toast.success("Project Added Successfully!");
-      navigate(`/user/${user.username}`);
+      toast.success("Education Added Successfully!");
+      navigate(`/${user.username}/resume`);
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

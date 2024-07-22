@@ -15,7 +15,7 @@ const ProfileCard = ({ user, isLoading }) => {
   }
   return (
     <Link
-      to={`/${user.username}`}
+      to={`/user/${user.username}`}
       className="relative h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
     >
       <img

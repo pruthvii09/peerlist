@@ -5,23 +5,27 @@ import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import UserProfile from "../components/profile/UserProfile";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AddProject from "../components/profile/AddProject";
 import GradientCard2 from "../components/utils/GradientCard2";
 import useUserProfile from "../hooks/profile/useUserProfile";
 import { useSelector } from "react-redux";
 import { integrations } from "../utils/data";
 import ProfileSkeleton from "../components/utils/ProfileSkeleton";
+import HighlightCard from "../components/profile/HighlightCard";
 const Profile = () => {
   const { id } = useParams();
-  const { data, isLoading } = useUserProfile(id);
+  const { data, isLoading, isError } = useUserProfile(id);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
   console.log(user);
-
+  const navigate = useNavigate();
   const isOwnProfile = loggedInUser?.username === user?.username;
   if (isLoading) {
     return <ProfileSkeleton />;
+  }
+  if (isError) {
+    return navigate("/not-found");
   }
   return (
     <Sidebar>
@@ -89,28 +93,11 @@ const Profile = () => {
               </div>
             </div>
             <AddProject projects={user?.projects} isOwnProfile={isOwnProfile} />
-            <div className="px-8 w-full ">
-              <div className="pt-14 border-t border-gray-300 flex items-center justify-center gap-3">
-                {/* <a href="">
-                  <img height={16} width={16} src={Instagram} alt="" />
-                </a>
-                <a href="">
-                  <img height={16} width={16} src={Linkedin} alt="" />
-                </a>
-                <a href="">
-                  <img height={16} width={16} src={Twitter} alt="" />
-                </a>
-                <a href="">
-                  <img height={16} width={16} src={Leetcode} alt="" />
-                </a> */}
-              </div>
-            </div>
           </div>
         </div>
         <Rightsidebar>
           <div className="mt-8 flex flex-col gap-4">
-            <GradientCard />
-            <GradientCard2 />
+            <HighlightCard user={user} />
           </div>
         </Rightsidebar>
       </div>

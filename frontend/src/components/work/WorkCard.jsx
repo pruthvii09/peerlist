@@ -1,10 +1,14 @@
 import { ChevronDown, Pencil, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const WorkCard = ({ work }) => {
+  const { id } = useParams();
+  const { user } = useSelector((store) => store.user);
+  const isOwnProfile = user?.username === id;
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -21,10 +25,12 @@ const WorkCard = ({ work }) => {
           />
           <span className="text-sm py-1">{work?.company_name}</span>
         </div>
-        <div className="group-hover:flex hidden items-center px-2 py-1 rounded-full gap-1 border border-gray-300">
-          <Plus size={16} />
-          <span className="text-xs">New Role</span>
-        </div>
+        {isOwnProfile && (
+          <div className="group-hover:flex hidden items-center px-2 py-1 rounded-full gap-1 border border-gray-300">
+            <Plus size={16} />
+            <span className="text-xs">New Role</span>
+          </div>
+        )}
       </div>
       <div>
         <div className="pl-8">
@@ -34,11 +40,16 @@ const WorkCard = ({ work }) => {
               {work?.start_date} - {work?.end_date} • Remote
             </span>
             <div className="group-hover:flex hidden items-center gap-2">
-              <div className=" ">
-                <Pencil size={16} />
-              </div>
-              <div onClick={toggleAccordion} className="cursor-pointer">
-                <ChevronDown size={18} />
+              {isOwnProfile && (
+                <div className=" ">
+                  <Pencil size={16} />
+                </div>
+              )}
+              <div onClick={toggleAccordion} className="cursor-pointer ">
+                <ChevronDown
+                  size={18}
+                  className="text-gray-600 hover:text-black"
+                />
               </div>
             </div>
           </div>

@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./ui/Button";
 import { Bell, Gift, Search, X } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { closeLoginModal, openLoginModal } from "../../store/modalSlice";
 import { useModal } from "../../context/ModalContext";
-const RightComponentHeader = ({ showSheet, setShowSheet }) => {
+const RightComponentHeader = ({
+  showSheet,
+  setShowSheet,
+  handleFocus,
+  handleBlur,
+  setQuery,
+}) => {
   const { user } = useSelector((store) => store.user);
-
+  // const handleFocus = () => setIsInputFocused(true);
+  // const handleBlur = () => setIsInputFocused(false);
   const { showModal } = useModal();
+
   return (
     <div className="w-[348px] h-[56px] border-r border-b border-gray-300">
       {user ? (
@@ -33,6 +40,9 @@ const RightComponentHeader = ({ showSheet, setShowSheet }) => {
                 className="outline-none hover:border-black text-sm border border-gray-200 py-1 rounded-md pl-6 w-[150px]"
                 placeholder="Search PeerHub"
                 type="text"
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
                 name=""
                 id=""
               />

@@ -52,7 +52,7 @@ const Sidebar = ({ children }) => {
           ))}
           {user && (
             <Link
-              to={`/${user?.username}`}
+              to={`/user/${user?.username}`}
               className="flex sm:flex-row flex-col sm:mt-4 mt-0 group items-center gap-2 sm:py-2.5 py-3 hover:cursor-pointer"
             >
               <img
