@@ -6,7 +6,6 @@ import GradientCard from "../components/utils/GradientCard";
 import { ArrowLeft } from "lucide-react";
 import GradientCard2 from "../components/utils/GradientCard2";
 import { useSelector } from "react-redux";
-import EditProjectComponent from "../components/profile/EditProjectComponent";
 import JobPreferenceComponent from "../components/jobs/JobPreferenceComponent";
 const JobPreference = () => {
   const { user } = useSelector((store) => store.user);

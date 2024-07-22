@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "./ui/Button";
-import { ArrowRight } from "lucide-react";
 
 const GradientCard2 = () => {
   return (

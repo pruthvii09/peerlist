@@ -23,7 +23,7 @@ const LoginModal = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
       <div className="bg-white sm:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative">
         <h1 className="font-instrumentic text-[40px]">Log in</h1>
@@ -44,6 +44,7 @@ const LoginModal = () => {
             className="text-white flex items-center justify-center text-center w-full font-medium bg-[#24292e] rounded-full px-6 py-2"
             title="Login"
             onClick={handleSubmit}
+            loading={loginMutation.isPending}
             iconConfig={{ icon: ArrowRight, size: 20 }}
           />
         </div>

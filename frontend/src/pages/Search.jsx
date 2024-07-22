@@ -8,26 +8,27 @@ import useGetAllProfile from "../hooks/profile/usetGetAllProfile";
 import Select from "../components/utils/ui/Select";
 import Input from "../components/utils/ui/Input";
 import Button from "../components/utils/ui/Button";
+import ProfileCardSkeleton from "../components/skeleton/ProfileCardSkeleton";
 const Search = () => {
   const { data, isLoading } = useGetAllProfile();
   const allUsers = data?.data;
-  // const loggedInUserId = useSelector((store) => store.user.user);
-
-  // // Filter out the logged-in user
-  // const filteredUsers = allUsers?.filter(
-  //   (user) => user.id !== loggedInUserId.id
-  // );
   return (
     <Sidebar>
       <div className="flex">
         <div className="sm:w-[640px] w-full h-screen">
           <ComponentHeader title="Search" iconConfig={{ icon: ChevronDown }} />
-          <div className="mt-14 h-fit p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 border-r border-gray-300">
-            {allUsers?.map((user) => (
-              <div className="h-fit">
-                <ProfileCard user={user} isLoading={isLoading} />
-              </div>
-            ))}
+          <div className="mt-14  p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 border-r border-gray-300">
+            {isLoading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <div key={index} className="h-fit">
+                    <ProfileCardSkeleton />
+                  </div>
+                ))
+              : allUsers?.map((user) => (
+                  <div key={user.id} className="h-fit">
+                    <ProfileCard user={user} isLoading={isLoading} />
+                  </div>
+                ))}
           </div>
         </div>
         <Rightsidebar>

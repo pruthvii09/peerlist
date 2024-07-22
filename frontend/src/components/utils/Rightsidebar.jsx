@@ -24,7 +24,7 @@ const Rightsidebar = ({ children }) => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
-  const { data, isLoading, isError } = useSearchProfile(debouncedQuery);
+  const { data } = useSearchProfile(debouncedQuery);
   console.log(data);
 
   const sidebarRef = useRef(null);

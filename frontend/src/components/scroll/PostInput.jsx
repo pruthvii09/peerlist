@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ImagePlus, Smile } from "lucide-react";
 import Button from "../utils/ui/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 const PostInput = () => {
   const { showModal } = useModal();
   const { user } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
 
   const handlePostClick = () => {
     if (user) {

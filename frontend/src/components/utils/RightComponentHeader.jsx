@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "./ui/Button";
 import { Bell, Gift, Search, X } from "lucide-react";
 import { useSelector } from "react-redux";

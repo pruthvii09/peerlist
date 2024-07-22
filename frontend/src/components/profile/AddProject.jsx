@@ -1,4 +1,4 @@
-import { Box, Edit, Loader2, Plus } from "lucide-react";
+import { Box, Edit, Plus } from "lucide-react";
 import React from "react";
 import Button from "../utils/ui/Button";
 import { Link, useNavigate } from "react-router-dom";

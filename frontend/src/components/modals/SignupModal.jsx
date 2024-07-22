@@ -17,9 +17,9 @@ const SignupModal = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
-      <div className="bg-white sm:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative">
+      <div className="bg-white sm:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative ">
         <h1 className="font-instrumentic text-[40px]">Sign up</h1>
         <div className="w-full flex flex-col gap-3">
           <Input
@@ -37,6 +37,7 @@ const SignupModal = () => {
           <Button
             className="text-white flex items-center justify-center text-center w-full font-medium bg-[#24292e] rounded-full px-6 py-2"
             title="Signup"
+            loading={signupMutation.isPending}
             onClick={handleSubmit}
             iconConfig={{ icon: ArrowRight, size: 20 }}
           />

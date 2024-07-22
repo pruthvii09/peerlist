@@ -8,6 +8,7 @@ import useProjectById from "../../hooks/projects/useGetProject";
 import { useUpdateProjectMutation } from "../../hooks/projects/useUpdateProject";
 import { useModal } from "../../context/ModalContext";
 import { useDeleteProjectMutation } from "../../hooks/projects/useDeleteProject";
+import { Loader2 } from "lucide-react";
 const EditProjectComponent = () => {
   const { id } = useParams();
   const { showModal } = useModal();
@@ -52,7 +53,11 @@ const EditProjectComponent = () => {
   };
 
   if (isLoading) {
-    return <div className="mt-14 border-r h-full pb-14">Loading...</div>;
+    return (
+      <div className="mt-[55px] border-r  flex justify-between items-center pb-14">
+        <Loader2 className="text-green-600 animate-spin" />
+      </div>
+    );
   }
   return (
     <div className="mt-14 border-r h-full pb-14">

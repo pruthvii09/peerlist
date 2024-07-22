@@ -5,7 +5,7 @@ import { useModal } from "../../context/ModalContext";
 import QuillEditor from "../utils/Editor";
 import { useAddPost } from "../../hooks/post/useAddPost";
 import { useSelector } from "react-redux";
-const PostModal = ({ postModalOpen, setPostModalOpen }) => {
+const PostModal = () => {
   const [content, setContent] = useState("");
   const { user } = useSelector((store) => store.user);
   const { hideModal } = useModal();
@@ -16,7 +16,7 @@ const PostModal = ({ postModalOpen, setPostModalOpen }) => {
   };
 
   return (
-    <div className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed hover:cursor-default inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
       <div
         onClick={(e) => e.stopPropagation()}
         className="bg-white sm:w-[640px] w-[350px] p-4 rounded-lg shadow-lg"

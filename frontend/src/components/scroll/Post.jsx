@@ -1,7 +1,6 @@
 import React from "react";
 import PostInput from "./PostInput";
 import PostCard from "./PostCard";
-import { useSelector } from "react-redux";
 import useGetPosts from "../../hooks/post/useGetPosts";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";

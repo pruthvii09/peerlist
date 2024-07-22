@@ -1,18 +1,7 @@
 import React from "react";
 import Button from "../utils/ui/Button";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
-const ProfileCard = ({ user, isLoading }) => {
-  if (isLoading) {
-    return (
-      <div className="relative -z-30 h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg">
-        <Skeleton circle={true} height={40} width={40} />
-        <Skeleton height={20} width={100} className="mt-2" />
-        <Skeleton height={15} width={150} className="mt-1" />
-      </div>
-    );
-  }
+const ProfileCard = ({ user }) => {
   return (
     <Link
       to={`/user/${user.username}`}
