@@ -63,7 +63,14 @@ const UserProfile = () => {
         </span>
         {user.website && (
           <a
-            href={user.website}
+            href={
+              user.website.startsWith("http") ||
+              user.website.startsWith("https")
+                ? user.website
+                : `https://${user.website}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center text-xs hover:underline cursor-pointer"
           >
             <Link size={16} strokeWidth={1.5} className="mr-1" />

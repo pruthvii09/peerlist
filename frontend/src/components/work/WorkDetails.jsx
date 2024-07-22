@@ -222,6 +222,7 @@ const WorkDetails = () => {
         <Button
           title="Save"
           onClick={handleSave}
+          loading={addWorkMutation.isPending}
           className="bg-[#00aa45] text-xs text-white border-2 border-[#219653] rounded-full px-3 py-0.5 hover:bg-[#219653]"
         />
       </div>
