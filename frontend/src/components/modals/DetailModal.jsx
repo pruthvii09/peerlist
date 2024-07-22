@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { useUpdateProfileMutation } from "../../hooks/profile/useUpdateProfileMutation";
 import useImageUpload from "../../hooks/useImageUpload.js";
 const DetailModal = () => {
@@ -71,20 +71,34 @@ const DetailModal = () => {
               onChange={handleFileChange}
               className="hidden"
             />
-            <label
-              htmlFor="file_input"
-              className="flex items-center gap-2 cursor-pointer"
-            >
-              <img
-                id="image_preview"
-                height="40"
-                width="40"
-                className="rounded-full h-12 w-12 object-cover"
-                src={updateData.profileImageUrl}
-                alt="Profile Picture"
-              />
-              <span className="text-sm font-semibold">Upload Image</span>
-            </label>
+            {uploading ? (
+              <div>
+                <label
+                  htmlFor="file_input"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <Loader2 className="animate-spin text-green-500" />
+                  <span className="text-sm font-semibold">Upload Image</span>
+                </label>
+              </div>
+            ) : (
+              <>
+                <label
+                  htmlFor="file_input"
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <img
+                    id="image_preview"
+                    height="40"
+                    width="40"
+                    className="rounded-full h-12 w-12 object-cover"
+                    src={updateData.profileImageUrl}
+                    alt="Profile Picture"
+                  />
+                  <span className="text-sm font-semibold">Upload Image</span>
+                </label>
+              </>
+            )}
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4">
             <Input

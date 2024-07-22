@@ -4,6 +4,7 @@ import { Bell, Gift, Search, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useModal } from "../../context/ModalContext";
+import { Link } from "react-router-dom";
 const RightComponentHeader = ({
   showSheet,
   setShowSheet,
@@ -55,14 +56,17 @@ const RightComponentHeader = ({
               <div className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1">
                 <Gift size={18} />
               </div>
-              <div className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1">
+              <Link
+                to={"/notifications"}
+                className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1"
+              >
                 <Bell size={18} />
-              </div>
+              </Link>
             </div>
             <img
               height={32}
               width={32}
-              className="rounded-full h-8 w-8 object-cover cursor-pointer"
+              className="rounded-full h-8 w-8 object-cover cursor-pointer "
               src={user?.profileImageUrl}
               alt=""
               onClick={() => setShowSheet(!showSheet)}

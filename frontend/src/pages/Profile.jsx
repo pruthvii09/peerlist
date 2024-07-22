@@ -47,9 +47,9 @@ const Profile = () => {
               <Link className="py-2.5 border-b-2 text-[#00aa45] border-[#00aa45]">
                 WORK
               </Link>
-              <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
+              {/* <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
                 ABOUT
-              </Link>
+              </Link> */}
               <Link
                 to={`/${user?.username}/resume`}
                 className="py-2.5 hover:border-gray-600 hover:border-b-2"

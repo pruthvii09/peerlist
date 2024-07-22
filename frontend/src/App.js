@@ -26,6 +26,7 @@ import AddExperience from "./pages/AddExperience";
 import AddEducation from "./pages/AddEducation";
 import NotFound from "./pages/NotFound";
 import SinglePost from "./pages/SinglePost";
+import Notification from "./pages/Notifications";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/projects",
     element: <Project />,
+  },
+  {
+    path: "/notifications",
+    element: <Notification />,
   },
   {
     path: "/jobs",

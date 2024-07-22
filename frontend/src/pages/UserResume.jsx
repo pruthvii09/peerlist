@@ -55,9 +55,9 @@ const UserResume = () => {
               >
                 WORK
               </Link>
-              <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
+              {/* <Link className="py-2.5 hover:border-gray-600 hover:border-b-2">
                 ABOUT
-              </Link>
+              </Link> */}
               <Link
                 to={`/${user?.username}/resume`}
                 className="py-2.5 text-[#00aa45] border-b-2  border-[#00aa45]  hover:border-b-2"
