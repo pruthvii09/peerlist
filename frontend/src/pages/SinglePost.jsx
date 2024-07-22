@@ -17,7 +17,7 @@ const SinglePost = () => {
       <div className="flex">
         <div className="sm:w-[640px] w-full">
           <ComponentHeader
-            title="Post by Someone"
+            title={`Post by ${data?.user?.firstname} ${data?.user?.lastname}`}
             iconConfig={{ icon: SlidersHorizontal }}
           />
           <SinglePostComponent data={data} isLoading={isLoading} />

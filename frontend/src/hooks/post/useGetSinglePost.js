@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchSinglePost = async (id) => {
-  const response = await axios.get(`http://localhost:4000/posts/${id}`);
+  const response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/posts/${id}`
+  );
   return response.data;
 };
 

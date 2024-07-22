@@ -3,7 +3,7 @@ import axios from "axios";
 
 const searchProfile = async (query) => {
   const response = await axios.get(
-    `http://localhost:4000/users/search?query=${query}`
+    `${process.env.REACT_APP_BASE_URL}/users/search?query=${query}`
   );
   return response.data;
 };

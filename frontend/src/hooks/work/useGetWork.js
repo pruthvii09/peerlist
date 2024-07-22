@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchWork = async (username) => {
-  const response = await axios.get(`http://localhost:4000/works/${username}`);
+  const response = await axios.get(
+    `${process.env.REACT_APP_BASE_URL}/works/${username}`
+  );
   return response.data;
 };
 

@@ -8,7 +8,7 @@ import { setUser } from "../../store/userSlice";
 import { useModal } from "../../context/ModalContext";
 const updateProfile = async (profileData) => {
   const response = await axios.patch(
-    `http://localhost:4000/users`,
+    `${process.env.REACT_APP_BASE_URL}/users`,
     profileData,
     {
       headers: {

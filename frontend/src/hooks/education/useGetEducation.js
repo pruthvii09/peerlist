@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchEducation = async (username) => {
   const response = await axios.get(
-    `http://localhost:4000/education/${username}`
+    `${process.env.REACT_APP_BASE_URL}/education/${username}`
   );
   return response.data;
 };

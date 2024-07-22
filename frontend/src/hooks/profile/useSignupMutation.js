@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const signupUser = async (credentials) => {
   const response = await axios.post(
-    `http://localhost:4000/users/signup`,
+    `${process.env.REACT_APP_BASE_URL}/users/signup`,
     credentials
   );
   return response.data;

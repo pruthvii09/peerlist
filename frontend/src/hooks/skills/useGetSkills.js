@@ -2,7 +2,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchSkills = async (search) => {
-  const response = await fetch(`http://localhost:4000/skills/${search}`);
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/skills/${search}`
+  );
   if (!response.ok) {
     throw new Error("Failed to fetch skills");
   }

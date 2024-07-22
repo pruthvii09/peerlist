@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const updateProject = async ({ id, data }) => {
   const response = await axios.patch(
-    `http://localhost:4000/projects/${id}`,
+    `${process.env.REACT_APP_BASE_URL}/projects/${id}`,
     data,
     {
       headers: {

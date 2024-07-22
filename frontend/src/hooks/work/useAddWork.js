@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const addWork = async (data) => {
-  const response = await axios.post(`http://localhost:4000/works`, data, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-    },
-  });
+  const response = await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/works`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    }
+  );
   return response.data;
 };
 

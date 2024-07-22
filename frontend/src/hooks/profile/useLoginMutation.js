@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const loginUser = async (credentials) => {
   const response = await axios.post(
-    `http://localhost:4000/users/login`,
+    `${process.env.REACT_APP_BASE_URL}/users/login`,
     credentials
   );
   return response.data;

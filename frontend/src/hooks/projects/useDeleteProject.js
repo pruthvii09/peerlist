@@ -7,11 +7,14 @@ import { toast } from "react-toastify";
 import { useModal } from "../../context/ModalContext";
 
 const deleteProject = async (id) => {
-  const response = await axios.delete(`http://localhost:4000/projects/${id}`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-    },
-  });
+  const response = await axios.delete(
+    `${process.env.REACT_APP_BASE_URL}/projects/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    }
+  );
   return response.data;
 };
 

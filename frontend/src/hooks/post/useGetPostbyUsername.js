@@ -3,8 +3,7 @@ import axios from "axios";
 
 const fetchPostsByUsername = async (username) => {
   const response = await axios.get(
-    `http://localhost:4000/posts/${username}/posts`,
-    {}
+    `${process.env.REACT_APP_BASE_URL}/posts/${username}/posts`
   );
   return response.data;
 };

@@ -5,11 +5,15 @@ import { useModal } from "../../context/ModalContext";
 
 const addPost = async (data) => {
   try {
-    const response = await axios.post(`http://localhost:4000/posts`, data, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    });
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/posts`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to add post");
