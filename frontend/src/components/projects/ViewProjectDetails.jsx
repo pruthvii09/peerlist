@@ -1,11 +1,9 @@
 import { ArrowUpRight, Bookmark, Share } from "lucide-react";
 import React from "react";
-import Button from "../utils/ui/Button";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const ViewProjectDetails = ({ project, isLoading }) => {
-  console.log(project);
   if (isLoading) {
     return (
       <div className="mt-14 border-r h-full border-gray-300">

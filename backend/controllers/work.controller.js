@@ -4,7 +4,6 @@ export const addWork = async (req, res) => {
   try {
     const { title, company_name, start_date, end_date, skills, description } =
       req.body;
-    console.log(req.body);
     const userId = req.user.id;
     if (!title || !company_name || !start_date) {
       return res.status(400).json({

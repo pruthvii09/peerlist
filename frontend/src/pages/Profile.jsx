@@ -16,7 +16,6 @@ const Profile = () => {
   const { data, isLoading, isError } = useUserProfile(id);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
-  console.log(user);
   const navigate = useNavigate();
   const isOwnProfile = loggedInUser?.username === user?.username;
   const isAlreadyFollowing = user?.followers?.some(

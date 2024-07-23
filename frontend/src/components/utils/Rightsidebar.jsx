@@ -25,7 +25,6 @@ const Rightsidebar = ({ children }) => {
   const debouncedQuery = useDebounce(query, 300);
 
   const { data } = useSearchProfile(debouncedQuery);
-  console.log(data);
 
   const sidebarRef = useRef(null);
   const handleFocus = () => setIsInputFocused(true);

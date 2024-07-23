@@ -19,14 +19,11 @@ export const createSpotlight = async (req, res) => {
         weekNumber: currentWeekNumber, // Current week number
       },
     });
-  } catch (error) {
-    console.log("Error Occoured");
-  }
+  } catch (error) {}
 };
 
 export const launchProjectOnSpotlight = async (req, res) => {
   try {
-    console.log("body", req.body);
     const { projectId } = req.body;
     const userId = req.user.id;
     // Check if the project exists and belongs to the user
@@ -115,7 +112,6 @@ export const createUpvote = async (req, res) => {
   const { projectId } = req.body;
   const userId = req.user.id;
   try {
-    console.log(projectId);
     const existingUpvote = await prisma.upvote.findUnique({
       where: {
         userId_projectId: {

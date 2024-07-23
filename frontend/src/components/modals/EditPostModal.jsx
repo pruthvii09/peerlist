@@ -18,7 +18,6 @@ const EditPostModal = ({ post }) => {
   const updatePostMuatation = useUpdatePostMutation();
   const handlePostClick = () => {
     if (content !== initialContent) {
-      console.log("Content on save:", content);
       updatePostMuatation.mutate({ content, postId: post?.id });
     }
   };

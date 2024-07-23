@@ -122,7 +122,6 @@ const EditWork = () => {
       }));
     }
   };
-  console.log("HIIII", workData);
   const editWorkMutation = useEditWork();
   const handleSave = () => {
     editWorkMutation.mutate({ workData, id: data?.id });

@@ -17,7 +17,6 @@ const EducationDetails = () => {
   });
   const addEducationMutation = useAddEducation();
   const handleSave = () => {
-    console.log(educationDetails);
     if (
       !educationDetails.institute_name ||
       !educationDetails.degree ||

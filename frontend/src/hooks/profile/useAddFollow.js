@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const followUser = async (id) => {
-  console.log(JSON.parse(localStorage.getItem("token")));
   const response = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/users/follow/${id}`,
     {},

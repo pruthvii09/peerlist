@@ -26,16 +26,16 @@ const ComponentHeader = ({
 
   const handleFollow = async () => {
     try {
-      await followMutation.mutateAsync(follow);
       setIsFollowing(true); // Update state to true on success
+      await followMutation.mutateAsync(follow);
     } catch (error) {
       console.error("Failed to follow user:", error);
     }
   };
   const handleUnFollow = async () => {
     try {
-      await unFollowMutation.mutateAsync(follow);
       setIsFollowing(false); // Update state to true on success
+      await unFollowMutation.mutateAsync(follow);
     } catch (error) {
       console.error("Failed to follow user:", error);
     }

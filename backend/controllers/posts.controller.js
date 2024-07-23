@@ -2,10 +2,8 @@ import prisma from "../prisma/prisma.js";
 
 export const createPost = async (req, res) => {
   try {
-    console.log("Hello");
     const { content } = req.body;
     const userId = req.user.id; // Assuming the auth middleware adds user info to req
-    console.log(req.body);
     const newPost = await prisma.post.create({
       data: {
         content,
@@ -118,7 +116,6 @@ export const getPostsByUsername = async (req, res) => {
 };
 export const getPostDetails = async (req, res) => {
   const { id } = req.params;
-  console.log();
   try {
     const post = await prisma.post.findUnique({
       where: { id: id },

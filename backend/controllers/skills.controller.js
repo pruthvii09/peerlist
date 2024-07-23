@@ -28,7 +28,7 @@ export const addSkill = async (req, res) => {
 
 export const getSkills = async (req, res) => {
   const { search } = req.params;
-  console.log(search);
+
   try {
     const skills = await prisma.skills.findMany({
       where: {

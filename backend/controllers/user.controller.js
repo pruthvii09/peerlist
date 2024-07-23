@@ -75,7 +75,6 @@ export const primaryDetails = async (req, res) => {
       where: { id: userId },
       data: req.body,
     });
-    console.log(req.body);
     if (!updatedUser) {
       return res
         .status(500)
@@ -114,14 +113,12 @@ export const updateProfile = async (req, res) => {
     if (req.body.socialMedia) {
       updateData.socialMedia = req.body.socialMedia;
     }
-    console.log(Object.keys(updateData).length);
 
     if (Object.keys(updateData).length > 0) {
       const updatedUser = await prisma.user.update({
         where: { id: userId },
         data: updateData,
       });
-      console.log(updatedUser);
       // Remove sensitive information before sending response
       const { password, ...userWithoutPassword } = updatedUser;
 

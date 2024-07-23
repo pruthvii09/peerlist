@@ -3,7 +3,6 @@ import Button from "../utils/ui/Button";
 import { Sparkles } from "lucide-react";
 
 const HighlightCard = ({ user }) => {
-  console.log("user", user);
   return (
     <div className="relative flex flex-col ">
       <div className="pb-8 border-t cursor-pointer group border-r border-l  rounded-2xl  border-gray-300 p-4">

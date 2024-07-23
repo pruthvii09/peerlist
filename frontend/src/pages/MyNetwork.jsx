@@ -15,7 +15,6 @@ const MyNetwork = () => {
     user?.username
   );
   const data = followData?.data;
-  console.log("data", data);
   const [toggle, setToggle] = useState(true);
   return (
     <Sidebar>

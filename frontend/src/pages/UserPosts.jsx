@@ -17,7 +17,6 @@ const UserPosts = () => {
   const { data, isLoading } = useUserProfile(id);
   const { data: userPosts, isLoading: postLoading } = useGetPostsByUsername(id);
   const posts = userPosts?.data;
-  console.log(userPosts);
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
   const isOwnProfile = loggedInUser?.username === user?.username;
