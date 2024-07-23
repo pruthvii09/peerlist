@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useModal } from "../../context/ModalContext";
@@ -21,12 +21,14 @@ const addPost = async (data) => {
 };
 
 export const useAddPost = () => {
+  const queryClient = useQueryClient();
   const { hideModal } = useModal();
   return useMutation({
     mutationFn: addPost,
     onSuccess: (data) => {
       toast.success("Post Added Successfully!");
       hideModal();
+      queryClient.invalidateQueries("posts");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

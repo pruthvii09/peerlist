@@ -4,7 +4,7 @@ import "react-quill/dist/quill.bubble.css"; // import bubble theme styles
 
 const QuillEditor = ({ value, onChange, initialContent, editable }) => {
   const [content, setContent] = useState(
-    initialContent || "<p>Write Something...</p>"
+    value || initialContent || "<p>Write Something...</p>"
   );
 
   useEffect(() => {

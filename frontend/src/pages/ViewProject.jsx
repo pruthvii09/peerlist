@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 import ViewProjectDetails from "../components/projects/ViewProjectDetails";
 import useProjectById from "../hooks/projects/useGetProject";
 import { Link, useParams } from "react-router-dom";
+import { formatDateRange } from "../utils/functions";
 const ViewProject = () => {
   const { user } = useSelector((store) => store.user);
   const { id } = useParams();
   const { data, isLoading } = useProjectById(id);
   const project = data?.data;
+
   return (
     <Sidebar>
       <div className="flex">

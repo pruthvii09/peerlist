@@ -19,6 +19,9 @@ const Profile = () => {
   console.log(user);
   const navigate = useNavigate();
   const isOwnProfile = loggedInUser?.username === user?.username;
+  const isAlreadyFollowing = user?.followers?.some(
+    (follower) => follower.followeeId === loggedInUser?.id
+  );
   if (isLoading) {
     return <ProfileSkeleton />;
   }
@@ -38,7 +41,8 @@ const Profile = () => {
           ) : (
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
-              follow={true}
+              follow={user?.id}
+              isAlreadyFollowing={isAlreadyFollowing}
             />
           )}
           <div className="border-r border-gray-300">

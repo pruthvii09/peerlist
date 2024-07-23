@@ -5,6 +5,7 @@ import {
   BriefcaseBusiness,
   Search,
   ArrowRight,
+  UserRoundSearch,
 } from "lucide-react";
 import Navlink from "./Navlink";
 import Button from "./ui/Button";
@@ -19,7 +20,7 @@ const routes = [
   },
   {
     title: "Projects",
-    href: "/projects",
+    href: `/projects/week/30`,
     icon: Box,
   },
   {
@@ -27,14 +28,21 @@ const routes = [
     href: "/jobs",
     icon: BriefcaseBusiness,
   },
+
   {
     title: "Search",
     href: "/search",
     icon: Search,
   },
+  {
+    title: "My Network",
+    href: "/my-network",
+    icon: UserRoundSearch,
+  },
 ];
 const Sidebar = ({ children }) => {
   const { user } = useSelector((store) => store.user);
+
   return (
     <div className="sm:flex block w-full">
       <div className="sm:w-[212px] w-full fixed sm:h-screen h-auto border-r border-gray-300">

@@ -28,3 +28,15 @@ export const timeAgo = (timestamp) => {
   const days = Math.floor(hours / 24);
   return `${days}d`;
 };
+export function formatDateRange(startDate, endDate) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const options = { month: "short", day: "numeric" };
+  const startFormatted = start.toLocaleDateString("en-US", options);
+  const endDay = end.getDate();
+
+  return `${startFormatted.split(" ")[0]} ${
+    startFormatted.split(" ")[1]
+  } - ${endDay}`;
+}

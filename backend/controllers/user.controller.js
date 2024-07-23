@@ -171,6 +171,18 @@ export const getUserByUsername = async (req, res) => {
             end_date: true,
           },
         },
+        followers: {
+          select: {
+            followeeId: true,
+            followerId: true,
+          },
+        },
+        following: {
+          select: {
+            followeeId: true,
+            followerId: true,
+          },
+        },
         education: {
           select: {
             degree: true,
@@ -216,7 +228,18 @@ export const getUserByUsername = async (req, res) => {
 };
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      select: {
+        firstname: true,
+        lastname: true,
+        id: true,
+        username: true,
+        bio: true,
+        followers: true,
+        following: true,
+        profileImageUrl: true,
+      },
+    });
     if (!users) {
       return res.status(404).json({
         status: "error",
@@ -280,5 +303,136 @@ export const searchUsersByUsername = async (req, res) => {
   } catch (error) {
     console.error("Error in searchUsersByUsername:", error); // Log the error for debugging
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const addFollower = async (req, res) => {
+  const { followerId } = req.params;
+  const userId = req.user.id;
+  const followeeId = userId;
+
+  try {
+    // Ensure that both users exist
+    const follower = await prisma.user.findUnique({
+      where: { id: followerId },
+    });
+    const followee = await prisma.user.findUnique({
+      where: { id: followeeId },
+    });
+
+    if (!follower || !followee) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Create the follow relationship
+    const follow = await prisma.follow.create({
+      data: {
+        followerId,
+        followeeId,
+      },
+    });
+
+    return res.status(201).json(follow);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const removeFollower = async (req, res) => {
+  const { followerId } = req.params;
+  const userId = req.user.id;
+  const followeeId = userId;
+
+  try {
+    // Ensure that the follow relationship exists
+    const follow = await prisma.follow.findUnique({
+      where: {
+        followerId_followeeId: { followerId, followeeId },
+      },
+    });
+
+    if (!follow) {
+      return res.status(404).json({ message: "Follow relationship not found" });
+    }
+
+    // Delete the follow relationship
+    await prisma.follow.delete({
+      where: {
+        followerId_followeeId: { followerId, followeeId },
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "Follow relationship deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getAllFollowerFollowing = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    // Find the user by username
+    const user = await prisma.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Fetch followers
+    const followers = await prisma.follow.findMany({
+      where: { followeeId: user.id },
+      select: {
+        follower: {
+          select: {
+            id: true,
+            username: true,
+            bio: true,
+            firstname: true,
+            lastname: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+    });
+
+    // Fetch following (followees)
+    const following = await prisma.follow.findMany({
+      where: { followerId: user.id },
+      select: {
+        followee: {
+          select: {
+            id: true,
+            bio: true,
+            username: true,
+            firstname: true,
+            lastname: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        followers: followers,
+        following: following,
+        followersCount: followers.length,
+        followingCount: following.length,
+      },
+    });
+  } catch (error) {
+    console.error("Error in getAllFollowerFollowing:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  } finally {
+    await prisma.$disconnect();
   }
 };

@@ -33,6 +33,7 @@ model User {
   jobs            Job[]
   projects        Project[]
   education       Education[]
+  upvotes         Upvote[]
 }
 
 model Post {
@@ -98,6 +99,33 @@ model Project {
   projectLink String?
   opensource  Boolean?
   createdAt   DateTime @default(now())
+
+  // New fields for spotlight feature
+  spotlightLaunchedAt DateTime?
+  upvotes             Int            @default(0)
+  spotlightRank       Int?
+  SpotlightWeek       SpotlightWeek? @relation(fields: [spotlightWeekId], references: [id])
+  spotlightWeekId     String?        @db.ObjectId
+  Upvote              Upvote[]
+}
+
+model SpotlightWeek {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  weekNumber Int
+  startDate  DateTime
+  endDate    DateTime
+  projects   Project[]
+}
+
+model Upvote {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String   @db.ObjectId
+  createdAt DateTime @default(now())
+
+  @@unique([userId, projectId])
 }
 
 model Skills {

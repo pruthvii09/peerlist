@@ -5,6 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const ViewProjectDetails = ({ project, isLoading }) => {
+  console.log(project);
   if (isLoading) {
     return (
       <div className="mt-14 border-r h-full border-gray-300">
@@ -58,11 +59,19 @@ const ViewProjectDetails = ({ project, isLoading }) => {
                 <Share size={18} strokeWidth={1.5} />
               </div>
             </div>
-            <Button
-              title="Visit"
-              className="text-white font-medium bg-black rounded-full text-sm px-4 py-1.5"
-              iconConfig={{ icon: ArrowUpRight }}
-            />
+            <a
+              className="text-white flex items-center gap-1 font-medium bg-black rounded-full text-sm px-4 py-1.5"
+              href={
+                project.projectLink.startsWith("http") ||
+                project.projectLink.startsWith("https")
+                  ? project.projectLink
+                  : `https://${project.projectLink}`
+              }
+              target="_blank"
+            >
+              <span>Visit</span>
+              <ArrowUpRight size={16} />
+            </a>
           </div>
           <div className="px-6 py-4">
             <p dangerouslySetInnerHTML={{ __html: project.description }} />

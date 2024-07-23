@@ -9,9 +9,11 @@ import Select from "../components/utils/ui/Select";
 import Input from "../components/utils/ui/Input";
 import Button from "../components/utils/ui/Button";
 import ProfileCardSkeleton from "../components/skeleton/ProfileCardSkeleton";
+import { useSelector } from "react-redux";
 const Search = () => {
   const { data, isLoading } = useGetAllProfile();
   const allUsers = data?.data;
+  const { user } = useSelector((store) => store.user);
   return (
     <Sidebar>
       <div className="flex">
@@ -19,16 +21,25 @@ const Search = () => {
           <ComponentHeader title="Search" iconConfig={{ icon: ChevronDown }} />
           <div className="mt-14  p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 border-r border-gray-300">
             {isLoading
-              ? Array.from({ length: 6 }).map((_, index) => (
+              ? Array.from({ length: 10 }).map((_, index) => (
                   <div key={index} className="h-fit">
                     <ProfileCardSkeleton />
                   </div>
                 ))
-              : allUsers?.map((user) => (
-                  <div key={user.id} className="h-fit">
-                    <ProfileCard user={user} isLoading={isLoading} />
-                  </div>
-                ))}
+              : allUsers?.map((singleUser) => {
+                  const isFollowing = singleUser?.followers?.some(
+                    (x) => x.followeeId === user?.id
+                  );
+                  return (
+                    <div key={singleUser.id} className="h-fit">
+                      <ProfileCard
+                        follow={isFollowing}
+                        user={singleUser}
+                        isLoading={isLoading}
+                      />
+                    </div>
+                  );
+                })}
           </div>
         </div>
         <Rightsidebar>

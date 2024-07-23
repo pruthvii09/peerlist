@@ -192,3 +192,49 @@ export const getPostDetails = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+export const editPost = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { postId, content } = req.body; // Ensure postId is included in the request body
+
+    const post = await prisma.post.update({
+      where: {
+        id: postId,
+        userId: userId,
+      },
+      data: {
+        content: content,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { postId } = req.params;
+
+    const post = await prisma.post.delete({
+      where: {
+        id: postId,
+        userId: userId,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    return res.status(200).json(post);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

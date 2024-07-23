@@ -41,7 +41,14 @@ const WorkCard = ({ work }) => {
             </span>
             <div className="group-hover:flex hidden items-center gap-2">
               {isOwnProfile && (
-                <div className=" ">
+                <div
+                  // onClick={() =>
+                  //   navigate(
+                  //     `/${user?.username}/resume/edit-experience/${work?.id}`
+                  //   )
+                  // }
+                  className=" "
+                >
                   <Pencil size={16} />
                 </div>
               )}

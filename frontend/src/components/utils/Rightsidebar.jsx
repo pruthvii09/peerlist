@@ -51,7 +51,7 @@ const Rightsidebar = ({ children }) => {
   }, [setIsInputFocused]);
   return (
     <div ref={sidebarRef} className="sm:h-screen hidden sm:flex sm:flex-col">
-      <div className="fixed z-50">
+      <div className="fixed z-20">
         <RightComponentHeader
           handleFocus={handleFocus}
           handleBlur={handleBlur}

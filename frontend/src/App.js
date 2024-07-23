@@ -27,6 +27,8 @@ import AddEducation from "./pages/AddEducation";
 import NotFound from "./pages/NotFound";
 import SinglePost from "./pages/SinglePost";
 import Notification from "./pages/Notifications";
+import MyNetwork from "./pages/MyNetwork";
+import EditExperience from "./pages/EditExperience";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -38,12 +40,16 @@ const router = createBrowserRouter([
     element: <SinglePost />,
   },
   {
-    path: "/projects",
+    path: "/projects/week/:week",
     element: <Project />,
   },
   {
     path: "/notifications",
     element: <Notification />,
+  },
+  {
+    path: "/my-network",
+    element: <MyNetwork />,
   },
   {
     path: "/jobs",
@@ -76,6 +82,10 @@ const router = createBrowserRouter([
   {
     path: "/:id/resume/add-experience",
     element: <AddExperience />,
+  },
+  {
+    path: "/:id/resume/edit-experience/:expId",
+    element: <EditExperience />,
   },
   {
     path: "/:id/resume/add-education",

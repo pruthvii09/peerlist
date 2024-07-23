@@ -5,6 +5,8 @@ import SignupModal from "../components/modals/SignupModal";
 import PostModal from "../components/modals/PostModal";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import PreferenceModal from "../components/modals/PreferenceModal";
+import EditPostModal from "../components/modals/EditPostModal";
+import LaunchProject from "../components/modals/LaunchProject";
 
 const ModalContext = createContext();
 
@@ -44,6 +46,10 @@ const ModalContainer = ({ modalType, modalProps }) => {
       return <ConfirmationModal {...modalProps} />;
     case "preference":
       return <PreferenceModal {...modalProps} />;
+    case "editpost":
+      return <EditPostModal {...modalProps} />;
+    case "launchproject":
+      return <LaunchProject {...modalProps} />;
     default:
       return null;
   }

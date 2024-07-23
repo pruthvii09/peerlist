@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchProjects = async () => {
   const response = await axios.get(
-    "${process.env.REACT_APP_BASE_URL}/projects",
+    `${process.env.REACT_APP_BASE_URL}/projects`,
     {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
