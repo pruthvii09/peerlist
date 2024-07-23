@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
@@ -6,10 +6,15 @@ import { ArrowLeft } from "lucide-react";
 import { useSelector } from "react-redux";
 import ViewProjectDetails from "../components/projects/ViewProjectDetails";
 import useProjectById from "../hooks/projects/useGetProject";
-import { Link, useParams } from "react-router-dom";
-import { formatDateRange } from "../utils/functions";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const ViewProject = () => {
   const { user } = useSelector((store) => store.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
   const { id } = useParams();
   const { data, isLoading } = useProjectById(id);
   const project = data?.data;
@@ -21,7 +26,7 @@ const ViewProject = () => {
           <ComponentHeader
             title="View Project"
             iconConfig={{ icon: ArrowLeft }}
-            href={`/user/${user.username}`}
+            href={`/user/${user?.username}`}
           />
           <ViewProjectDetails project={project} isLoading={isLoading} />
         </div>

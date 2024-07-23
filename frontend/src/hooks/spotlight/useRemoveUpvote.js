@@ -21,7 +21,7 @@ export const useRemoveUpvote = () => {
   return useMutation({
     mutationFn: removeUpvote,
     onSuccess: () => {
-      toast.success("Upvote Added Successfully!");
+      //   toast.success("Upvote Added Successfully!");
       queryClient.invalidateQueries("fetchSpotlight");
     },
     onError: (error) => {

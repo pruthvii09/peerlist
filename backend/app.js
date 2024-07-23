@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-
+import "./corn/corn.js";
 const app = express();
 
 app.use(cors());

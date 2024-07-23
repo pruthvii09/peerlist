@@ -1,23 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Upvote from "../../assets/Upvote";
 import { motion } from "framer-motion";
 import { useAddUpvote } from "../../hooks/spotlight/useUpvote";
+import { useRemoveUpvote } from "../../hooks/spotlight/useRemoveUpvote";
+import { useSelector } from "react-redux";
+import { useModal } from "../../context/ModalContext";
 
 const ProjectCard = ({ data, rank }) => {
-  const [upvote, setUpvoted] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
+  const [upvote, setUpvoted] = useState(false);
+  const [upvoteCount, setUpvoteCount] = useState(data?.upvotes || 0);
+  const { user } = useSelector((store) => store.user);
   const upvoteMutation = useAddUpvote();
+  const removeUpvoteMutation = useRemoveUpvote();
+  const { showModal } = useModal();
+  // Check if the user has already upvoted
+  useEffect(() => {
+    const hasUpvoted = data?.allupvotes?.some(
+      (upvote) => upvote.userId === user?.id
+    );
+    setUpvoted(hasUpvoted);
+  }, [data, user?.id]);
+
   const handleClick = (e) => {
     e.preventDefault();
-    upvoteMutation.mutate({ projectId: data?.id });
-    setUpvoted(!upvote);
-    setAnimationKey((prev) => prev + 1);
+
+    if (!user) {
+      showModal("login");
+    } else {
+      if (upvote) {
+        removeUpvoteMutation.mutate(
+          { projectId: data?.id },
+          {
+            onSuccess: () => {
+              setUpvoted(false);
+              setUpvoteCount((prev) => prev - 1);
+            },
+          }
+        );
+      } else {
+        upvoteMutation.mutate(
+          { projectId: data?.id },
+          {
+            onSuccess: () => {
+              setUpvoted(true);
+              setUpvoteCount((prev) => prev + 1);
+              setAnimationKey((prev) => prev + 1);
+            },
+          }
+        );
+      }
+    }
   };
+
   return (
     <Link
       to={`/projects/view/${data?.id}`}
-      className="px-4 group/project py-4 mt-2 w-full hover:bg-[#F8FAFB]  flex items-center justify-between"
+      className="px-4 group/project py-4 mt-2 w-full hover:bg-[#F8FAFB] flex items-center justify-between"
     >
       <div className="flex items-center gap-2">
         <p className="text-gray-600 text-xs">#{rank + 1}</p>
@@ -49,14 +89,14 @@ const ProjectCard = ({ data, rank }) => {
           animate={upvote ? { y: [-0, -10, -0], scale: [1, 1.2, 1] } : { y: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <Upvote setUpvoted={setUpvoted} upvote={upvote} />
+          <Upvote upvote={upvote} />
         </motion.div>
         <motion.span
           className="font-mono text-xs font-semibold text-gray-500"
           animate={{ scale: upvote ? [1, 1.2, 1] : 1 }}
           transition={{ duration: 0.5 }}
         >
-          {data?.upvotes}
+          {upvoteCount}
         </motion.span>
       </div>
     </Link>

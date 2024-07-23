@@ -14,6 +14,7 @@ import { formatDateRange } from "../utils/functions";
 const Project = () => {
   const { week } = useParams();
   const { data, isLoading } = useGetSpotlight(week);
+  console.log(data);
   const dateRange = formatDateRange(data?.startDate, data?.endDate);
   return (
     <Sidebar>

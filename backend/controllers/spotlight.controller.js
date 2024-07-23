@@ -12,19 +12,15 @@ export const createSpotlight = async (req, res) => {
       ((startDate - startOfYear) / 86400000 + 1) / 7
     );
 
-    const week = await prisma.spotlightWeek.create({
+    await prisma.spotlightWeek.create({
       data: {
         startDate,
         endDate,
         weekNumber: currentWeekNumber, // Current week number
       },
     });
-
-    res.status(200).json(week);
   } catch (error) {
-    res.status(500).json({
-      error: error.message,
-    });
+    console.log("Error Occoured");
   }
 };
 
@@ -94,7 +90,11 @@ export const getSpotlightDetails = async (req, res) => {
     const spotlightWeek = await prisma.spotlightWeek.findFirst({
       where: { weekNumber: parseInt(weekNumber) },
       include: {
-        projects: true,
+        projects: {
+          include: {
+            allupvotes: true,
+          },
+        },
       },
     });
     if (!spotlightWeek) {
@@ -102,7 +102,9 @@ export const getSpotlightDetails = async (req, res) => {
         .status(404)
         .json({ error: "SpotlightWeek not found for the given week number" });
     }
-
+    spotlightWeek.projects.sort(
+      (a, b) => b.allupvotes.length - a.allupvotes.length
+    );
     res.status(200).json(spotlightWeek);
   } catch (error) {
     res.status(500).json({ error: error });
@@ -153,7 +155,8 @@ export const createUpvote = async (req, res) => {
   }
 };
 export const removeUpvote = async (req, res) => {
-  const { userId, projectId } = req.body;
+  const { projectId } = req.body;
+  const userId = req.user.id;
 
   try {
     // Check if the upvote exists

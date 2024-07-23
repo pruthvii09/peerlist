@@ -21,7 +21,7 @@ export const useAddUpvote = () => {
   return useMutation({
     mutationFn: addUpvote,
     onSuccess: () => {
-      toast.success("Upvote Added Successfully!");
+      // toast.success("Upvote Added Successfully!");
       queryClient.invalidateQueries("fetchSpotlight");
     },
     onError: (error) => {

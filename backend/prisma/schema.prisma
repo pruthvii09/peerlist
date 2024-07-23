@@ -106,7 +106,7 @@ model Project {
   spotlightRank       Int?
   SpotlightWeek       SpotlightWeek? @relation(fields: [spotlightWeekId], references: [id])
   spotlightWeekId     String?        @db.ObjectId
-  Upvote              Upvote[]
+  allupvotes          Upvote[]
 }
 
 model SpotlightWeek {
