@@ -10,19 +10,18 @@ const ProfileCard = ({ user, follow }) => {
   const [onFollowUser, setOnFollowUser] = useState(follow);
   const followMutation = useFollowUser();
   const unFollowMutation = useUnFollowUser();
-  console.log("follow", follow, onFollowUser);
   const handleFollowUser = async () => {
     try {
-      await followMutation.mutateAsync(user?.id);
       setOnFollowUser(true);
+      await followMutation.mutateAsync(user?.id);
     } catch (error) {
       console.error("Failed to follow user:", error);
     }
   };
   const handleUnFollow = async () => {
     try {
-      await unFollowMutation.mutateAsync(user?.id);
       setOnFollowUser(false);
+      await unFollowMutation.mutateAsync(user?.id);
     } catch (error) {
       console.error("Failed to follow user:", error);
     }

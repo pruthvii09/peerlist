@@ -30,26 +30,14 @@ const ProjectCard = ({ data, rank }) => {
       showModal("login");
     } else {
       if (upvote) {
-        removeUpvoteMutation.mutate(
-          { projectId: data?.id },
-          {
-            onSuccess: () => {
-              setUpvoted(false);
-              setUpvoteCount((prev) => prev - 1);
-            },
-          }
-        );
+        setUpvoted(false);
+        setUpvoteCount((prev) => prev - 1);
+        removeUpvoteMutation.mutate({ projectId: data?.id });
       } else {
-        upvoteMutation.mutate(
-          { projectId: data?.id },
-          {
-            onSuccess: () => {
-              setUpvoted(true);
-              setUpvoteCount((prev) => prev + 1);
-              setAnimationKey((prev) => prev + 1);
-            },
-          }
-        );
+        setUpvoted(true);
+        setUpvoteCount((prev) => prev + 1);
+        setAnimationKey((prev) => prev + 1);
+        upvoteMutation.mutate({ projectId: data?.id });
       }
     }
   };

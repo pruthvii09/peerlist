@@ -26,7 +26,6 @@ const UserResume = () => {
   const navigate = useNavigate();
   const works = workExp?.data;
   const educations = eduExp?.data;
-  console.log("edu", educations);
   if (isLoading || eduLoading) {
     return <ProfileSkeleton />;
   }
