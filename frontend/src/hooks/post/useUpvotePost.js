@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const addUpvote = async (data) => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/spotlight/upvote`,
+    `${process.env.REACT_APP_BASE_URL}/posts/upvote`,
     data,
     {
       headers: {
@@ -16,13 +16,12 @@ const addUpvote = async (data) => {
   return response.data;
 };
 
-export const useAddUpvote = () => {
-  // const queryClient = new QueryClient();
+export const useAddUpvotePost = () => {
   return useMutation({
     mutationFn: addUpvote,
     onSuccess: () => {
-      // toast.success("Upvote Added Successfully!");
-      // queryClient.invalidateQueries("fetchSpotlight");
+      //   toast.success("Upvote Added Successfully!");
+      //   queryClient.invalidateQueries("fetchSpotlight");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

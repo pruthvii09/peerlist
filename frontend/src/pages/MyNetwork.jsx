@@ -47,7 +47,7 @@ const MyNetwork = () => {
             ) : (
               <>
                 {toggle ? (
-                  <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 pb-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {data?.followers?.map((follow) => (
                       <ProfileCard
                         follow={true}
@@ -57,7 +57,7 @@ const MyNetwork = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 pb-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {data?.following?.map((follow) => (
                       <ProfileCard
                         follow={true}

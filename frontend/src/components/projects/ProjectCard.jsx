@@ -68,7 +68,9 @@ const ProjectCard = ({ data, rank }) => {
       </div>
       <div
         onClick={handleClick}
-        className="flex group flex-col px-3 py-1 items-center border border-gray-300 rounded-lg cursor-pointer hover:shadow-xl transition-shadow duration-200"
+        className={`flex group flex-col px-3 py-1 items-center border ${
+          upvote ? "border-green-400" : "border-gray-300"
+        } rounded-lg cursor-pointer hover:shadow-xl transition-shadow duration-200`}
       >
         <motion.div
           key={animationKey}
@@ -80,7 +82,9 @@ const ProjectCard = ({ data, rank }) => {
           <Upvote upvote={upvote} />
         </motion.div>
         <motion.span
-          className="font-mono text-xs font-semibold text-gray-500"
+          className={`font-mono text-xs font-semibold ${
+            upvote ? "text-green-600" : "text-gray-500"
+          }`}
           animate={{ scale: upvote ? [1, 1.2, 1] : 1 }}
           transition={{ duration: 0.5 }}
         >

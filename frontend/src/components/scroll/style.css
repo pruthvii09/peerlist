@@ -1,0 +1,12 @@
+.ReactQuill {
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove any shadow if present */
+}
+
+.react-quill .ql-container .ql-snow {
+  border: none !important; /* Remove border from the editor container */
+}
+
+.ReactQuill .ql-editor {
+  padding: 0; /* Remove padding if needed */
+}

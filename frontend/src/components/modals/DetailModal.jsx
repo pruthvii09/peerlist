@@ -93,7 +93,7 @@ const DetailModal = () => {
                     width="40"
                     className="rounded-full h-12 w-12 object-cover"
                     src={updateData.profileImageUrl}
-                    alt="Profile Picture"
+                    alt="Profile"
                   />
                   <span className="text-sm font-semibold">Upload Image</span>
                 </label>

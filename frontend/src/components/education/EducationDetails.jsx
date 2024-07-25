@@ -7,6 +7,8 @@ import { degrees, years } from "../../utils/data";
 import "../../hooks/work/useAddWork";
 import { useAddEducation } from "../../hooks/education/useAddEducation";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { useModal } from "../../context/ModalContext";
 const EducationDetails = () => {
   const [educationDetails, setEducationDetails] = useState({
     institute_name: "",
@@ -15,18 +17,24 @@ const EducationDetails = () => {
     start_year: "",
     end_year: "",
   });
+  const { showModal } = useModal();
   const addEducationMutation = useAddEducation();
+  const { user } = useSelector((store) => store.user);
   const handleSave = () => {
-    if (
-      !educationDetails.institute_name ||
-      !educationDetails.degree ||
-      !educationDetails.study ||
-      !educationDetails.start_year ||
-      !educationDetails.end_year
-    ) {
-      return toast.error("All Fields are Required!!");
+    if (!user) {
+      return showModal("loginmodal");
+    } else {
+      if (
+        !educationDetails.institute_name ||
+        !educationDetails.degree ||
+        !educationDetails.study ||
+        !educationDetails.start_year ||
+        !educationDetails.end_year
+      ) {
+        return toast.error("All Fields are Required!!");
+      }
+      addEducationMutation.mutate(educationDetails);
     }
-    addEducationMutation.mutate(educationDetails);
   };
   return (
     <div className="mt-14 border-r h-full pb-14">

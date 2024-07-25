@@ -180,6 +180,11 @@ export const deleteProject = async (req, res) => {
       });
     }
 
+    // Delete upvotes associated with the project
+    await prisma.upvote.deleteMany({
+      where: { projectId: id },
+    });
+
     // Delete the project from the database
     await prisma.project.delete({
       where: { id: id },

@@ -14,7 +14,7 @@ const ViewProject = () => {
     if (!user) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, navigate]);
   const { id } = useParams();
   const { data, isLoading } = useProjectById(id);
   const project = data?.data;

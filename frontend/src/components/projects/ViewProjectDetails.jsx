@@ -66,6 +66,7 @@ const ViewProjectDetails = ({ project, isLoading }) => {
                   : `https://${project.projectLink}`
               }
               target="_blank"
+              rel="noreferrer"
             >
               <span>Visit</span>
               <ArrowUpRight size={16} />

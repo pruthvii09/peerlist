@@ -3,9 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const WeekSlider = ({ currentWeek }) => {
   const [weeks, setWeeks] = useState([]);
-
   const sliderRef = useRef(null);
-
   useEffect(() => {
     const startWeek = currentWeek - 10;
     const endWeek = currentWeek + 5;
@@ -17,13 +15,12 @@ const WeekSlider = ({ currentWeek }) => {
 
     setWeeks(weekArray);
 
-    // Set the initial scroll position to the current week
     setTimeout(() => {
       if (sliderRef.current) {
         const currentWeekIndex = weekArray.findIndex(
           (week) => week === `Week ${currentWeek}`
         );
-        const scrollPosition = currentWeekIndex * 200; // Assuming each week item is 200px wide
+        const scrollPosition = currentWeekIndex * 200;
         sliderRef.current.scrollTo({
           left: scrollPosition,
           behavior: "smooth",
@@ -43,7 +40,22 @@ const WeekSlider = ({ currentWeek }) => {
       sliderRef.current.scrollBy({ left: 200, behavior: "smooth" });
     }
   };
+  const [containerWidth, setContainerWidth] = useState(570);
+  useEffect(() => {
+    const updateWidth = () => {
+      const screenWidth = window.innerWidth;
+      setContainerWidth(screenWidth < 570 ? screenWidth : 570);
+    };
 
+    // Initial width calculation
+    updateWidth();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", updateWidth);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
   return (
     <>
       <style>{`
@@ -62,7 +74,8 @@ const WeekSlider = ({ currentWeek }) => {
         <div className="flex-1 overflow-hidden">
           <div
             ref={sliderRef}
-            className="flex flex-1 overflow-x-auto w-[570px] scrollbar-hide whitespace-nowrap scroll-smooth"
+            style={{ width: `${containerWidth}px` }}
+            className="flex flex-1 overflow-x-auto w-full max-w-[570px] scrollbar-hide whitespace-nowrap scroll-smooth"
           >
             {weeks.map((week, index) => {
               const weekNumber = parseInt(week.split(" ")[1]);

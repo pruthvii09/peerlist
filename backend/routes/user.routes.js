@@ -1,6 +1,8 @@
 import express from "express";
 import {
   addFollower,
+  deleteGithub,
+  getAccessTokenGithub,
   getAllFollowerFollowing,
   getAllUsers,
   getUserByUsername,
@@ -16,6 +18,8 @@ const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
+router.post("/removegithub", auth, deleteGithub);
+router.get("/getToken", auth, getAccessTokenGithub);
 router.post("/follow/:followerId", auth, addFollower);
 router.post("/unfollow/:followerId", auth, removeFollower);
 router.get("/", getAllUsers);

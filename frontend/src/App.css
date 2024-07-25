@@ -63,3 +63,34 @@
   color: black;
   text-decoration: underline;
 }
+
+.react-calendar-heatmap .color-github-0 {
+  fill: #eaedf0 !important;
+}
+.react-calendar-heatmap .color-github-1 {
+  fill: #1e874b !important;
+  opacity: 0.4 !important;
+}
+.react-calendar-heatmap .color-github-2 {
+  fill: #1e874b !important;
+  opacity: 0.6 !important;
+}
+.react-calendar-heatmap .color-github-3 {
+  fill: #1e874b !important;
+  opacity: 0.8 !important;
+}
+.react-calendar-heatmap .color-github-4 {
+  fill: "#1e874b";
+}
+.react-calendar-heatmap .color-github-5 {
+  fill: "#1e874b";
+}
+
+.ql-container.ql-snow {
+  border: 1px solid #ccc; /* Your desired border style */
+  z-index: -99; /* Set the z-index to the desired value */
+}
+
+.ql-toolbar.ql-snow {
+  z-index: -99; /* Set the z-index to the desired value */
+}

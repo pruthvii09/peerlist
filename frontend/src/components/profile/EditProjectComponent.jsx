@@ -13,7 +13,7 @@ const EditProjectComponent = () => {
   const { id } = useParams();
   const { showModal } = useModal();
   const { data: project, isLoading } = useProjectById(id);
-  const { mutate: deleteProject } = useDeleteProjectMutation();
+  const deleteProjectMutation = useDeleteProjectMutation();
 
   const [projectData, setProjectData] = useState({
     title: project?.data?.title || "",
@@ -49,7 +49,7 @@ const EditProjectComponent = () => {
     updateProjectMutation.mutate({ id: id, data: projectData });
   };
   const onConfirm = () => {
-    deleteProject(id);
+    deleteProjectMutation.mutate(id);
   };
 
   if (isLoading) {
@@ -61,8 +61,8 @@ const EditProjectComponent = () => {
   }
   return (
     <div className="mt-14 border-r h-full pb-14">
-      <div className="py-8 px-8 flex flex-col gap-6">
-        <div className="flex gap-2">
+      <div className="py-8 md:px-8 px-4 flex flex-col gap-6">
+        <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
           <div className="flex sm:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project name
@@ -78,7 +78,7 @@ const EditProjectComponent = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
           <div className="flex sm:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">Tagline</p>
           </div>
@@ -95,7 +95,7 @@ const EditProjectComponent = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
           <div className="flex sm:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project URL
@@ -115,7 +115,7 @@ const EditProjectComponent = () => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
           <div className="flex sm:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Is this project open source?

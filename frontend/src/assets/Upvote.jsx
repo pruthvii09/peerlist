@@ -2,7 +2,7 @@ import React from "react";
 
 const Upvote = ({ upvote }) => {
   return (
-    <div className="group cursor-pointer">
+    <div className="group cursor-pointer -z-20">
       <svg
         width="20"
         height="20"

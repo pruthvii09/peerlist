@@ -37,7 +37,16 @@ export const getAllPosts = async (req, res) => {
           },
         },
         comments: true,
-        likes: true,
+        likes: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -93,8 +102,29 @@ export const getPostsByUsername = async (req, res) => {
       },
       include: {
         user: true,
-        comments: true,
-        likes: true,
+        comments: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+                lastname: true,
+                firstname: true,
+                profileImageUrl: true,
+              },
+            },
+          },
+        },
+        likes: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
@@ -133,6 +163,8 @@ export const getPostDetails = async (req, res) => {
               select: {
                 id: true,
                 username: true,
+                lastname: true,
+                firstname: true,
                 profileImageUrl: true,
               },
             },
@@ -144,6 +176,10 @@ export const getPostDetails = async (req, res) => {
               select: {
                 id: true,
                 username: true,
+                firstname: true,
+                lastname: true,
+                profileImageUrl: true,
+                bio: true,
               },
             },
           },
@@ -233,5 +269,55 @@ export const deletePost = async (req, res) => {
     return res.status(200).json(post);
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+};
+export const likePost = async (req, res) => {
+  try {
+    const { postId } = req.body;
+    const userId = req.user.id;
+    const like = await prisma.like.create({
+      data: {
+        postId,
+        userId,
+      },
+    });
+    res.status(201).json(like);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to like the post" });
+  }
+};
+
+// Unlike a post
+export const unlikePost = async (req, res) => {
+  try {
+    const { postId } = req.body;
+    const userId = req.user.id;
+    await prisma.like.delete({
+      where: {
+        postId_userId: {
+          postId,
+          userId,
+        },
+      },
+    });
+    res.status(200).json({ message: "Unliked the post" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to unlike the post" });
+  }
+};
+export const addComment = async (req, res) => {
+  try {
+    const { postId, content } = req.body;
+    const userId = req.user.id;
+    const comment = await prisma.comment.create({
+      data: {
+        postId,
+        userId,
+        content,
+      },
+    });
+    res.status(201).json(comment);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add comment" });
   }
 };

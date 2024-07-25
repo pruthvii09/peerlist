@@ -1,11 +1,11 @@
 // hooks/useLoginMutation.js
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const addUpvote = async (data) => {
+const addComment = async (data) => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/spotlight/upvote`,
+    `${process.env.REACT_APP_BASE_URL}/posts/comment`,
     data,
     {
       headers: {
@@ -16,13 +16,13 @@ const addUpvote = async (data) => {
   return response.data;
 };
 
-export const useAddUpvote = () => {
-  // const queryClient = new QueryClient();
+export const useAddComment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: addUpvote,
+    mutationFn: addComment,
     onSuccess: () => {
-      // toast.success("Upvote Added Successfully!");
-      // queryClient.invalidateQueries("fetchSpotlight");
+      toast.success("Comment Added Successfully!");
+      queryClient.invalidateQueries("userSinglePost");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

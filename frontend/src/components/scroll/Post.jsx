@@ -37,9 +37,9 @@ const Post = () => {
   return (
     <div className="pt-14 border-r border-gray-300">
       <PostInput />
-      {posts?.map((post) => (
-        <PostCard key={post?.id} post={post} />
-      ))}
+      {posts?.map((post) => {
+        return <PostCard key={post?.id} post={post} />;
+      })}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { fetchGithubData } from "../helpers/githubHelper.js";
 import { createToken } from "../helpers/jwtHelper.js";
 import prisma from "../prisma/prisma.js";
 
@@ -141,7 +142,7 @@ export const updateProfile = async (req, res) => {
 export const getUserByUsername = async (req, res) => {
   try {
     const { username } = req.params;
-
+    const access_token = req.headers["accesstoken"];
     // Fetch user data by username
     const user = await prisma.user.findUnique({
       where: { username },
@@ -149,6 +150,8 @@ export const getUserByUsername = async (req, res) => {
         id: true,
         username: true,
         email: true,
+        gitUsername: true,
+        githubToken: true,
         firstname: true,
         lastname: true,
         bio: true,
@@ -209,10 +212,20 @@ export const getUserByUsername = async (req, res) => {
         message: "User not found",
       });
     }
+    let githubData;
+    if (user.gitUsername) {
+      githubData = await fetchGithubData(user.gitUsername, user.githubToken);
+    } else {
+      githubData = [];
+    }
+    const responseData = {
+      ...user,
+      github: githubData,
+    };
 
     res.status(200).json({
       status: "success",
-      data: user,
+      data: responseData,
     });
   } catch (error) {
     console.error("Error fetching user by username:", error);
@@ -431,5 +444,77 @@ export const getAllFollowerFollowing = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   } finally {
     await prisma.$disconnect();
+  }
+};
+
+export const getAccessTokenGithub = async (req, res) => {
+  try {
+    const { code } = req.query;
+    const params = new URLSearchParams({
+      client_id: process.env.GITHUB_CLIENT_ID,
+      client_secret: process.env.GITHUB_CLIENT_SECRET,
+      code: code,
+    });
+
+    const response = await fetch(
+      "https://github.com/login/oauth/access_token",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params,
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const userResponse = await fetch("https://api.github.com/user", {
+      headers: {
+        Authorization: `Bearer ${data.access_token}`,
+      },
+    });
+    const userData = await userResponse.json();
+    const id = userData?.id?.toString();
+    const userId = req.user.id;
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        gitUsername: userData.login,
+        githubId: id,
+        githubToken: data.access_token,
+      },
+    });
+
+    res.status(200).json({ access_token: user.githubToken });
+  } catch (error) {
+    console.error("Error in getAccessTokenGithub:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const deleteGithub = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        githubId: null,
+        gitUsername: null,
+        githubToken: null,
+      },
+    });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "Deleted success" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

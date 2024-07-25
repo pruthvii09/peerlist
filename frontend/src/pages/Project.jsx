@@ -4,7 +4,6 @@ import ComponentHeader from "../components/utils/ComponentHeader";
 import { Loader2, Settings } from "lucide-react";
 import ProjectHeader from "../components/projects/ProjectHeader";
 import ProjectCard from "../components/projects/ProjectCard";
-import { projects } from "../utils/data";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import GradientCard2 from "../components/utils/GradientCard2";
@@ -14,12 +13,12 @@ import { formatDateRange } from "../utils/functions";
 const Project = () => {
   const { week } = useParams();
   const { data, isLoading } = useGetSpotlight(week);
-  console.log(data);
+
   const dateRange = formatDateRange(data?.startDate, data?.endDate);
   return (
     <Sidebar>
       <div className="flex">
-        <div>
+        <div className="w-full">
           <div className="sm:w-[640px] w-full">
             <ComponentHeader
               title="Projects Spotlight"
@@ -29,7 +28,7 @@ const Project = () => {
               }}
             />
           </div>
-          <div className="pt-14sm:w-[640px] w-full border-r border-gray-300">
+          <div className="sm:w-[640px] w-full border-r border-gray-300">
             <ProjectHeader
               currentWeek={data?.weekNumber}
               dateRange={dateRange}

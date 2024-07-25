@@ -2,18 +2,18 @@ import React from "react";
 import Button from "../utils/ui/Button";
 import { Rocket } from "lucide-react";
 import { useModal } from "../../context/ModalContext";
-import WeekSelector from "./WeekSelector";
+// import WeekSelector from "./WeekSelector";
 
 const ProjectHeader = ({ currentWeek, dateRange }) => {
   const { showModal } = useModal();
   const today = new Date().getDay();
-  const isMonday = today === 2;
+  const isMonday = today === 3;
 
   return (
     <>
-      <WeekSelector currentWeek={currentWeek} />
+      {/* <WeekSelector currentWeek={currentWeek} /> */}
 
-      <div className="flex  sm:flex-row flex-col sm:items-center items-start justify-between sm:gap-8 gap-1 px-6 py-2">
+      <div className="flex mt-[55px]  sm:flex-row flex-col sm:items-center items-start justify-between sm:gap-8 gap-1 px-6 py-2">
         <div>
           <h1 className="font-instrumentic text-2xl">Week {currentWeek}</h1>
           <p className="text-xs">{dateRange}</p>

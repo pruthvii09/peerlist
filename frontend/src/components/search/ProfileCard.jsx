@@ -53,7 +53,7 @@ const ProfileCard = ({ user, follow }) => {
   return (
     <Link
       to={`/user/${user.username}`}
-      className="relative h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
+      className="relative -z-[0] h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
     >
       <img
         height={40}

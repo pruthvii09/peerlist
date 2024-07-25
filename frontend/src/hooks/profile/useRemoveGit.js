@@ -1,12 +1,12 @@
-// hooks/useLoginMutation.js
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useModal } from "../../context/ModalContext";
 
-const removeUpvote = async (data) => {
+const deleteGithub = async () => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BASE_URL}/spotlight/removeupvote`,
-    data,
+    `${process.env.REACT_APP_BASE_URL}/users/removegithub`,
+    {},
     {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -16,13 +16,15 @@ const removeUpvote = async (data) => {
   return response.data;
 };
 
-export const useRemoveUpvote = () => {
+export const useRemoveGit = () => {
   const queryClient = useQueryClient();
+  const { hideModal } = useModal();
   return useMutation({
-    mutationFn: removeUpvote,
+    mutationFn: deleteGithub,
     onSuccess: () => {
-      //   toast.success("Upvote Added Successfully!");
-      queryClient.invalidateQueries("fetchSpotlight");
+      toast.success("Github account removed");
+      hideModal();
+      queryClient.invalidateQueries("userProfile");
     },
     onError: (error) => {
       toast.error(error.response?.data?.message);

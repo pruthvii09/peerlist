@@ -23,6 +23,7 @@ const addPost = async (data) => {
 export const useAddPost = () => {
   const queryClient = useQueryClient();
   const { hideModal } = useModal();
+
   return useMutation({
     mutationFn: addPost,
     onSuccess: (data) => {

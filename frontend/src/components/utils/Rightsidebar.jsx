@@ -16,6 +16,8 @@ const Rightsidebar = ({ children }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
     dispatch(logoutUser());
     navigate("/scroll");
     setShowSheet(!showSheet);
@@ -59,7 +61,8 @@ const Rightsidebar = ({ children }) => {
           debouncedQuery={debouncedQuery}
           showSheet={showSheet}
           setShowSheet={setShowSheet}
-          setIsInputFocused={setIsInputFocused} // Pass setFocus handler
+          setIsInputFocused={setIsInputFocused}
+          isInputFocused={isInputFocused}
         />
         <div
           className="flex-1 overflow-y-auto w-[348px] px-6 border-r border-gray-300 scrollbar-hide"

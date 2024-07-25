@@ -2,11 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchUserProfile = async (username) => {
+  const authToken = JSON.parse(localStorage.getItem("token"));
+  const accessToken = localStorage.getItem("accessToken");
   const response = await axios.get(
     `${process.env.REACT_APP_BASE_URL}/users/${username}`,
     {
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${authToken}`,
+        accessToken: `${accessToken}`,
       },
     }
   );

@@ -11,7 +11,7 @@ const QuillEditor = ({ value, onChange, initialContent, editable }) => {
     if (initialContent && !content) {
       setContent(initialContent);
     }
-  }, [initialContent]);
+  }, [initialContent, content]);
 
   const handleChange = (html) => {
     setContent(html);

@@ -29,7 +29,7 @@ const ProjectDetails = () => {
   };
   return (
     <div className="mt-14 border-r h-full pb-14">
-      <div className="py-8 px-8 flex flex-col gap-6">
+      <div className="py-8 px-8 md:px-4 ms flex flex-col gap-6">
         <div className="flex gap-2">
           <div className="flex sm:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">

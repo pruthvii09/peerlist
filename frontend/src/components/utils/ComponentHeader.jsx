@@ -5,6 +5,8 @@ import { useFollowUser } from "../../hooks/profile/useAddFollow";
 import { ChevronDown, Link as LucideLink, UserMinus } from "lucide-react";
 import { toast } from "react-toastify";
 import { useUnFollowUser } from "../../hooks/profile/useRemoveFollow";
+import { useSelector } from "react-redux";
+import { useModal } from "../../context/ModalContext";
 
 const ComponentHeader = ({
   title,
@@ -17,7 +19,8 @@ const ComponentHeader = ({
   const Icon = iconConfig?.icon;
   const size = iconConfig?.size || "18";
   const iconText = iconConfig?.text || "";
-
+  const { user } = useSelector((store) => store.user);
+  const { showModal } = useModal();
   const [isFollowing, setIsFollowing] = useState(initialIsAlreadyFollowing);
   const [followOptions, setFollowOptions] = useState(false);
 
@@ -26,16 +29,24 @@ const ComponentHeader = ({
 
   const handleFollow = async () => {
     try {
-      setIsFollowing(true); // Update state to true on success
-      await followMutation.mutateAsync(follow);
+      if (!user) {
+        showModal("login");
+      } else {
+        setIsFollowing(true); // Update state to true on success
+        await followMutation.mutateAsync(follow);
+      }
     } catch (error) {
       console.error("Failed to follow user:", error);
     }
   };
   const handleUnFollow = async () => {
     try {
-      setIsFollowing(false); // Update state to true on success
-      await unFollowMutation.mutateAsync(follow);
+      if (!user) {
+        showModal("login");
+      } else {
+        setIsFollowing(false); // Update state to true on success
+        await unFollowMutation.mutateAsync(follow);
+      }
     } catch (error) {
       console.error("Failed to follow user:", error);
     }

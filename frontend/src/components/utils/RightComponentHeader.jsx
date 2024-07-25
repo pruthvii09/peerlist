@@ -11,6 +11,8 @@ const RightComponentHeader = ({
   handleFocus,
   handleBlur,
   setQuery,
+  setInputFocused,
+  isInputFocused,
 }) => {
   const { user } = useSelector((store) => store.user);
   // const handleFocus = () => setIsInputFocused(true);
@@ -35,43 +37,67 @@ const RightComponentHeader = ({
             </div>
           </motion.div>
         ) : (
-          <div className="py-2.5 px-4 flex items-center gap-4 justify-around">
-            <div className="relative">
-              <input
-                className="outline-none hover:border-black text-sm border border-gray-200 py-1 rounded-md pl-6 w-[150px]"
-                placeholder="Search PeerHub"
-                type="text"
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                name=""
-                id=""
-              />
-              <Search
-                size={16}
-                className="absolute top-1.5 left-1 text-gray-600"
-              />
-            </div>
-            <div className="flex gap-3">
-              <div className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1">
-                <Gift size={18} />
+          <>
+            {isInputFocused ? (
+              <div className="py-2.5 px-4 flex items-center gap-4 justify-between">
+                <input
+                  className="outline-none hover:border-black text-sm  py-1 rounded-md pl-6 w-[150px]"
+                  placeholder=""
+                  type="text"
+                  autoFocus={true}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  name=""
+                  id=""
+                />
+                <div
+                  onClick={() => setInputFocused(false)}
+                  className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1"
+                >
+                  <X size={18} />
+                </div>
               </div>
-              <Link
-                to={"/notifications"}
-                className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1"
-              >
-                <Bell size={18} />
-              </Link>
-            </div>
-            <img
-              height={32}
-              width={32}
-              className="rounded-full h-8 w-8 object-cover cursor-pointer "
-              src={user?.profileImageUrl}
-              alt=""
-              onClick={() => setShowSheet(!showSheet)}
-            />
-          </div>
+            ) : (
+              <div className="py-2.5 px-4 flex items-center gap-4 justify-around">
+                <div className="relative">
+                  <input
+                    className="outline-none hover:border-black text-sm border border-gray-200 py-1 rounded-md pl-6 w-[150px]"
+                    placeholder="Search PeerHub"
+                    type="text"
+                    onChange={(e) => setQuery(e.target.value)}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    name=""
+                    id=""
+                  />
+                  <Search
+                    size={16}
+                    className="absolute top-1.5 left-1 text-gray-600"
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <div className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1">
+                    <Gift size={18} />
+                  </div>
+                  <Link
+                    to={"/notifications"}
+                    className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1"
+                  >
+                    <Bell size={18} />
+                  </Link>
+                </div>
+                <img
+                  height={32}
+                  width={32}
+                  className="rounded-full h-8 w-8 object-cover cursor-pointer "
+                  src={user?.profileImageUrl}
+                  alt=""
+                  onClick={() => setShowSheet(!showSheet)}
+                />
+              </div>
+            )}
+          </>
         )
       ) : (
         <div className="py-3 px-4 flex items-center justify-end gap-4">
