@@ -17,8 +17,8 @@ const GithubDetails = ({ isOwnProfile, github }) => {
   };
 
   const processContributionData = (contributionCalendar) => {
-    return contributionCalendar.weeks.flatMap((week) =>
-      week.contributionDays.map((day) => ({
+    return contributionCalendar?.weeks.flatMap((week) =>
+      week?.contributionDays.map((day) => ({
         date: formatDate(day.date),
         count: Math.min(4, day.contributionCount),
       }))
@@ -26,9 +26,9 @@ const GithubDetails = ({ isOwnProfile, github }) => {
   };
 
   const data = processContributionData(
-    github.contributionsCollection.contributionCalendar
+    github?.contributionsCollection.contributionCalendar
   );
-  const totalContributions = data.reduce((sum, day) => sum + day.count, 0);
+  const totalContributions = data?.reduce((sum, day) => sum + day.count, 0);
   const { showModal } = useModal();
   const removeGitMutation = useRemoveGit();
   const onConfirm = () => {

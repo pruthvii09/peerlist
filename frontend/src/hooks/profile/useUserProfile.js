@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchUserProfile = async (username) => {
+  console.log("Hii");
   const authToken = JSON.parse(localStorage.getItem("token"));
   const accessToken = localStorage.getItem("accessToken");
   const response = await axios.get(
