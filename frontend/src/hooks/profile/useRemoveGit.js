@@ -24,6 +24,7 @@ export const useRemoveGit = () => {
     onSuccess: () => {
       toast.success("Github account removed");
       hideModal();
+      localStorage.removeItem("accessToken");
       queryClient.invalidateQueries("userProfile");
     },
     onError: (error) => {

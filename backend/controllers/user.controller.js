@@ -478,7 +478,9 @@ export const getAccessTokenGithub = async (req, res) => {
         Authorization: `Bearer ${data.access_token}`,
       },
     });
+
     const userData = await userResponse.json();
+    console.log(userData);
     const id = userData?.id?.toString();
     const userId = req.user.id;
     const user = await prisma.user.update({
@@ -489,6 +491,7 @@ export const getAccessTokenGithub = async (req, res) => {
         githubToken: data.access_token,
       },
     });
+    console.log(user);
 
     res.status(200).json({ access_token: user.githubToken });
   } catch (error) {
