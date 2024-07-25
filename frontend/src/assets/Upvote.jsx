@@ -2,7 +2,7 @@ import React from "react";
 
 const Upvote = ({ upvote }) => {
   return (
-    <div className="group cursor-pointer -z-20">
+    <div className="group cursor-pointer">
       <svg
         width="20"
         height="20"
@@ -10,7 +10,7 @@ const Upvote = ({ upvote }) => {
         xmlns="http://www.w3.org/2000/svg"
         className="transition-transform transform group-hover:-translate-y-0.5 block"
         style={{
-          fill: upvote ? "#34D399" : "#fff", // Darker green when clicked
+          fill: upvote ? "#34D399" : "#fff",
           stroke: upvote ? "#059669" : "#333", // Even darker green when clicked
         }}
       >

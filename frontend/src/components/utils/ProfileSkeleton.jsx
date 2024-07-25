@@ -19,7 +19,7 @@ const ProfileSkeleton = () => {
 
             {/* Navigation links skeleton */}
             <div className="mx-6 flex items-center justify-center gap-10 border-b border-gray-300 pb-2.5">
-              {[1, 2, 3, 4].map((item) => (
+              {[1, 2, 3].map((item) => (
                 <Skeleton key={item} width={60} />
               ))}
             </div>
@@ -42,7 +42,7 @@ const ProfileSkeleton = () => {
             {/* Social links skeleton */}
             <div className="px-8 w-full">
               <div className="pt-14 border-t border-gray-300 flex items-center justify-center gap-3">
-                {[1, 2, 3, 4].map((item) => (
+                {[1, 2, 3].map((item) => (
                   <Skeleton key={item} circle width={16} height={16} />
                 ))}
               </div>

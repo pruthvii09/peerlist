@@ -15,7 +15,6 @@ const ProjectCard = ({ data, rank }) => {
   const upvoteMutation = useAddUpvote();
   const removeUpvoteMutation = useRemoveUpvote();
   const { showModal } = useModal();
-  // Check if the user has already upvoted
   useEffect(() => {
     const hasUpvoted = data?.allupvotes?.some(
       (upvote) => upvote.userId === user?.id

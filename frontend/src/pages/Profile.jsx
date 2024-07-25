@@ -30,7 +30,7 @@ const Profile = () => {
         process.env.REACT_APP_GITHUB_CLIENT_ID
     );
   }
-  if (isLoading) {
+  if (!isLoading) {
     return <ProfileSkeleton />;
   }
   if (isError) {

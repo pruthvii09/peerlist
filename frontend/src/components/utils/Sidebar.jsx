@@ -45,11 +45,11 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="md:flex block w-full">
-      <div className="md:w-[212px] w-full fixed md:h-screen h-auto border-r border-gray-300">
+      <div className="md:w-[212px] w-full fixed z-[9999999] md:h-screen h-auto border-r border-gray-300">
         <div className="md:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />
         </div>
-        <div className="fixed bottom-0 right-0 left-0 flex justify-around items-start z-[9999] h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
+        <div className="fixed bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
           {routes.map((route, i) => {
             if (route.title === "My Network") {
               return (
