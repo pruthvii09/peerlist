@@ -20,14 +20,17 @@ const Scroll = () => {
     const codeParam = urlParams.get("code");
     if (codeParam && localStorage.getItem("accessToken") === null) {
       async function getAccessToken() {
-        await fetch("http://localhost:4000/users/getToken?code=" + codeParam, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
-            )}`,
-          },
-        })
+        await fetch(
+          `${process.env.REACT_APP_BASE_URL}/users/getToken?code=` + codeParam,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("token")
+              )}`,
+            },
+          }
+        )
           .then((response) => {
             return response.json();
           })
