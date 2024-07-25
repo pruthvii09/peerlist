@@ -450,6 +450,7 @@ export const getAllFollowerFollowing = async (req, res) => {
 export const getAccessTokenGithub = async (req, res) => {
   try {
     const { code } = req.query;
+    console.log(code);
     const params = new URLSearchParams({
       client_id: process.env.GITHUB_CLIENT_ID,
       client_secret: process.env.GITHUB_CLIENT_SECRET,
@@ -496,7 +497,7 @@ export const getAccessTokenGithub = async (req, res) => {
     res.status(200).json({ access_token: user.githubToken });
   } catch (error) {
     console.error("Error in getAccessTokenGithub:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error });
   }
 };
 
