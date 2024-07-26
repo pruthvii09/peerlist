@@ -450,12 +450,13 @@ export const getAllFollowerFollowing = async (req, res) => {
 export const getAccessTokenGithub = async (req, res) => {
   try {
     const { code } = req.query;
-    console.log(code);
+    console.log("code => ", code);
     const params = new URLSearchParams({
       client_id: process.env.GITHUB_CLIENT_ID,
       client_secret: process.env.GITHUB_CLIENT_SECRET,
       code: code,
     });
+    console.log("params => ", params);
 
     const response = await fetch(
       "https://github.com/login/oauth/access_token",
@@ -474,6 +475,7 @@ export const getAccessTokenGithub = async (req, res) => {
     }
 
     const data = await response.json();
+    console.log("data", data);
     const userResponse = await fetch("https://api.github.com/user", {
       headers: {
         Authorization: `Bearer ${data.access_token}`,
@@ -484,6 +486,7 @@ export const getAccessTokenGithub = async (req, res) => {
     console.log(userData);
     const id = userData?.id?.toString();
     const userId = req.user.id;
+    console.log("userId => ", userId);
     const user = await prisma.user.update({
       where: { id: userId },
       data: {
@@ -493,7 +496,7 @@ export const getAccessTokenGithub = async (req, res) => {
       },
     });
     console.log(user);
-
+    console.log("accessToken send.. => ");
     res.status(200).json({ access_token: user.githubToken });
   } catch (error) {
     console.error("Error in getAccessTokenGithub:", error);
@@ -504,6 +507,7 @@ export const getAccessTokenGithub = async (req, res) => {
 export const deleteGithub = async (req, res) => {
   try {
     const userId = req.user.id;
+    console.log(userId);
     const user = await prisma.user.update({
       where: {
         id: userId,
@@ -517,6 +521,7 @@ export const deleteGithub = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log("git user => ", user);
     res.status(200).json({ message: "Deleted success" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
