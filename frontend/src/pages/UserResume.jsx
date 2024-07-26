@@ -105,7 +105,9 @@ const UserResume = () => {
                     )}
                   </button>
                   <button
-                    onClick={() => navigate(`/${user.username}/job-preference`)}
+                    onClick={() =>
+                      navigate(`/${user.username}/settings/job-preference`)
+                    }
                     className="flex items-center gap-1 border px-2 rounded-full py-1"
                   >
                     <BriefcaseBusiness size={16} />
@@ -143,7 +145,7 @@ const UserResume = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 flex flex-col gap-4 px-6">
             <HighlightCard user={user} />
           </div>
         </Rightsidebar>

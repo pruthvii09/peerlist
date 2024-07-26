@@ -45,7 +45,7 @@ const Sidebar = ({ children }) => {
 
   return (
     <div className="md:flex block w-full">
-      <div className="md:w-[212px] w-full fixed z-[9999999] md:h-screen h-auto border-r border-gray-300">
+      <div className="md:w-[212px] w-full fixed z-[99] md:h-screen h-auto border-r border-gray-300">
         <div className="md:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />
         </div>

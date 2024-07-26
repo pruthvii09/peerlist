@@ -1,24 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
-import { ChevronDown } from "lucide-react";
+import { Filter, X } from "lucide-react";
 import ProfileCard from "../components/search/ProfileCard";
 import useGetAllProfile from "../hooks/profile/usetGetAllProfile";
-import Select from "../components/utils/ui/Select";
-import Input from "../components/utils/ui/Input";
-import Button from "../components/utils/ui/Button";
 import ProfileCardSkeleton from "../components/skeleton/ProfileCardSkeleton";
 import { useSelector } from "react-redux";
+import SearchFilter from "../components/search/SearchFilter";
 const Search = () => {
   const { data, isLoading } = useGetAllProfile();
   const allUsers = data?.data;
   const { user } = useSelector((store) => store.user);
+  const [showSheet, setShowSheet] = useState(false);
   return (
     <Sidebar>
       <div className="flex">
         <div className="md:w-[640px] w-full h-screen">
-          <ComponentHeader title="Search" iconConfig={{ icon: ChevronDown }} />
+          <ComponentHeader
+            title="Search"
+            children={
+              <div className="block md:hidden">
+                {showSheet ? (
+                  <div
+                    onClick={() => setShowSheet(!showSheet)}
+                    className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1 h-[36px]"
+                  >
+                    <X size={18} />
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setShowSheet(!showSheet)}
+                    className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1 h-[36px]"
+                  >
+                    <Filter size={18} />
+                  </div>
+                )}
+              </div>
+            }
+          />
           <div className="mt-14  p-6 grid grid-cols-1 md:grid-cols-2 gap-4 border-r border-gray-300 pb-24">
             {isLoading
               ? Array.from({ length: 10 }).map((_, index) => (
@@ -43,26 +63,10 @@ const Search = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
-            <div className="flex flex-col">
-              <div className="flex flex-col gap-6">
-                <h1 className="text-sm font-semibold">Filter By</h1>
-                <div className="grid grid-cols-2 gap-4">
-                  <Select label="Country" />
-                  <Select label="City" />
-                </div>
-                <div>
-                  <Input label="Roles" />
-                </div>
-              </div>
-            </div>
-            <Button
-              title="Apply"
-              className="text-white font-medium w-fit bg-black rounded-full text-xs px-3 py-1"
-            />
-          </div>
+          <SearchFilter />
         </Rightsidebar>
       </div>
+      {showSheet && <SearchFilter setShowSheet={setShowSheet} />}
     </Sidebar>
   );
 };

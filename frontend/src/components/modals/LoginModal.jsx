@@ -23,7 +23,7 @@ const LoginModal = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
+      className="fixed hover:cursor-default inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
       <div className="bg-white md:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative">
         <h1 className="font-instrumentic text-[40px]">Log in</h1>

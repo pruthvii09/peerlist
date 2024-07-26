@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BasicProfile from "./BasicProfile";
-import SocialLinks from "./SocialLinks";
+import BasicProfile from "../profile/BasicProfile";
+import SocialLinks from "../profile/SocialLinks";
 import Button from "../utils/ui/Button";
 import { useSelector } from "react-redux";
 import { useUpdateProfileMutation } from "../../hooks/profile/useUpdateProfileMutation";

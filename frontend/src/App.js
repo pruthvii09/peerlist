@@ -64,11 +64,11 @@ const router = createBrowserRouter([
     element: <Profile />,
   },
   {
-    path: "/:id/edit",
+    path: "/:id/settings/edit",
     element: <EditProfile />,
   },
   {
-    path: "/:id/job-preference",
+    path: "/:id/settings/job-preference",
     element: <JobPreference />,
   },
   {

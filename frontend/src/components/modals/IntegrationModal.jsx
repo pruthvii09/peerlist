@@ -6,7 +6,7 @@ import { useModal } from "../../context/ModalContext";
 const IntegrationModal = ({ integration }) => {
   const { hideModal } = useModal();
   return (
-    <div className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
+    <div className="fixed hover:cursor-default inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
       <div
         onClick={(e) => e.stopPropagation()}
         className="bg-white md:w-[350px] w-[350px]  rounded-lg shadow-lg relative"

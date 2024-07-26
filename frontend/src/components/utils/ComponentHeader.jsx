@@ -16,6 +16,7 @@ const ComponentHeader = ({
   follow,
   onIconClick,
   isAlreadyFollowing: initialIsAlreadyFollowing,
+  children,
 }) => {
   const Icon = iconConfig?.icon;
   const size = iconConfig?.size || "18";
@@ -76,71 +77,75 @@ const ComponentHeader = ({
   );
 
   return (
-    <div className="md:w-[640px] w-full bg-white z-30 fixed top-0 flex items-center justify-between border-r border-b border-gray-300 py-2.5 px-6 font-medium h-[56px]">
-      <div className="flex items-center gap-2">
-        {user && (
-          <div
-            onClick={() => setShowSheet(!showSheet)}
-            className="cursor-pointer block md:hidden"
-          >
-            <img
-              src={user.profileImageUrl}
-              className="w-8 h-8 rounded-full object-cover"
-              alt=""
-            />
-          </div>
-        )}
-
-        <h1>{title}</h1>
-      </div>
-
-      <div className="flex items-center gap-4">
-        {Icon && (href ? <Link to={href}>{renderIcon()}</Link> : renderIcon())}
-        {isFollowing ? (
-          <div className="relative">
-            <button
-              onClick={() => setFollowOptions(!followOptions)}
-              className="flex items-center font-medium gap-1 border border-gray-300 px-3 rounded-full py-1"
+    <>
+      <div className="md:w-[640px] w-full bg-white z-30 fixed top-0 flex items-center justify-between border-r border-b border-gray-300 py-2.5 px-6 font-medium h-[56px]">
+        <div className="flex items-center gap-2">
+          {user && (
+            <div
+              onClick={() => setShowSheet(!showSheet)}
+              className="cursor-pointer block md:hidden"
             >
-              <span className="font-medium text-sm">Following</span>
-              <ChevronDown size={18} />
-            </button>
-            {followOptions && (
-              <div className="absolute bg-white border border-gray-300 z-[999999] w-48 shadow-xl py-1 top-10 rounded-md">
-                <div
-                  onClick={copyWebsite}
-                  className="flex items-center gap-2 px-4 py-3 cursor-pointer hover:bg-gray-100"
-                >
-                  <LucideLink size={16} />
-                  <span className="text-xs">Copy profile URL</span>
-                </div>
-                <div
-                  onClick={handleUnFollow}
-                  className="flex items-center gap-2 px-4 py-3 text-red-600 cursor-pointer hover:bg-gray-100"
-                >
-                  <UserMinus size={16} />
-                  <span className="text-xs">Unfollow</span>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <>
-            {follow && (
-              <Button
-                className="bg-[#00aa45] text-white border-2 border-[#219653] rounded-full text-sm px-3.5 py-0.5 hover:bg-[#219653]"
-                title="Follow"
-                onClick={handleFollow}
-                disabled={followMutation.isLoading} // Disable while loading
+              <img
+                src={user.profileImageUrl}
+                className="w-8 h-8 rounded-full object-cover"
+                alt=""
               />
-            )}
-          </>
-        )}
+            </div>
+          )}
+
+          <h1>{title}</h1>
+        </div>
+
+        <div className="flex items-center gap-4">
+          {Icon &&
+            (href ? <Link to={href}>{renderIcon()}</Link> : renderIcon())}
+          {isFollowing ? (
+            <div className="relative">
+              <button
+                onClick={() => setFollowOptions(!followOptions)}
+                className="flex items-center font-medium gap-1 border border-gray-300 px-3 rounded-full py-1"
+              >
+                <span className="font-medium text-sm">Following</span>
+                <ChevronDown size={18} />
+              </button>
+              {followOptions && (
+                <div className="absolute bg-white border border-gray-300 z-[999999] w-48 shadow-xl py-1 top-10 rounded-md">
+                  <div
+                    onClick={copyWebsite}
+                    className="flex items-center gap-2 px-4 py-3 cursor-pointer hover:bg-gray-100"
+                  >
+                    <LucideLink size={16} />
+                    <span className="text-xs">Copy profile URL</span>
+                  </div>
+                  <div
+                    onClick={handleUnFollow}
+                    className="flex items-center gap-2 px-4 py-3 text-red-600 cursor-pointer hover:bg-gray-100"
+                  >
+                    <UserMinus size={16} />
+                    <span className="text-xs">Unfollow</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              {follow && (
+                <Button
+                  className="bg-[#00aa45] text-white border-2 border-[#219653] rounded-full text-sm px-3.5 py-0.5 hover:bg-[#219653]"
+                  title="Follow"
+                  onClick={handleFollow}
+                  disabled={followMutation.isLoading} // Disable while loading
+                />
+              )}
+            </>
+          )}
+          {children}
+        </div>
       </div>
       {showSheet && (
         <RightSheet showSheet={showSheet} setShowSheet={setShowSheet} />
       )}
-    </div>
+    </>
   );
 };
 

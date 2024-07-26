@@ -47,7 +47,7 @@ const Project = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 flex flex-col gap-4 px-6">
             <GradientCard />
             <GradientCard2 />
           </div>

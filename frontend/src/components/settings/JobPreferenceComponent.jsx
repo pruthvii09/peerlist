@@ -147,17 +147,17 @@ const JobPreferenceComponent = () => {
       <div className="pt-16 px-4">
         <ProfileSaparator icon={NotebookText} title="JOB PREFERENCES" />
         <div className="flex flex-col gap-8">
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <h1 className="font-medium w-[200px] text-sm">Preferred roles</h1>
             <div className="w-full flex-1">
-              <div className="flex  justify-between text-xs">
+              <div className="flex justify-between text-xs">
                 <p>Select role(s)</p>
                 <p className="text-[10px]">Upto 5</p>
               </div>
               <Options options={roles} />
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <h1 className="font-medium w-[200px] text-sm overflow-y-auto">
               Preferred job types
             </h1>
@@ -169,7 +169,7 @@ const JobPreferenceComponent = () => {
               <Options options={joboptions} />
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col md:flex-row gap-2">
             <h1 className="font-medium w-[200px] text-sm overflow-y-auto">
               Current and expected annual salary
             </h1>
@@ -207,7 +207,7 @@ const JobPreferenceComponent = () => {
             build their hiring pipeline.
           </p>
           <div className="mt-4">
-            <div className="flex gap-2">
+            <div className="flex flex-col md:flex-row gap-2">
               <h1 className="font-medium w-[200px] text-sm">Gender identity</h1>
               <div className="w-full flex-1">
                 <div className="flex  justify-between text-xs">
@@ -216,7 +216,7 @@ const JobPreferenceComponent = () => {
                 <Select />
               </div>
             </div>
-            <div className="flex gap-2 mt-10">
+            <div className="flex flex-col md:flex-row gap-2 mt-10">
               <h1 className="font-medium w-[200px] text-sm">Date of Birth</h1>
               <div className="w-full flex-1">
                 <Input />

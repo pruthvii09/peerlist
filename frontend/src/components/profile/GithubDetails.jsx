@@ -88,8 +88,8 @@ const GithubDetails = ({ isOwnProfile, github }) => {
             repositories
           </span>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
-            {github?.pinnedItems?.nodes.map((project) => (
-              <GitProjectCard project={project} />
+            {github?.pinnedItems?.nodes.map((project, i) => (
+              <GitProjectCard project={project} key={i} />
             ))}
           </div>
         </div>

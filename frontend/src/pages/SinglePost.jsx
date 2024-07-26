@@ -27,7 +27,7 @@ const SinglePost = () => {
           <SinglePostComponent data={data} isLoading={isLoading} />
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 flex flex-col gap-4 px-6">
             <HighlightCard user={data?.user} />
           </div>
         </Rightsidebar>

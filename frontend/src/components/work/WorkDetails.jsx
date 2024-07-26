@@ -86,9 +86,9 @@ const WorkDetails = () => {
   };
 
   return (
-    <div className="mt-14 border-r h-full pb-14">
+    <div className="mt-14 border-r h-full pb-24">
       <div className="py-8 px-8 flex flex-col gap-6">
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex flex-col md:flex-row gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Job title
@@ -104,7 +104,7 @@ const WorkDetails = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex flex-col md:flex-row gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Company Name
@@ -120,7 +120,7 @@ const WorkDetails = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex flex-col md:flex-row gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Start Date
@@ -145,7 +145,7 @@ const WorkDetails = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex flex-col md:flex-row gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">End Date</p>
           </div>
@@ -183,7 +183,7 @@ const WorkDetails = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex flex-col md:flex-row gap-2 border-b pb-6 border-gray-300">
           <div className="flex flex-col md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Skills, tools, roles, etc.

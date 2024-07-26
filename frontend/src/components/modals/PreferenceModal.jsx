@@ -18,7 +18,7 @@ const PreferenceModal = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
+      className="fixed hover:cursor-default inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
       <div className="bg-white md:w-[600px] w-[600px]  rounded-lg shadow-lg flex flex-col items-center relative">
         <div className="flex py-6 px-4 items-center flex-col">
@@ -34,7 +34,7 @@ const PreferenceModal = () => {
             accordingly.
           </p>
         </div>
-        <div className="mb-4 py-6 px-4 justify-center flex flex-wrap gap-3 ">
+        <div className="mb-4 py-6 px-4 justify-center flex flex-wrap gap-3 max-h-40 overflow-y-scroll">
           {topics.map((topic) => (
             <div
               key={topic.id}

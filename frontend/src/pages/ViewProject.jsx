@@ -31,7 +31,7 @@ const ViewProject = () => {
           <ViewProjectDetails project={project} isLoading={isLoading} />
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 flex flex-col gap-4 px-6">
             <div className="flex flex-col">
               <div className="flex flex-col gap-6">
                 <h1 className="text-sm font-semibold">Project By</h1>

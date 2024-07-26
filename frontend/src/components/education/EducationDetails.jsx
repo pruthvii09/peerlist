@@ -39,9 +39,9 @@ const EducationDetails = () => {
   return (
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 px-8 flex flex-col gap-6">
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex   md:flex-row flex-col gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
-            <p className=" text-primary font-medium text-sm flex-1">
+            <p className="text-primary font-medium text-sm flex-1">
               School / College name
             </p>
           </div>
@@ -58,7 +58,7 @@ const EducationDetails = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex  md:flex-row flex-col gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Degree type
@@ -77,7 +77,7 @@ const EducationDetails = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex  md:flex-row flex-col gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Major / Field of study
@@ -96,7 +96,7 @@ const EducationDetails = () => {
             />
           </div>
         </div>
-        <div className="flex gap-2 border-b pb-6 border-gray-300">
+        <div className="flex  md:flex-row flex-col gap-2 border-b pb-6 border-gray-300">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Start / End date

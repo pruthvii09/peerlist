@@ -47,7 +47,7 @@ const Profile = () => {
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
               iconConfig={{ icon: Edit }}
-              href={`/${user?.username}/edit`}
+              href={`/${user?.username}/settings/edit`}
             />
           ) : (
             <ComponentHeader
@@ -123,7 +123,7 @@ const Profile = () => {
           </div>
         </div>
         <Rightsidebar>
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 flex flex-col gap-4 px-6">
             <HighlightCard user={user} />
           </div>
         </Rightsidebar>

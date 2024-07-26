@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import RightComponentHeader from "./RightComponentHeader";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../store/userSlice";
-import { useNavigate } from "react-router-dom";
 import useSearchProfile from "../../hooks/profile/useSearchProfile";
 import useDebounce from "../../hooks/useDebounce";
 import SearchCard from "../profile/SearchCard";
@@ -53,7 +50,7 @@ const Rightsidebar = ({ children }) => {
           isInputFocused={isInputFocused}
         />
         <div
-          className="flex-1 overflow-y-auto w-[348px] px-6 border-r border-gray-300 scrollbar-hide"
+          className="flex-1 overflow-y-auto w-[348px] border-r border-gray-300 scrollbar-hide"
           style={{ height: "calc(100vh - 64px)" }}
         >
           {showSheet ? (
