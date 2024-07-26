@@ -11,6 +11,7 @@ import {
   LineChart,
   X,
 } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
 const RightSheet = ({ showSheet, setShowSheet }) => {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -23,14 +24,13 @@ const RightSheet = ({ showSheet, setShowSheet }) => {
     navigate("/scroll");
     setShowSheet(!showSheet);
   };
+  const isMediumOrLarger = useMediaQuery({ query: "(min-width: 768px)" });
   return (
     <div>
-      {/* <div
-        onClick={() => setShowSheet(false)}
-        className="fixed md:hidden inset-0 z-[999] bg-black bg-opacity-30"
-      ></div> */}
       <motion.div
-        initial={{ opacity: 0, x: -100 }}
+        initial={
+          !isMediumOrLarger ? { opacity: 0, x: -100 } : { opacity: 0, x: 100 }
+        }
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, type: "spring" }}
         className="fixed md:static top-[56px] left-0 h-full pt-10 md:w-full w-80 bg-white shadow-lg md:shadow-none z-10 p-6 border-r border-gray-300"
@@ -116,7 +116,7 @@ const RightSheet = ({ showSheet, setShowSheet }) => {
         </div>
         <div
           onClick={() => setShowSheet(!showSheet)}
-          className="absolute h-8 w-8 border cursor-pointer flex items-center justify-center rounded-full border-gray-300 top-2 right-4"
+          className="absolute h-8 w-8 border cursor-pointer flex md:hidden items-center justify-center rounded-full border-gray-300 top-2 right-4"
         >
           <X size={18} />
         </div>

@@ -58,7 +58,7 @@ const Profile = () => {
           )}
           <div className="border-r border-gray-300">
             <UserProfile />
-            <div className="sticky top-[52px] z-10 px-6 flex items-center justify-center gap-10 border-b border-gray-300 text-xs font-semibold bg-white">
+            <div className="sticky top-[52px] z-[9] px-6 flex items-center justify-center gap-10 border-b border-gray-300 text-xs font-semibold bg-white">
               <Link className="py-2.5 border-b-2 text-[#00aa45] border-[#00aa45]">
                 WORK
               </Link>
