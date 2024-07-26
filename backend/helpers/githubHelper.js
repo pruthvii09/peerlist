@@ -1,3 +1,6 @@
+import prisma from "../prisma/prisma.js";
+import { refreshGithubToken } from "./refreshToken.js";
+
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
 const query = `query ($username: String!) {
@@ -37,8 +40,29 @@ const query = `query ($username: String!) {
   }
 `;
 
-export const fetchGithubData = async (username, access_token) => {
+export const fetchGithubData = async (username, userId) => {
   try {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Check if the token is expired
+    let access_token = user.githubToken;
+    console.log(
+      "user.githubTokenExpiresAt",
+      user.githubTokenExpiresAt,
+      "new date",
+      Math.floor(Date.now() / 1000),
+      user.githubTokenExpiresAt <= Math.floor(Date.now() / 1000)
+    );
+    if (
+      user.githubTokenExpiresAt &&
+      user.githubTokenExpiresAt <= Math.floor(Date.now() / 1000)
+    ) {
+      // Token is expired, refresh it
+      access_token = await refreshGithubToken(userId);
+    }
     const response = await fetch(GITHUB_API_URL, {
       method: "POST",
       headers: {

@@ -8,35 +8,37 @@ generator client {
 }
 
 model User {
-  id              String      @id @default(auto()) @map("_id") @db.ObjectId
-  username        String?     @unique
-  email           String      @unique
-  password        String
-  githubId        String?
-  githubToken     String?
-  gitUsername     String?
-  firstname       String?
-  lastname        String?
-  bio             String?
-  website         String?
-  gender          String?
-  calendar        String?
-  country         String?
-  city            String?
-  profileImageUrl String?
-  socialMedia     Json?
-  skills          Json?
-  createdAt       DateTime    @default(now())
-  posts           Post[]
-  comments        Comment[]
-  work            Work[]
-  likes           Like[]
-  followers       Follow[]    @relation("UserFollowers")
-  following       Follow[]    @relation("UserFollowing")
-  jobs            Job[]
-  projects        Project[]
-  education       Education[]
-  upvotes         Upvote[]
+  id                   String      @id @default(auto()) @map("_id") @db.ObjectId
+  username             String?     @unique
+  email                String      @unique
+  password             String
+  githubId             String?
+  githubToken          String?
+  gitUsername          String?
+  githubRefreshToken   String?
+  githubTokenExpiresAt Int?
+  firstname            String?
+  lastname             String?
+  bio                  String?
+  website              String?
+  gender               String?
+  calendar             String?
+  country              String?
+  city                 String?
+  profileImageUrl      String?
+  socialMedia          Json?
+  skills               Json?
+  createdAt            DateTime    @default(now())
+  posts                Post[]
+  comments             Comment[]
+  work                 Work[]
+  likes                Like[]
+  followers            Follow[]    @relation("UserFollowers")
+  following            Follow[]    @relation("UserFollowing")
+  jobs                 Job[]
+  projects             Project[]
+  education            Education[]
+  upvotes              Upvote[]
 }
 
 model Post {

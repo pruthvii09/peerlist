@@ -214,7 +214,7 @@ export const getUserByUsername = async (req, res) => {
     }
     let githubData;
     if (user.gitUsername) {
-      githubData = await fetchGithubData(user.gitUsername, user.githubToken);
+      githubData = await fetchGithubData(user.gitUsername, user.id);
     } else {
       githubData = [];
     }
@@ -476,6 +476,7 @@ export const getAccessTokenGithub = async (req, res) => {
 
     const data = await response.json();
     console.log("data", data);
+    const { access_token, refresh_token, expires_in } = data;
     const userResponse = await fetch("https://api.github.com/user", {
       headers: {
         Authorization: `Bearer ${data.access_token}`,
@@ -487,12 +488,17 @@ export const getAccessTokenGithub = async (req, res) => {
     const id = userData?.id?.toString();
     const userId = req.user.id;
     console.log("userId => ", userId);
+    console.log("expires_in => ", expires_in);
+    const expiresAt = (await Math.floor(Date.now() / 1000)) + expires_in;
+    console.log("Expires At => ", expiresAt);
     const user = await prisma.user.update({
       where: { id: userId },
       data: {
         gitUsername: userData.login,
         githubId: id,
-        githubToken: data.access_token,
+        githubToken: access_token,
+        githubRefreshToken: refresh_token,
+        githubTokenExpiresAt: expiresAt,
       },
     });
     console.log(user);
