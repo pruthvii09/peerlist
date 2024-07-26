@@ -57,9 +57,9 @@ const PostCard = ({ post }) => {
 
   return (
     <Link to={`/scroll/post/${post?.id}`}>
-      <div className="px-3 sm:px-6 py-3 sm:py-4 cursor-pointer border-b border-gray-300">
-        <div className="flex justify-between items-start sm:items-center">
-          <div className="flex gap-2 sm:gap-3">
+      <div className="px-3 md:px-6 py-3  cursor-pointer border-b border-gray-300">
+        <div className="flex justify-between items-start md:items-center">
+          <div className="flex gap-2 md:gap-3">
             <img
               className="w-10 h-10 rounded-full object-cover"
               src={post?.user?.profileImageUrl}
@@ -123,7 +123,7 @@ const PostCard = ({ post }) => {
             )}
           </div>
         </div>
-        <div className="flex flex-col mt-2 sm:mt-3">
+        <div className="flex flex-col mt-2 md:mt-3">
           <div className="overflow-hidden">
             {/* Ensure content doesn't overflow */}
             <p
@@ -133,7 +133,7 @@ const PostCard = ({ post }) => {
           </div>
 
           <div className="mt-3 flex flex-wrap items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-4 md:gap-6">
+            <div className="flex items-center gap-2 md:gap-6">
               <ActionButton
                 Icon={MessageSquare}
                 count={post?.comments?.length}
@@ -170,7 +170,7 @@ const PostCard = ({ post }) => {
                 </motion.span>
               </div>
             </div>
-            <div className="flex items-center gap-2 sm:gap-4 md:gap-6 mt-2 sm:mt-0">
+            <div className="flex items-center gap-2 md:gap-6 mt-2 md:mt-0">
               <ActionButton
                 Icon={Bookmark}
                 count={0}

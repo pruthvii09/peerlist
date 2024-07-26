@@ -63,7 +63,7 @@ const EditProjectComponent = () => {
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 md:px-8 px-4 flex flex-col gap-6">
         <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project name
             </p>
@@ -79,7 +79,7 @@ const EditProjectComponent = () => {
           </div>
         </div>
         <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">Tagline</p>
           </div>
           <div className="w-full">
@@ -96,7 +96,7 @@ const EditProjectComponent = () => {
           </div>
         </div>
         <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project URL
             </p>
@@ -116,7 +116,7 @@ const EditProjectComponent = () => {
           </div>
         </div>
         <div className="flex md:gap-2 gap-0 md:flex-row flex-col">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Is this project open source?
             </p>
@@ -155,7 +155,7 @@ const EditProjectComponent = () => {
           />
         </div>
       </div>
-      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-between px-6 py-4 bg-[#f6f8fa] border-t border-r">
+      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-between px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <Button
           title="Delete"
           onClick={() => showModal("confirm", { onConfirm: onConfirm })}

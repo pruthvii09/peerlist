@@ -37,13 +37,13 @@ const EditComponent = () => {
   };
 
   return (
-    <div className="mt-14 flex flex-col sm:gap-10 gap-8 border-r border-gray-300 pb-24">
+    <div className="mt-14 flex flex-col md:gap-10 gap-8 border-r border-gray-300 pb-24">
       <BasicProfile
         basicProfile={basicProfile}
         setBasicProfile={setBasicProfile}
       />
       <SocialLinks socialLinks={socialLinks} setSocialLinks={setSocialLinks} />
-      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
+      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <Button
           title="Save"
           loading={updateMutation.isPending}

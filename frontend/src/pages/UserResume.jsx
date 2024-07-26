@@ -32,7 +32,7 @@ const UserResume = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           {isOwnProfile ? (
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
@@ -113,7 +113,7 @@ const UserResume = () => {
                   </button>
                 </div>
               )}
-              <div className="mt-8 ">
+              <div className="mt-8 pb-24">
                 <div>
                   <h1 className="font-base font-semibold">Experience</h1>
                   <div className="mt-4 flex flex-col gap-2">

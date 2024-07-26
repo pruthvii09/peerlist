@@ -12,7 +12,7 @@ const AddEducation = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           <ComponentHeader
             title="Add Work Experience"
             iconConfig={{ icon: ArrowLeft }}

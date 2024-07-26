@@ -89,7 +89,7 @@ const WorkDetails = () => {
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 px-8 flex flex-col gap-6">
         <div className="flex gap-2 border-b pb-6 border-gray-300">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Job title
             </p>
@@ -105,7 +105,7 @@ const WorkDetails = () => {
           </div>
         </div>
         <div className="flex gap-2 border-b pb-6 border-gray-300">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Company Name
             </p>
@@ -121,7 +121,7 @@ const WorkDetails = () => {
           </div>
         </div>
         <div className="flex gap-2 border-b pb-6 border-gray-300">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Start Date
             </p>
@@ -146,7 +146,7 @@ const WorkDetails = () => {
           </div>
         </div>
         <div className="flex gap-2 border-b pb-6 border-gray-300">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">End Date</p>
           </div>
           <div className="w-full gap-2 items-center">
@@ -184,7 +184,7 @@ const WorkDetails = () => {
           </div>
         </div>
         <div className="flex gap-2 border-b pb-6 border-gray-300">
-          <div className="flex flex-col sm:w-[200px] flex-shrink-0">
+          <div className="flex flex-col md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Skills, tools, roles, etc.
             </p>
@@ -218,7 +218,7 @@ const WorkDetails = () => {
           />
         </div>
       </div>
-      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
+      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <Button
           title="Save"
           onClick={handleSave}

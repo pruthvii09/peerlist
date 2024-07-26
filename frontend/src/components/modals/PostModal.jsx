@@ -24,7 +24,7 @@ const PostModal = () => {
         exit={{ scale: 0.5, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="bg-white sm:w-[640px] w-[350px] p-4 rounded-lg shadow-lg"
+        className="bg-white md:w-[640px] w-[350px] p-4 rounded-lg shadow-lg"
       >
         <div className="w-full flex items-center justify-between">
           <img

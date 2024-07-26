@@ -26,7 +26,7 @@ const EditPostModal = ({ post }) => {
     <div className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white sm:w-[640px] w-[350px] p-4 rounded-lg shadow-lg"
+        className="bg-white md:w-[640px] w-[350px] p-4 rounded-lg shadow-lg"
       >
         <div className="w-full flex items-center justify-between">
           <img

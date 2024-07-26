@@ -13,12 +13,12 @@ const ProjectHeader = ({ currentWeek, dateRange }) => {
     <>
       {/* <WeekSelector currentWeek={currentWeek} /> */}
 
-      <div className="flex mt-[55px]  sm:flex-row flex-col sm:items-center items-start justify-between sm:gap-8 gap-1 px-6 py-2">
+      <div className="flex mt-[55px]  md:flex-row flex-col md:items-center items-start justify-between md:gap-8 gap-1 px-6 py-2">
         <div>
           <h1 className="font-instrumentic text-2xl">Week {currentWeek}</h1>
           <p className="text-xs">{dateRange}</p>
         </div>
-        <p className="text-xs sm:text-end text-start text-gray-600">
+        <p className="text-xs md:text-end text-start text-gray-600">
           Support the best projects with your feedback & upvotes. <br /> You can
           launch your project on Monday, next week.
         </p>

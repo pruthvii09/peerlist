@@ -35,7 +35,7 @@ const GithubDetails = ({ isOwnProfile, github }) => {
     removeGitMutation.mutate();
   };
   return (
-    <div className="pb-12 w-full">
+    <div className="pb-24 w-full">
       <div className="flex px-4 items-center justify-between">
         <h1 className="flex items-center gap-2">
           <Github />

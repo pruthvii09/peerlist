@@ -51,18 +51,6 @@ const Sidebar = ({ children }) => {
         </div>
         <div className="fixed bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
           {routes.map((route, i) => {
-            if (route.title === "My Network") {
-              return (
-                <div key={i} className="hidden sm:block">
-                  <Navlink
-                    key={i}
-                    title={route.title}
-                    href={route.href}
-                    icon={route.icon}
-                  />
-                </div>
-              );
-            }
             return (
               <Navlink
                 key={i}
@@ -75,7 +63,7 @@ const Sidebar = ({ children }) => {
           {user && (
             <Link
               to={`/user/${user?.username}`}
-              className="flex md:flex-row flex-col md:mt-4 mt-0 group items-center gap-2 md:py-2.5 py-3 hover:cursor-pointer"
+              className="md:flex hidden md:flex-row flex-col md:mt-4 mt-0 group items-center gap-2 md:py-2.5 py-3 hover:cursor-pointer"
             >
               <img
                 width={24}
@@ -84,7 +72,7 @@ const Sidebar = ({ children }) => {
                 src={user?.profileImageUrl}
                 alt=""
               />
-              <span className="group-hover:translate-x-1 text-xs md:text-base transition-all ease-in-out">
+              <span className="group-hover:translate-x-1 text-[10px] md:text-base transition-all ease-in-out">
                 {user?.firstname ? user?.firstname : "Profile"}
               </span>
             </Link>

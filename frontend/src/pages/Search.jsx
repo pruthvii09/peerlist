@@ -17,9 +17,9 @@ const Search = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full h-screen">
+        <div className="md:w-[640px] w-full h-screen">
           <ComponentHeader title="Search" iconConfig={{ icon: ChevronDown }} />
-          <div className="mt-14  p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 border-r border-gray-300">
+          <div className="mt-14  p-6 grid grid-cols-1 md:grid-cols-2 gap-4 border-r border-gray-300 pb-24">
             {isLoading
               ? Array.from({ length: 10 }).map((_, index) => (
                   <div key={index} className="h-fit">

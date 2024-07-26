@@ -26,7 +26,7 @@ const UserPosts = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           {isOwnProfile ? (
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
@@ -61,7 +61,7 @@ const UserPosts = () => {
                 POSTS •&nbsp; {user?._count.posts}
               </Link>
             </div>
-            <div className="pt-8 pb-10 w-full">
+            <div className="pt-8 pb-24 w-full">
               {postLoading ? (
                 <div className="w-full flex items-center justify-center animate-spin">
                   <Loader2 className="text-green-600" />

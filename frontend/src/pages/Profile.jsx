@@ -42,7 +42,7 @@ const Profile = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           {isOwnProfile ? (
             <ComponentHeader
               title={`${user?.firstname} ${user?.lastname}`}
@@ -78,7 +78,7 @@ const Profile = () => {
             {isOwnProfile && (
               <div className="pt-8 pb-10 w-full px-6">
                 <h1 className="font-medium mb-4">Showcase your work from:</h1>
-                <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
+                <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
                   {integrations?.map((integration) => (
                     <div
                       key={integration.id}

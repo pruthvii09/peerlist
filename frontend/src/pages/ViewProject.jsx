@@ -22,7 +22,7 @@ const ViewProject = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           <ComponentHeader
             title="View Project"
             iconConfig={{ icon: ArrowLeft }}

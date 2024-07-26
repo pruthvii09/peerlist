@@ -19,7 +19,7 @@ const MyNetwork = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           <ComponentHeader title="My Network" />
           <div className="mt-14 flex flex-col border-r border-gray-300">
             <div className="flex items-center px-6 border-b border-gray-300">
@@ -47,7 +47,7 @@ const MyNetwork = () => {
             ) : (
               <>
                 {toggle ? (
-                  <div className="p-6 pb-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 pb-20 grid grid-cols-1 md:grid-cols-2 gap-4">
                     {data?.followers?.map((follow) => (
                       <ProfileCard
                         follow={true}
@@ -57,7 +57,7 @@ const MyNetwork = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="p-6 pb-20 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-6 pb-20 grid grid-cols-1 md:grid-cols-2 gap-4">
                     {data?.following?.map((follow) => (
                       <ProfileCard
                         follow={true}

@@ -18,9 +18,9 @@ const UserProfile = () => {
 
   if (isLoading) {
     return (
-      <div className="py-10 mt-14 px-4 flex flex-col sm:items-center items-start gap-4">
+      <div className="py-10 mt-14 px-4 flex flex-col md:items-center items-start gap-4">
         <Skeleton circle height={80} width={80} />
-        <div className="flex sm:items-center items-start flex-col gap-2 mt-4">
+        <div className="flex md:items-center items-start flex-col gap-2 mt-4">
           <Skeleton height={24} width={200} />
           <Skeleton height={16} width={300} />
         </div>
@@ -38,7 +38,7 @@ const UserProfile = () => {
   const user = data?.data;
 
   return (
-    <div className="py-10 mt-14 px-4 flex flex-col sm:items-center items-start gap-4">
+    <div className="py-10 mt-14 px-4 flex flex-col md:items-center items-start gap-4">
       <img
         height={80}
         width={80}
@@ -46,7 +46,7 @@ const UserProfile = () => {
         src={user?.profileImageUrl}
         alt={user?.username}
       />
-      <div className="flex sm:items-center items-start flex-col gap-2">
+      <div className="flex md:items-center items-start flex-col gap-2">
         <h1 className="font-semibold text-lg">
           {user?.firstname} {user?.lastname}
         </h1>

@@ -6,11 +6,11 @@ const Navlink = ({ title, icon: Icon, href }) => {
   return (
     <Link
       to={href}
-      className="flex sm:flex-row flex-col group items-center gap-2 py-3 hover:cursor-pointer"
+      className="flex md:flex-row flex-col group items-center gap-2 py-3 hover:cursor-pointer"
     >
       <Icon strokeWidth={1.5} />
       <span
-        className={`group-hover:translate-x-1 sm:text-base text-xs transition-all ease-in-out ${
+        className={`group-hover:translate-x-1 md:text-base text-[10px] transition-all ease-in-out ${
           pathname === href && "font-semibold"
         }`}
       >

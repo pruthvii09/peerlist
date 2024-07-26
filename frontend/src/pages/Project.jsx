@@ -19,7 +19,7 @@ const Project = () => {
     <Sidebar>
       <div className="flex">
         <div className="w-full">
-          <div className="sm:w-[640px] w-full">
+          <div className="md:w-[640px] w-full">
             <ComponentHeader
               title="Projects Spotlight"
               iconConfig={{
@@ -28,7 +28,7 @@ const Project = () => {
               }}
             />
           </div>
-          <div className="sm:w-[640px] w-full border-r border-gray-300">
+          <div className="md:w-[640px] w-full border-r border-gray-300 pb-24">
             <ProjectHeader
               currentWeek={data?.weekNumber}
               dateRange={dateRange}

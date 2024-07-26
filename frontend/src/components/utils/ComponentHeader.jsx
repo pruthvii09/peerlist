@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useUnFollowUser } from "../../hooks/profile/useRemoveFollow";
 import { useSelector } from "react-redux";
 import { useModal } from "../../context/ModalContext";
+import RightSheet from "./RightSheet";
 
 const ComponentHeader = ({
   title,
@@ -26,7 +27,7 @@ const ComponentHeader = ({
 
   const followMutation = useFollowUser();
   const unFollowMutation = useUnFollowUser();
-
+  const [showSheet, setShowSheet] = useState(false);
   const handleFollow = async () => {
     try {
       if (!user) {
@@ -75,9 +76,25 @@ const ComponentHeader = ({
   );
 
   return (
-    <div className="sm:w-[640px] w-full bg-white z-30 fixed top-0 flex items-center justify-between border-r border-b border-gray-300 py-2.5 px-6 font-medium h-[56px]">
-      <h1>{title}</h1>
-      <div className="flex items-center">
+    <div className="md:w-[640px] w-full bg-white z-30 fixed top-0 flex items-center justify-between border-r border-b border-gray-300 py-2.5 px-6 font-medium h-[56px]">
+      <div className="flex items-center gap-2">
+        {user && (
+          <div
+            onClick={() => setShowSheet(!showSheet)}
+            className="cursor-pointer block md:hidden"
+          >
+            <img
+              src={user.profileImageUrl}
+              className="w-8 h-8 rounded-full object-cover"
+              alt=""
+            />
+          </div>
+        )}
+
+        <h1>{title}</h1>
+      </div>
+
+      <div className="flex items-center gap-4">
         {Icon && (href ? <Link to={href}>{renderIcon()}</Link> : renderIcon())}
         {isFollowing ? (
           <div className="relative">
@@ -120,6 +137,9 @@ const ComponentHeader = ({
           </>
         )}
       </div>
+      {showSheet && (
+        <RightSheet showSheet={showSheet} setShowSheet={setShowSheet} />
+      )}
     </div>
   );
 };

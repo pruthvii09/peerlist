@@ -31,7 +31,7 @@ const ProjectDetails = () => {
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 px-8 md:px-4 ms flex flex-col gap-6">
         <div className="flex gap-2">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project name
             </p>
@@ -47,7 +47,7 @@ const ProjectDetails = () => {
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">Tagline</p>
           </div>
           <div className="w-full">
@@ -64,7 +64,7 @@ const ProjectDetails = () => {
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project URL
             </p>
@@ -84,7 +84,7 @@ const ProjectDetails = () => {
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex sm:w-[200px] flex-shrink-0">
+          <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Is this project open source?
             </p>
@@ -123,7 +123,7 @@ const ProjectDetails = () => {
           />
         </div>
       </div>
-      <div className="fixed max-w-[640px] w-full sm:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
+      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <Button
           title="Save"
           loading={addProjectMutation.isPending}

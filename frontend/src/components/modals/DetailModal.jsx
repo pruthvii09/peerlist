@@ -56,7 +56,7 @@ const DetailModal = () => {
       onClick={(e) => e.stopPropagation()}
       className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
-      <div className="bg-white sm:w-[380px] w-[350px] py-6 px-6 rounded-lg shadow-lg flex flex-col relative">
+      <div className="bg-white md:w-[380px] w-[350px] py-6 px-6 rounded-lg shadow-lg flex flex-col relative">
         <h1 className="text-center text-xl font-medium mb-1">
           Welcome to PeerHub
         </h1>

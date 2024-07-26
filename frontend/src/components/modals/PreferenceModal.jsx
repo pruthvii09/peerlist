@@ -20,7 +20,7 @@ const PreferenceModal = () => {
       onClick={(e) => e.stopPropagation()}
       className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
-      <div className="bg-white sm:w-[600px] w-[600px]  rounded-lg shadow-lg flex flex-col items-center relative">
+      <div className="bg-white md:w-[600px] w-[600px]  rounded-lg shadow-lg flex flex-col items-center relative">
         <div className="flex py-6 px-4 items-center flex-col">
           <img
             height={80}

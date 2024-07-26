@@ -10,7 +10,7 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
     <div className="p-6">
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
       <div>
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input
             value={basicProfile.firstname}
             onChange={(e) =>
@@ -52,7 +52,7 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
           </span>
         </div>
 
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-10">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-10">
           <div className="grid grid-cols-2 gap-3">
             <Select
               label="Country"
@@ -96,7 +96,7 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
             ]}
           />
         </div>
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input
             value={basicProfile.website}
             onChange={(e) =>

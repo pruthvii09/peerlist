@@ -13,7 +13,7 @@ const Jobs = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] w-full">
+        <div className="md:w-[640px] w-full">
           <ComponentHeader
             title="All Jobs"
             iconConfig={{ icon: Settings, text: "Job Preferences" }}

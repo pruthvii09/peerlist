@@ -28,7 +28,7 @@ const ProjectCard = ({ data, isSelected, onSelect }) => {
           >
             {data?.title}
           </h1>
-          <p className="text-xs paragraph-clamp break-all sm:block hidden">
+          <p className="text-xs paragraph-clamp break-all md:block hidden">
             {data?.tagline}
           </p>
         </div>

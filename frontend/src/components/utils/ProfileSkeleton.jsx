@@ -7,7 +7,7 @@ const ProfileSkeleton = () => {
   return (
     <Sidebar>
       <div className="flex">
-        <div className="sm:w-[640px] border-r w-full">
+        <div className="md:w-[640px] border-r w-full">
           <div className="mb-4 px-4 py-2">
             <Skeleton height={40} />
           </div>
@@ -27,7 +27,7 @@ const ProfileSkeleton = () => {
             {/* Showcase section skeleton */}
             <div className="pt-8 pb-10 w-full px-6">
               <Skeleton width={200} height={24} className="mb-4" />
-              <div className="grid sm:grid-cols-3 grid-cols-1 gap-4">
+              <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
                 {[1, 2, 3, 4, 5, 6].map((item) => (
                   <Skeleton key={item} height={40} />
                 ))}
@@ -51,7 +51,7 @@ const ProfileSkeleton = () => {
         </div>
 
         {/* Right sidebar skeleton */}
-        <div className="hidden sm:block w-[320px]">
+        <div className="hidden md:block w-[320px]">
           <div className="mb-4 px-4 py-2">
             <Skeleton height={40} />
           </div>

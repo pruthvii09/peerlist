@@ -19,7 +19,7 @@ const SignupModal = () => {
       onClick={(e) => e.stopPropagation()}
       className="fixed hover:cursor-default inset-0 z-[9999999] flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md"
     >
-      <div className="bg-white sm:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative ">
+      <div className="bg-white md:w-[380px] w-[350px] py-10 px-6 rounded-lg shadow-lg flex flex-col items-center relative ">
         <h1 className="font-instrumentic text-[40px]">Sign up</h1>
         <div className="w-full flex flex-col gap-3">
           <Input

@@ -60,7 +60,7 @@ const ProjectCard = ({ data, rank }) => {
           <h1 className="text-sm group-hover/project:underline font-semibold">
             {data?.title}
           </h1>
-          <p className="text-xs paragraph-clamp break-all sm:block hidden">
+          <p className="text-xs paragraph-clamp break-all md:block hidden">
             {data?.tagline}
           </p>
         </div>
