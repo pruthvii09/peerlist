@@ -29,7 +29,7 @@ const Profile = () => {
   function loginGithub() {
     console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
     window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=Iv23liHEcKJ3WpFrg3bA`
+      `https://github.com/login/oauth/authorize?client_id=Iv23lidnCU7MshKkW99u`
     );
   }
   if (isLoading) {
