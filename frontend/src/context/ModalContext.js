@@ -8,6 +8,7 @@ import PreferenceModal from "../components/modals/PreferenceModal";
 import EditPostModal from "../components/modals/EditPostModal";
 import LaunchProject from "../components/modals/LaunchProject";
 import IntegrationModal from "../components/modals/IntegrationModal";
+import SearchModal from "../components/modals/SearchModal";
 
 const ModalContext = createContext();
 
@@ -53,6 +54,8 @@ const ModalContainer = ({ modalType, modalProps }) => {
       return <LaunchProject {...modalProps} />;
     case "integration":
       return <IntegrationModal {...modalProps} />;
+    case "search":
+      return <SearchModal {...modalProps} />;
     default:
       return null;
   }

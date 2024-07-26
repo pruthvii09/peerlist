@@ -53,7 +53,7 @@ const ProfileCard = ({ user, follow }) => {
   return (
     <Link
       to={`/user/${user.username}`}
-      className="relative -z-[0] h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
+      className="relative  h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
     >
       <img
         height={40}
@@ -77,7 +77,7 @@ const ProfileCard = ({ user, follow }) => {
               <ChevronDown size={16} />
             </div>
             {showDropdown && (
-              <div className="absolute bg-white border border-gray-300 z-[999999] w-48 shadow-xl py-1 top-10 rounded-md">
+              <div className="absolute bg-white border border-gray-300 z-[50] w-48 shadow-xl py-1 md:top-10 md:right-0 top-10 right-0 rounded-md">
                 <div
                   onClick={copyProfileUrl}
                   className="flex items-center gap-2 px-4 py-3 cursor-pointer hover:bg-gray-100"

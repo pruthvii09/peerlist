@@ -29,6 +29,8 @@ import SinglePost from "./pages/SinglePost";
 import Notification from "./pages/Notifications";
 import MyNetwork from "./pages/MyNetwork";
 import EditExperience from "./pages/EditExperience";
+import Account from "./pages/Account";
+import Inbox from "./pages/Inbox";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -60,12 +62,20 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
+    path: "/inbox",
+    element: <Inbox />,
+  },
+  {
     path: "/user/:id",
     element: <Profile />,
   },
   {
     path: "/:id/settings/edit",
     element: <EditProfile />,
+  },
+  {
+    path: "/:id/settings/account",
+    element: <Account />,
   },
   {
     path: "/:id/settings/job-preference",

@@ -1,5 +1,4 @@
 import prisma from "../prisma/prisma.js";
-
 export const addEducation = async (req, res) => {
   try {
     const { institute_name, degree, study, start_year, end_year } = req.body;

@@ -1,32 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useAddProjectMutation } from "../../hooks/projects/useAddProjectMutation";
-const ProjectDetails = () => {
-  const [projectData, setProjectData] = useState({
-    title: "",
-    tagline: "",
-    description: "",
-    projectLink: "",
-    opensource: false,
-  });
+// import { Upload, X } from "lucide-react";
+// import useImageUpload from "../../hooks/useImageUpload";
+const ProjectDetails = ({ projectData, setProjectData }) => {
   const modules = {
     toolbar: [
-      ["bold", "italic", "underline"], // toggled buttons
-      ["link"], // link
-      [{ list: "ordered" }, { list: "bullet" }], // lists
+      ["bold", "italic", "underline"],
+      ["link"],
+      [{ list: "ordered" }, { list: "bullet" }],
     ],
   };
-  //   const addProject =
   const handleEditorChange = (content) => {
-    setProjectData({ ...projectData, description: content }); // Update the state with the new content
+    setProjectData({ ...projectData, description: content });
   };
   const addProjectMutation = useAddProjectMutation();
   const handleProject = () => {
     addProjectMutation.mutate(projectData);
   };
+  // const { imageUrl, uploading, error, uploadImage, getImage, removeImage } =
+  //   useImageUpload();
+  // const [file, setFile] = useState(null);
+
+  // useEffect(() => {
+  //   if (file) {
+  //     uploadImage(file);
+  //   }
+  // }, [file]);
+
+  // useEffect(() => {
+  //   if (imageUrl) {
+  //     const img = getImage(imageUrl);
+  //     if (img?.publicID) {
+  //       projectData.images.push(img?.publicID);
+  //       setFile(null);
+  //     }
+  //   }
+  // }, [imageUrl]);
+
+  // const handleFileChange = (e) => {
+  //   console.log(e.target.files);
+  //   setFile(e.target.files[0]);
+  // };
+
+  // if (error) {
+  //   console.log(error);
+  // }
+
+  // if (uploading) {
+  //   console.log(uploading);
+  // }
   return (
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 px-8 md:px-4 ms flex flex-col gap-6">
@@ -63,6 +89,45 @@ const ProjectDetails = () => {
             </p>
           </div>
         </div>
+        {/* <div className="flex gap-2">
+          <div className="flex md:w-[200px] flex-shrink-0">
+            <p className=" text-primary font-medium text-sm flex-1">
+              Cover Image(s)
+            </p>
+          </div>
+          <div className="w-full">
+            <div className="flex gap-4 mb-2">
+              {uploading && <>uploading..</>}
+              {projectData?.images?.map((image) => (
+                <div className="relative">
+                  <img
+                    className="h-8 w-12 object-cover rounded-md"
+                    src={image}
+                    alt=""
+                  />
+                  <div
+                    onClick={() => removeImage(image)}
+                    className="h-5 w-5 flex items-center justify-center rounded-full border border-gray-300 absolute -top-2 -right-2 bg-white"
+                  >
+                    <X size={14} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <label className="flex items-center gap-1 border border-gray-300 rounded-full w-fit cursor-pointer px-3 py-1">
+              <Upload size={16} />
+              <span className="text-xs">Upload Images</span>
+              <input
+                onClick={handleFileChange}
+                type="file"
+                className="hidden"
+              />
+            </label>
+            <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
+              Recommended: 1200 x 630px • Up to 4 images. • Max 5 MB each.
+            </p>
+          </div>
+        </div> */}
         <div className="flex gap-2">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">

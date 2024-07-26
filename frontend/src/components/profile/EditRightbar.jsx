@@ -21,7 +21,7 @@ const EditRightbar = ({ setShowSheet }) => {
         initial={isMediumOrLarger ? {} : { opacity: 0, x: 100 }}
         animate={isMediumOrLarger ? {} : { opacity: 1, x: 0 }}
         transition={{ duration: 0.5, type: "spring" }}
-        className="fixed md:static right-0 top-[56px] z-10 w-80 md:w-full h-full bg-white md:pt-0 pt-4 border-l border-gray-300"
+        className="fixed md:static right-0 top-[56px] z-10 w-80 md:w-full h-full bg-white md:pt-0 pt-4 border-l md:border-none border-gray-300"
       >
         <div className="flex items-start gap-2 flex-col">
           <div

@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { v2 as cloudinary } from "cloudinary";
+import prisma from "../prisma/prisma.js";
 
 export const addProject = async (req, res) => {
   try {
@@ -202,5 +201,21 @@ export const deleteProject = async (req, res) => {
       error:
         "An error occurred while deleting the project. Please try again later.",
     });
+  }
+};
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // Replace with your Cloudinary cloud name
+  api_key: process.env.CLOUDINARY_API_KEY, // Replace with your Cloudinary API key
+  api_secret: process.env.CLOUDINARY_API_SECRET, // Replace with your Cloudinary API secret
+});
+export const removeImage = async (req, res) => {
+  const { publicId } = req.body;
+
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log(result);
+    res.json({ result });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove image" });
   }
 };

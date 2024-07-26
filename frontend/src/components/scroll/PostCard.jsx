@@ -75,17 +75,16 @@ const PostCard = ({ post }) => {
               </span>
             </div>
           </div>
-          <div className="p-1 relative -z-[999]">
+          <div className="p-1 relative">
             <EllipsisVertical
               onClick={(e) => {
                 e.preventDefault();
                 setShowDropdown(!showDropdown);
               }}
               size={16}
-              className=""
             />
             {showDropdown && (
-              <div className="absolute bg-white border border-gray-300 z-[999999] w-48 shadow-xl py-1 top-8 right-2 rounded-md">
+              <div className="absolute bg-white border border-gray-300 z-[999999] w-48 shadow-xl py-1 md:top-8 md:right-10 top-0 right-8 rounded-md">
                 <div
                   // onClick={copyProfileUrl}
                   className="flex items-center gap-2 px-4 py-3 cursor-pointer hover:bg-gray-100"

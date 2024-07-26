@@ -51,8 +51,34 @@ const useImageUpload = () => {
 
     return img;
   };
+  const removeImage = async (publicId) => {
+    setError(null);
 
-  return { imageUrl, uploading, error, uploadImage, getImage };
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/projects/remove-image`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ publicId }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to remove image");
+      }
+
+      await response.json();
+      setImageUrl(null); // Clear the image URL after successful removal
+    } catch (err) {
+      console.error("Error removing image:", err);
+      setError(err.message);
+    }
+  };
+
+  return { imageUrl, uploading, error, uploadImage, getImage, removeImage };
 };
 
 export default useImageUpload;

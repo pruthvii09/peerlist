@@ -85,12 +85,3 @@
 .react-calendar-heatmap .color-github-5 {
   fill: "#1e874b";
 }
-
-.ql-container.ql-snow {
-  border: 1px solid #ccc; /* Your desired border style */
-  z-index: -99; /* Set the z-index to the desired value */
-}
-
-.ql-toolbar.ql-snow {
-  z-index: -99; /* Set the z-index to the desired value */
-}

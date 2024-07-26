@@ -6,6 +6,7 @@ import {
   Search,
   ArrowRight,
   UserRoundSearch,
+  MessageCircleMore,
 } from "lucide-react";
 import Navlink from "./Navlink";
 import Button from "./ui/Button";
@@ -39,6 +40,11 @@ const routes = [
     href: "/my-network",
     icon: UserRoundSearch,
   },
+  {
+    title: "Inbox",
+    href: "/inbox",
+    icon: MessageCircleMore,
+  },
 ];
 const Sidebar = ({ children }) => {
   const { user } = useSelector((store) => store.user);
@@ -49,8 +55,20 @@ const Sidebar = ({ children }) => {
         <div className="md:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />
         </div>
-        <div className="fixed bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
+        <div className="fixed overflow-y-auto bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
           {routes.map((route, i) => {
+            if (route.title === "My Network") {
+              return (
+                <div className="md:block hidden">
+                  <Navlink
+                    key={i}
+                    title={route.title}
+                    href={route.href}
+                    icon={route.icon}
+                  />
+                </div>
+              );
+            }
             return (
               <Navlink
                 key={i}

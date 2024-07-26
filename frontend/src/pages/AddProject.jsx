@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
-import GradientCard from "../components/utils/GradientCard";
 import { ArrowLeft } from "lucide-react";
-import GradientCard2 from "../components/utils/GradientCard2";
 import ProjectDetails from "../components/profile/ProjectDetails";
 import { useSelector } from "react-redux";
+import ProjectProgress from "../components/projects/ProjectProgress";
 const AddProject = () => {
   const { user } = useSelector((store) => store.user);
+  const [projectData, setProjectData] = useState({
+    title: "",
+    tagline: "",
+    description: "",
+    projectLink: "",
+    opensource: false,
+  });
+
   return (
     <Sidebar>
       <div className="flex">
@@ -18,12 +25,14 @@ const AddProject = () => {
             iconConfig={{ icon: ArrowLeft }}
             href={`/user/${user.username}`}
           />
-          <ProjectDetails />
+          <ProjectDetails
+            projectData={projectData}
+            setProjectData={setProjectData}
+          />
         </div>
         <Rightsidebar>
           <div className="mt-8 flex flex-col gap-4 px-6">
-            <GradientCard />
-            <GradientCard2 />
+            <ProjectProgress projectData={projectData} />
           </div>
         </Rightsidebar>
       </div>
