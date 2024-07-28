@@ -8,9 +8,12 @@ import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 const PostModal = () => {
   const [content, setContent] = useState("");
+
   const { user } = useSelector((store) => store.user);
   const { hideModal } = useModal();
+
   const addPost = useAddPost();
+
   const handlePostClick = () => {
     if (!content) return;
     addPost.mutate({ content });

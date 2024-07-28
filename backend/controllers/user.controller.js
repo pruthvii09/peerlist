@@ -1,74 +1,7 @@
 import { fetchGithubData } from "../helpers/githubHelper.js";
-import { createToken } from "../helpers/jwtHelper.js";
+
 import prisma from "../prisma/prisma.js";
 
-export const signup = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "All Fields Required" });
-    }
-    const exist = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    if (exist) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "Already Registred" });
-    }
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password,
-      },
-    });
-    const token = createToken(user.id);
-    res.status(201).json({
-      status: "success",
-      message: "User Created",
-      data: { ...user, token },
-    });
-  } catch (error) {
-    res.status(500).json({ status: "error", message: error.message });
-  }
-};
-export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await prisma.user.findUnique({
-      where: { email: email },
-    });
-
-    if (!user) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "Invalid email or password" });
-    }
-
-    const match = user.password === password;
-    if (!match) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "Invalid email or password" });
-    }
-
-    const token = createToken(user.id);
-    res.status(200).json({
-      status: "success",
-      message: "Login successful",
-      data: { ...user, token },
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      message: "An unexpected error occurred. Please try again later.",
-    });
-  }
-};
 export const primaryDetails = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -142,7 +75,6 @@ export const updateProfile = async (req, res) => {
 export const getUserByUsername = async (req, res) => {
   try {
     const { username } = req.params;
-    const access_token = req.headers["accesstoken"];
     // Fetch user data by username
     const user = await prisma.user.findUnique({
       where: { username },
@@ -150,6 +82,7 @@ export const getUserByUsername = async (req, res) => {
         id: true,
         username: true,
         email: true,
+        emailVerified: true,
         gitUsername: true,
         githubToken: true,
         firstname: true,
@@ -243,6 +176,7 @@ export const getAllUsers = async (req, res) => {
         firstname: true,
         lastname: true,
         id: true,
+        emailVerified: true,
         username: true,
         bio: true,
         followers: true,
@@ -304,6 +238,7 @@ export const searchUsersByUsername = async (req, res) => {
         profileImageUrl: true,
         firstname: true,
         lastname: true,
+        id: true,
         bio: true,
         username: true,
       },
@@ -444,92 +379,5 @@ export const getAllFollowerFollowing = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   } finally {
     await prisma.$disconnect();
-  }
-};
-
-export const getAccessTokenGithub = async (req, res) => {
-  try {
-    const { code } = req.query;
-    console.log("code => ", code);
-    const params = new URLSearchParams({
-      client_id: process.env.GITHUB_CLIENT_ID,
-      client_secret: process.env.GITHUB_CLIENT_SECRET,
-      code: code,
-    });
-    console.log("params => ", params);
-
-    const response = await fetch(
-      "https://github.com/login/oauth/access_token",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params,
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log("data", data);
-    const { access_token, refresh_token, expires_in } = data;
-    const userResponse = await fetch("https://api.github.com/user", {
-      headers: {
-        Authorization: `Bearer ${data.access_token}`,
-      },
-    });
-
-    const userData = await userResponse.json();
-    console.log(userData);
-    const id = userData?.id?.toString();
-    const userId = req.user.id;
-    console.log("userId => ", userId);
-    console.log("expires_in => ", expires_in);
-    const expiresAt = (await Math.floor(Date.now() / 1000)) + expires_in;
-    console.log("Expires At => ", expiresAt);
-    const user = await prisma.user.update({
-      where: { id: userId },
-      data: {
-        gitUsername: userData.login,
-        githubId: id,
-        githubToken: access_token,
-        githubRefreshToken: refresh_token,
-        githubTokenExpiresAt: expiresAt,
-      },
-    });
-    console.log(user);
-    console.log("accessToken send.. => ");
-    res.status(200).json({ access_token: user.githubToken });
-  } catch (error) {
-    console.error("Error in getAccessTokenGithub:", error);
-    res.status(500).json({ error: error });
-  }
-};
-
-export const deleteGithub = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    console.log(userId);
-    const user = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        githubId: null,
-        gitUsername: null,
-        githubToken: null,
-      },
-    });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    console.log("git user => ", user);
-    res.status(200).json({ message: "Deleted success" });
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
   }
 };

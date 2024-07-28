@@ -14,6 +14,7 @@ const Button = ({
 
   return (
     <button
+      disabled={loading}
       className={`${className} flex gap-1 items-center`}
       onChange={onChange}
       onClick={onClick}

@@ -68,7 +68,10 @@ const RightSheet = ({ showSheet, setShowSheet }) => {
               </p>
             </div>
           </div>
-          <div className="flex group  gap-2 py-1 hover:cursor-pointer group items-center">
+          <div
+            onClick={() => navigate("/user/upvotes")}
+            className="flex group  gap-2 py-1 hover:cursor-pointer group items-center"
+          >
             <Bookmark size={18} />
             <div className="flex items-start flex-col">
               <span className="text-sm group-hover:translate-x-1 transition-all ease-in-out ">

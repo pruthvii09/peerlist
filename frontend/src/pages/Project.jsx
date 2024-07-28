@@ -13,7 +13,6 @@ import { formatDateRange } from "../utils/functions";
 const Project = () => {
   const { week } = useParams();
   const { data, isLoading } = useGetSpotlight(week);
-
   const dateRange = formatDateRange(data?.startDate, data?.endDate);
   return (
     <Sidebar>

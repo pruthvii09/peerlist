@@ -15,6 +15,7 @@ router.post("/", createSpotlight);
 router.post("/launch", auth, launchProjectOnSpotlight);
 router.post("/upvote", auth, createUpvote);
 router.post("/removeupvote", auth, removeUpvote);
+
 router.get("/", getSpotlightDetails);
 
 export default router;

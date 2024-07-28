@@ -32,6 +32,7 @@ export const getAllPosts = async (req, res) => {
           select: {
             firstname: true,
             lastname: true,
+            emailVerified: true,
             username: true,
             profileImageUrl: true,
           },
@@ -319,5 +320,48 @@ export const addComment = async (req, res) => {
     res.status(201).json(comment);
   } catch (error) {
     res.status(500).json({ error: "Failed to add comment" });
+  }
+};
+
+export const getUsersUpvotes = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    console.log(userId);
+    const postsLikedByUser = await prisma.post.findMany({
+      where: {
+        likes: {
+          some: {
+            userId: userId,
+          },
+        },
+      },
+      include: {
+        likes: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            firstname: true,
+            lastname: true,
+            emailVerified: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.status(200).json(postsLikedByUser);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

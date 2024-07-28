@@ -47,7 +47,7 @@ const ProjectCard = ({ data, rank }) => {
       className="px-4 group/project py-4 mt-2 w-full hover:bg-[#F8FAFB] flex items-center justify-between"
     >
       <div className="flex items-center gap-2">
-        <p className="text-gray-600 text-xs">#{rank + 1}</p>
+        {rank && <p className="text-gray-600 text-xs">#{rank + 1}</p>}
         <img
           height={63}
           width={120}

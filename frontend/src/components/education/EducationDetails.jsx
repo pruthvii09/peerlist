@@ -18,8 +18,10 @@ const EducationDetails = () => {
     end_year: "",
   });
   const { showModal } = useModal();
-  const addEducationMutation = useAddEducation();
   const { user } = useSelector((store) => store.user);
+
+  const addEducationMutation = useAddEducation();
+
   const handleSave = () => {
     if (!user) {
       return showModal("loginmodal");

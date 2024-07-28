@@ -61,8 +61,8 @@ const Rightsidebar = ({ children }) => {
                 <div>
                   {data?.length > 0 ? (
                     <div className="mt-4">
-                      {data?.map((user) => (
-                        <SearchCard user={user} />
+                      {data?.map((user, i) => (
+                        <SearchCard key={i} user={user} />
                       ))}
                     </div>
                   ) : (

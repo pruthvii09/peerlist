@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const { hideModal } = useModal();
   const dispatch = useDispatch();
   const loginMutation = useLoginMutation();

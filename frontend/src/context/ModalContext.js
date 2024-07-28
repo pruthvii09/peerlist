@@ -9,6 +9,7 @@ import EditPostModal from "../components/modals/EditPostModal";
 import LaunchProject from "../components/modals/LaunchProject";
 import IntegrationModal from "../components/modals/IntegrationModal";
 import SearchModal from "../components/modals/SearchModal";
+import VerifyOtpModal from "../components/modals/VerifyOtpModal";
 
 const ModalContext = createContext();
 
@@ -56,6 +57,8 @@ const ModalContainer = ({ modalType, modalProps }) => {
       return <IntegrationModal {...modalProps} />;
     case "search":
       return <SearchModal {...modalProps} />;
+    case "verify":
+      return <VerifyOtpModal {...modalProps} />;
     default:
       return null;
   }

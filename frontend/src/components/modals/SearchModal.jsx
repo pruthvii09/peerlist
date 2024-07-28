@@ -4,13 +4,17 @@ import { useModal } from "../../context/ModalContext";
 import useSearchProfile from "../../hooks/profile/useSearchProfile";
 import useDebounce from "../../hooks/useDebounce";
 
-const SearchModal = () => {
+const SearchModal = ({ setRecept }) => {
   const { hideModal } = useModal();
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
   const { data } = useSearchProfile(debouncedQuery);
   console.log(data);
+  const handleUserSelect = (user) => {
+    setRecept(user);
+    hideModal();
+  };
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -37,12 +41,12 @@ const SearchModal = () => {
           </div>
         </div>
         <div className="py-3">
-          <div className="w-[350px] absolute shadow-2xl top-[105px] right-4 bg-white rounded border border-gray-300">
+          <div className="w-[350px] absolute shadow-2xl top-[105px] md:right-4 right-0 bg-white rounded border border-gray-300">
             {data?.map((user, i) => (
               <div
                 key={i}
                 className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
-                // onClick={() => handleUserSelect(user)}
+                onClick={() => handleUserSelect(user)}
               >
                 <div className="">
                   <img

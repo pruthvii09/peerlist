@@ -40,3 +40,18 @@ export function formatDateRange(startDate, endDate) {
     startFormatted.split(" ")[1]
   } - ${endDay}`;
 }
+export function formatChatTime(timestamp) {
+  const date = new Date(timestamp);
+
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "short" });
+  const year = date.getFullYear();
+
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  const formattedDate = `${day} ${month}, ${year}`;
+  const formattedTime = `${hours}:${minutes}`;
+
+  return { formattedDate, formattedTime };
+}

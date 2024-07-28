@@ -12,11 +12,11 @@ const LaunchProject = () => {
   const projects = data?.data;
   const { hideModal } = useModal();
   const [selectedId, setSelectedId] = useState(null);
+  const launchMutation = useLaunchProjectMutation();
 
   const handleSelect = (id) => {
     setSelectedId(id);
   };
-  const launchMutation = useLaunchProjectMutation();
 
   const handleLaunch = async () => {
     if (selectedId) {

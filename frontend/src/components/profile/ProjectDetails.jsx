@@ -151,6 +151,19 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
         <div className="flex gap-2">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
+              Collabrators
+            </p>
+          </div>
+          <div className="w-full">
+            <Input />
+            <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
+              Add people who collaborated with you on this project.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="flex md:w-[200px] flex-shrink-0">
+            <p className=" text-primary font-medium text-sm flex-1">
               Is this project open source?
             </p>
           </div>

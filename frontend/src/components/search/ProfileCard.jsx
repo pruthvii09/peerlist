@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown, LucideLink, UserMinus } from "lucide-react";
 import { useFollowUser } from "../../hooks/profile/useAddFollow";
 import { useUnFollowUser } from "../../hooks/profile/useRemoveFollow";
+import Badge from "../../assets/Badge";
 
 const ProfileCard = ({ user, follow }) => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -55,13 +56,20 @@ const ProfileCard = ({ user, follow }) => {
       to={`/user/${user.username}`}
       className="relative  h-fit hover:bg-[#FAFBFC] group flex border border-gray-300 items-start flex-col p-4 rounded-lg"
     >
-      <img
-        height={40}
-        width={40}
-        className="rounded-full w-10 h-10 object-cover"
-        src={user?.profileImageUrl}
-        alt={`${user.firstname} ${user.lastname}`}
-      />
+      <div className="relative">
+        <img
+          height={40}
+          width={40}
+          className="rounded-full w-10 h-10 object-cover"
+          src={user?.profileImageUrl}
+          alt={`${user.firstname} ${user.lastname}`}
+        />
+        {user?.emailVerified && (
+          <div className="absolute flex h-4 w-4 bg-white items-center justify-center rounded-full bottom-0 right-0">
+            <Badge size={12} />
+          </div>
+        )}
+      </div>
       <h1 className="text-sm font-semibold group-hover:underline">
         {user.firstname} {user.lastname}
       </h1>

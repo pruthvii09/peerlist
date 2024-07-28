@@ -11,6 +11,7 @@ model User {
   id                   String         @id @default(auto()) @map("_id") @db.ObjectId
   username             String?        @unique
   email                String         @unique
+  emailVerified        Boolean?       @default(false)
   password             String
   githubId             String?
   githubToken          String?
@@ -42,6 +43,13 @@ model User {
   conversationsAsUser1 Conversation[] @relation("User1Conversations")
   conversationsAsUser2 Conversation[] @relation("User2Conversations")
   messages             Message[]
+}
+
+model Otp {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  otp       String
+  createdAt DateTime @default(now())
 }
 
 model Conversation {
@@ -76,16 +84,6 @@ model Post {
   likes     Like[]
 }
 
-model Comment {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.ObjectId
-  content   String
-  createdAt DateTime @default(now())
-}
-
 model Like {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   post   Post   @relation(fields: [postId], references: [id])
@@ -94,6 +92,16 @@ model Like {
   userId String @db.ObjectId
 
   @@unique([postId, userId])
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  content   String
+  createdAt DateTime @default(now())
 }
 
 model Follow {
@@ -139,14 +147,6 @@ model Project {
   allupvotes          Upvote[]
 }
 
-model SpotlightWeek {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  weekNumber Int
-  startDate  DateTime
-  endDate    DateTime
-  projects   Project[]
-}
-
 model Upvote {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
@@ -156,6 +156,14 @@ model Upvote {
   createdAt DateTime @default(now())
 
   @@unique([userId, projectId])
+}
+
+model SpotlightWeek {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  weekNumber Int
+  startDate  DateTime
+  endDate    DateTime
+  projects   Project[]
 }
 
 model Skills {

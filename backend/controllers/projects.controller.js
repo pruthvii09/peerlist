@@ -163,6 +163,7 @@ export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.user.id;
+    console.log(req.user);
 
     // Check if the project exists and belongs to the user
     const existingProject = await prisma.project.findFirst({
@@ -203,10 +204,58 @@ export const deleteProject = async (req, res) => {
     });
   }
 };
+
+export const getUpvotes = async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming the userId is passed as a route parameter
+
+    if (!userId) {
+      return res.status(400).json({
+        error: "User ID is required",
+      });
+    }
+
+    const projectsUpvotedByUser = await prisma.upvote.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        project: {
+          select: {
+            id: true,
+            title: true,
+            tagline: true,
+            upvotes: true,
+            allupvotes: true,
+          },
+        },
+      },
+    });
+
+    const formattedProjects = projectsUpvotedByUser.map((upvote) => ({
+      id: upvote.project.id,
+      title: upvote.project.title,
+      tagline: upvote.project.tagline,
+      allupvotes: upvote.project.allupvotes,
+      upvotes: upvote.project.upvotes,
+      upvotedAt: upvote.createdAt,
+    }));
+
+    res.status(200).json({
+      projects: formattedProjects,
+    });
+  } catch (error) {
+    console.error("Error in getUpvotes:", error);
+    res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, // Replace with your Cloudinary cloud name
-  api_key: process.env.CLOUDINARY_API_KEY, // Replace with your Cloudinary API key
-  api_secret: process.env.CLOUDINARY_API_SECRET, // Replace with your Cloudinary API secret
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 export const removeImage = async (req, res) => {
   const { publicId } = req.body;
