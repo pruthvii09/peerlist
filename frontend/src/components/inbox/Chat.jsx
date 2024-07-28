@@ -16,10 +16,10 @@ const Chat = ({ recept, setRecept }) => {
       {
         onSuccess: (data) => {
           console.log("data => ", data);
-          setRecept((prevRecept) => ({
-            ...prevRecept,
-            conversationId: data.conversationId,
-          }));
+          // setRecept((prevRecept) => ({
+          //   ...prevRecept,
+          //   conversationId: data.conversationId,
+          // }));
           console.log("recept on message => ", recept);
           // setRecept(recept.conversationId);
         },

@@ -7,7 +7,7 @@ const InboxMessage = ({ recept, setRecept }) => {
   return (
     <div>
       {!recept ? (
-        <div className="mt-[52px] h-[calc(100vh-52px)] w-[640px] border-r border-gray-300 flex items-center justify-center ">
+        <div className="mt-[52px] hidden h-[calc(100vh-52px)] w-[640px] border-r border-gray-300 md:flex items-center justify-center ">
           <div className="px-24">
             <p className="uppercase font-semibold text-xs tracking-wider text-gray-700 text-center">
               Peerlist inbox
