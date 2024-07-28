@@ -2,10 +2,8 @@ import React from "react";
 import Hand from "../../assets/Hand";
 import { BadgeCheck, Slash } from "lucide-react";
 import Chat from "./Chat";
-import { useMediaQuery } from "react-responsive";
 
 const InboxMessage = ({ recept, setRecept }) => {
-  const isMediumOrLarger = useMediaQuery({ query: "(min-width: 768px)" });
   return (
     <div>
       {!recept ? (

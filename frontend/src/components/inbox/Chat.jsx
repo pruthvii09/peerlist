@@ -16,12 +16,12 @@ const Chat = ({ recept, setRecept }) => {
       {
         onSuccess: (data) => {
           console.log("data => ", data);
-          // setRecept((prevRecept) => ({
-          //   ...prevRecept,
-          //   conversationId: data.conversationId,
-          // }));
+          setRecept((prevRecept) => ({
+            ...prevRecept,
+            conversationId: data.conversationId,
+          }));
           console.log("recept on message => ", recept);
-          setRecept(recept.conversationId);
+          // setRecept(recept.conversationId);
         },
       }
     );
@@ -49,7 +49,7 @@ const Chat = ({ recept, setRecept }) => {
     return <ChatSkeleton />;
   }
   return (
-    <div className="mt-[52px] relative z-[20] bg-white max-h-full min-h-screen border-r border-gray-300 pb-24">
+    <div className="mt-[52px] relative z-[20] bg-white max-h-full min-h-screen border-r border-gray-300 md:pb-24 pb-40">
       <div className="sticky top-[56px] bg-white px-4 py-3 border-b border-gray-300 flex items-center justify-between">
         <div className="flex gap-2 cursor-pointer group">
           <div>
