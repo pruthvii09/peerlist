@@ -21,7 +21,6 @@ export const useSendMessage = () => {
   return useMutation({
     mutationFn: sendMessage,
     onSuccess: () => {
-      toast.success("Message Added Successfully!");
       queryClient.invalidateQueries("conversations");
       queryClient.invalidateQueries("messages");
     },
