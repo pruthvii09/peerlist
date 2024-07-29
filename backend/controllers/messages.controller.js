@@ -1,3 +1,4 @@
+import { io } from "../app.js";
 import prisma from "../prisma/prisma.js";
 
 export const sendMessage = async (req, res) => {
@@ -40,6 +41,8 @@ export const sendMessage = async (req, res) => {
         conversationId: conversation.id,
       },
     });
+
+    // Emit a socket event with the new message
 
     res.status(201).json(message);
   } catch (error) {

@@ -6,7 +6,6 @@ import { X } from "lucide-react";
 import { useModal } from "../../context/ModalContext";
 const VerifyOtpModal = () => {
   const [otp, setOtp] = useState("");
-  console.log(otp);
   const verifyOtp = useVerifyOtp();
   const handleVerify = async () => {
     verifyOtp.mutate({ otp: otp });

@@ -72,13 +72,11 @@ export const login = async (req, res) => {
 export const getAccessTokenGithub = async (req, res) => {
   try {
     const { code } = req.query;
-    console.log("code => ", code);
     const params = new URLSearchParams({
       client_id: process.env.GITHUB_CLIENT_ID,
       client_secret: process.env.GITHUB_CLIENT_SECRET,
       code: code,
     });
-    console.log("params => ", params);
 
     const response = await fetch(
       "https://github.com/login/oauth/access_token",
@@ -97,7 +95,6 @@ export const getAccessTokenGithub = async (req, res) => {
     }
 
     const data = await response.json();
-    console.log("data", data);
     const { access_token, refresh_token, expires_in } = data;
     const userResponse = await fetch("https://api.github.com/user", {
       headers: {

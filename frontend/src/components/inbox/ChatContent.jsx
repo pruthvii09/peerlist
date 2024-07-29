@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { formatChatTime } from "../../utils/functions";
 
 const ChatContent = ({ chat }) => {
-  console.log("chat => ", chat);
   const { user } = useSelector((store) => store.user);
   const isOwnProfile = user?.id === chat?.senderId;
   const { formattedDate, formattedTime } = formatChatTime(chat?.createdAt);

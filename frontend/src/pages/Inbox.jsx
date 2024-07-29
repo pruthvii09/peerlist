@@ -12,7 +12,6 @@ const Inbox = () => {
   const { showModal } = useModal();
   const [recept, setRecept] = useState(null);
   const isMediumOrLarger = useMediaQuery({ query: "(min-width: 768px)" });
-  console.log("recept => ", recept);
   return (
     <Sidebar>
       <div className="flex">

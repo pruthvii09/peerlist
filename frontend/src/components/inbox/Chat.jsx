@@ -4,29 +4,83 @@ import { useSendMessage } from "../../hooks/inbox/useSendMessage";
 import useGetMessages from "../../hooks/inbox/useGetMessages";
 import ChatContent from "./ChatContent";
 import ChatSkeleton from "../skeleton/ChatSkeleton";
+import socket from "../../socket";
+import { useSelector } from "react-redux";
 
-const Chat = ({ recept, setRecept }) => {
-  const [content, setContent] = useState("");
+const Chat = ({ recept }) => {
   const chatContainerRef = useRef(null);
+  const [content, setContent] = useState("");
+  const { user } = useSelector((store) => store.user);
   const { data, isLoading } = useGetMessages(recept?.conversationId);
+  const [conversationId, setConversationId] = useState(
+    recept?.conversationId || ""
+  );
+  const [chat, setChat] = useState([]);
+  useEffect(() => {
+    if (data) {
+      setChat(data);
+    } else {
+      setChat([]);
+    }
+  }, [data]);
+  useEffect(() => {
+    console.log("Current chat state:", chat);
+  }, [chat]);
   const sendMessage = useSendMessage();
   const handleSend = () => {
-    sendMessage.mutate(
-      { content: content, senderId: recept?.id },
-      {
-        onSuccess: (data) => {
-          console.log("data => ", data);
-          // setRecept((prevRecept) => ({
-          //   ...prevRecept,
-          //   conversationId: data.conversationId,
-          // }));
-          console.log("recept on message => ", recept);
-          // setRecept(recept.conversationId);
-        },
-      }
-    );
+    const newMessage = {
+      content: content,
+      isRead: false,
+      createdAt: new Date(),
+      senderId: user?.id,
+      sender: {
+        firstname: user?.firstname,
+        lastname: user?.lastname,
+        profileImageUrl: user?.profileImageUrl,
+        username: user?.username,
+      },
+    };
+    setChat((prevChat) => [...prevChat, newMessage]);
+    socket.emit("send_message", {
+      conversationId: conversationId,
+      message: content,
+      senderId: user?.id,
+    });
     setContent("");
   };
+  useEffect(() => {
+    if (!conversationId) {
+      socket.emit(
+        "create_conversation",
+        { userId: user?.id, senderId: recept?.id },
+        (response) => {
+          if (response.error) {
+            console.error("Failed to create conversation:", response.error);
+            return;
+          }
+          const newConversationId = response.conversationId;
+          setConversationId(newConversationId);
+          console.log(
+            "Received new conversationId from server => ",
+            newConversationId
+          );
+          socket.emit("join_room", newConversationId);
+        }
+      );
+    } else {
+      console.log("recept.conversationId => ", recept.conversationId);
+      socket.emit("join_room", conversationId);
+    }
+
+    socket.on("receive_message", (data) => {
+      console.log("data => ", data);
+      setChat((prevChat) => [...prevChat, data]);
+      console.log("chat => ", chat);
+    });
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [socket, recept]);
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -34,20 +88,12 @@ const Chat = ({ recept, setRecept }) => {
     }
   };
   useEffect(() => {
-    const scrollToBottom = () => {
-      if (chatContainerRef.current) {
-        const lastChild = chatContainerRef.current.lastElementChild;
-        if (lastChild) {
-          lastChild.scrollIntoView({ behavior: "smooth", block: "end" });
-        }
-      }
-    };
-    const timeoutId = setTimeout(scrollToBottom, 100);
-    return () => clearTimeout(timeoutId);
-  }, [data]);
+    chatContainerRef?.current?.scrollIntoView();
+  }, [chat]);
   if (isLoading) {
     return <ChatSkeleton />;
   }
+
   return (
     <div className="mt-[52px] relative z-[20] bg-white max-h-full min-h-screen border-r border-gray-300 md:pb-24 pb-40">
       <div className="sticky top-[56px] bg-white px-4 py-3 border-b border-gray-300 flex items-center justify-between">
@@ -70,13 +116,12 @@ const Chat = ({ recept, setRecept }) => {
           <MoreHorizontal strokeWidth={1} className="rotate-90 size-4" />
         </div>
       </div>
-      <div className="hi" ref={chatContainerRef}>
-        {data?.map((chat) => (
-          <div key={chat.id}>
-            <ChatContent chat={chat} />
-          </div>
-        ))}
-      </div>
+      {chat?.map((chat, i) => (
+        <div key={i}>
+          <ChatContent chat={chat} />
+        </div>
+      ))}
+      <div ref={chatContainerRef}></div>
       <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <div className="w-full py-1.5 pl-4 pr-2 border border-gray-300 rounded-full bg-white flex items-center justify-between">
           <input

@@ -10,7 +10,6 @@ const UserUpvotedPost = () => {
   const { data: posts, isLoading: postLoading } = useGetUpvotedPosts();
   const { data, isLoading: projectLoading } = useGetUpvotedProjects();
   const projects = data?.projects;
-  console.log(projects);
   const [toggle, setToggle] = useState(false);
   if (postLoading || projectLoading) {
     return (

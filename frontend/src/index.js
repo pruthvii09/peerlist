@@ -14,18 +14,18 @@ const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <ConfettiProvider>
-      <Confetti />
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
-        </Provider>
-      </QueryClientProvider>
-    </ConfettiProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <ConfettiProvider>
+    <Confetti />
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </Provider>
+    </QueryClientProvider>
+  </ConfettiProvider>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

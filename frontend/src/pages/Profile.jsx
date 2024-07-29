@@ -15,9 +15,9 @@ import { useModal } from "../context/ModalContext";
 import GithubDetails from "../components/profile/GithubDetails";
 const Profile = () => {
   const { id } = useParams();
-  console.log(id);
+
   const { data, isLoading, isError } = useUserProfile(id);
-  console.log(data);
+
   const loggedInUser = useSelector((state) => state.user.user);
   const user = data?.data;
   const navigate = useNavigate();
@@ -27,7 +27,6 @@ const Profile = () => {
     (follower) => follower.followeeId === loggedInUser?.id
   );
   function loginGithub() {
-    console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
     window.location.assign(
       `https://github.com/login/oauth/authorize?client_id=Iv23lidnCU7MshKkW99u`
     );

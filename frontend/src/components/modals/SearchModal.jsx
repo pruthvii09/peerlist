@@ -10,7 +10,6 @@ const SearchModal = ({ setRecept }) => {
   const debouncedQuery = useDebounce(query, 300);
 
   const { data } = useSearchProfile(debouncedQuery);
-  console.log(data);
   const handleUserSelect = (user) => {
     setRecept(user);
     hideModal();

@@ -1,18 +1,21 @@
-// require('dotenv').config({path: './env'})
 import dotenv from "dotenv";
-import { app } from "./app.js";
+import { app, httpServer, io } from "./app.js";
 import connectDB from "./database/connectToDb.js";
+
 dotenv.config({
   path: "./.env",
 });
 
+const PORT = process.env.PORT || 4000;
+
 connectDB()
   .then(() => {
-    app.listen(4000, () => {
-      console.log("Server Listning on Port 4000 🚀🚀...");
+    httpServer.listen(PORT, () => {
+      console.log(`Server Listening on Port ${PORT} 🚀🚀...`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.log("Database connection error:", error);
   });
-export default app;
+
+export { app, io };
