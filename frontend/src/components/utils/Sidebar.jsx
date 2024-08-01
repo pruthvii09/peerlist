@@ -1,33 +1,33 @@
 import React from "react";
-import {
-  House,
-  Box,
-  BriefcaseBusiness,
-  Search,
-  ArrowRight,
-  UserRoundSearch,
-  MessageCircleMore,
-} from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import Navlink from "./Navlink";
 import Button from "./ui/Button";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.svg";
 import { useSelector } from "react-redux";
+import { getCurrentWeekNumber } from "../../utils/functions";
+import Project from "../../assets/icons/Project";
+import Job from "../../assets/icons/Job";
+import Home from "../../assets/icons/Home";
+import Message from "../../assets/icons/Message";
+import Network from "../../assets/icons/Network";
+const currentWeekNumber = getCurrentWeekNumber();
+
 const routes = [
   {
     title: "Scroll",
     href: "/scroll",
-    icon: House,
+    icon: Home,
   },
   {
     title: "Projects",
-    href: `/projects/week/30`,
-    icon: Box,
+    href: `/projects/week/${currentWeekNumber}`,
+    icon: Project,
   },
   {
     title: "Jobs",
     href: "/jobs",
-    icon: BriefcaseBusiness,
+    icon: Job,
   },
 
   {
@@ -38,25 +38,31 @@ const routes = [
   {
     title: "My Network",
     href: "/my-network",
-    icon: UserRoundSearch,
+    icon: Network,
+    authOnly: true,
   },
   {
     title: "Inbox",
     href: "/inbox",
-    icon: MessageCircleMore,
+    icon: Message,
+    authOnly: true,
   },
 ];
 const Sidebar = ({ children }) => {
   const { user } = useSelector((store) => store.user);
-
+  console.log("user => ", user);
   return (
     <div className="md:flex block w-full">
       <div className="md:w-[212px] w-full fixed z-[99] md:h-screen h-auto border-r border-gray-300">
         <div className="md:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />
         </div>
-        <div className="fixed overflow-y-auto bottom-0 right-0 left-0 flex justify-around items-start h-16 bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0">
+        <div className="fixed overflow-y-auto bottom-0 right-0 left-0 grid grid-cols-5 w-full bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0 px-2">
           {routes.map((route, i) => {
+            if (route.authOnly && !user) {
+              // Skip rendering this route if it's auth-only and the user is not authenticated
+              return null;
+            }
             if (route.title === "My Network") {
               return (
                 <div className="md:block hidden">

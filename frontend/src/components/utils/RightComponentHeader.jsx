@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./ui/Button";
 import { Bell, Gift, Search, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { useModal } from "../../context/ModalContext";
 import { Link } from "react-router-dom";
+import socket from "../../socket";
 const RightComponentHeader = ({
   showSheet,
   setShowSheet,
@@ -15,9 +16,17 @@ const RightComponentHeader = ({
   isInputFocused,
 }) => {
   const { user } = useSelector((store) => store.user);
-  // const handleFocus = () => setIsInputFocused(true);
-  // const handleBlur = () => setIsInputFocused(false);
   const { showModal } = useModal();
+  const [notification, setNotification] = useState(false);
+  useEffect(() => {
+    if (user) {
+      socket.emit("noti_room", user?.id);
+    }
+    socket.on("newNotification", (data) => {
+      console.log("data => ", data);
+      setNotification(true);
+    });
+  }, [socket, user]);
 
   return (
     <div className="w-[348px] h-[56px] border-r border-b border-gray-300">
@@ -82,9 +91,12 @@ const RightComponentHeader = ({
                   </div>
                   <Link
                     to={"/notifications"}
-                    className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1"
+                    className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1 relative"
                   >
-                    <Bell size={18} />
+                    <Bell onClick={() => setNotification(false)} size={18} />
+                    {notification && (
+                      <div className="h-2 w-2 bg-green-600 rounded-full absolute top-0 right-0"></div>
+                    )}
                   </Link>
                 </div>
                 <img

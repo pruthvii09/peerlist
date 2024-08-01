@@ -3,8 +3,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 import { setUser } from "../../store/userSlice";
-import { toast } from "react-toastify";
-
 const loginUser = async (credentials) => {
   const response = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/users/login`,
@@ -24,8 +22,6 @@ export const useLoginMutation = () => {
       dispatch(setUser(data.data));
       hideModal();
     },
-    onError: (error) => {
-      toast.error(error.response?.data?.message);
-    },
+    onError: (error) => {},
   });
 };

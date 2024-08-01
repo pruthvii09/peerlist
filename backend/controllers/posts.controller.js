@@ -1,5 +1,8 @@
+import { NotificationType } from "@prisma/client";
+import { extractTaggedUsernames } from "../helpers/functions.js";
 import prisma from "../prisma/prisma.js";
-
+import { sendNotificationsToTaggedUsers } from "./notification.controller.js";
+import { io } from "../app.js";
 export const createPost = async (req, res) => {
   try {
     const { content } = req.body;
@@ -9,6 +12,14 @@ export const createPost = async (req, res) => {
         content,
         userId,
       },
+    });
+    const taggedUsernames = extractTaggedUsernames(content);
+
+    // Send notifications to tagged users
+    await sendNotificationsToTaggedUsers(taggedUsernames, userId, {
+      type: "POST",
+      id: newPost.id,
+      notificationType: "POST_TAG",
     });
 
     res.status(201).json({
@@ -25,34 +36,45 @@ export const createPost = async (req, res) => {
   }
 };
 export const getAllPosts = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+
+  const pageNumber = parseInt(page);
+  const pageSize = parseInt(limit);
+  const skip = (pageNumber - 1) * pageSize;
+
   try {
-    const posts = await prisma.post.findMany({
-      include: {
-        user: {
-          select: {
-            firstname: true,
-            lastname: true,
-            emailVerified: true,
-            username: true,
-            profileImageUrl: true,
+    const [posts, totalPosts] = await Promise.all([
+      prisma.post.findMany({
+        skip,
+        take: pageSize,
+        include: {
+          user: {
+            select: {
+              firstname: true,
+              lastname: true,
+              emailVerified: true,
+              username: true,
+              profileImageUrl: true,
+            },
           },
-        },
-        comments: true,
-        likes: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                username: true,
+          comments: true,
+          likes: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  username: true,
+                },
               },
             },
           },
         },
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      prisma.post.count(),
+    ]);
 
     const formattedPosts = posts.map((post) => ({
       ...post,
@@ -67,6 +89,9 @@ export const getAllPosts = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: formattedPosts,
+      totalPosts,
+      currentPage: pageNumber,
+      totalPages: Math.ceil(totalPosts / pageSize),
     });
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -282,6 +307,28 @@ export const likePost = async (req, res) => {
         userId,
       },
     });
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      select: { userId: true },
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    await prisma.notification.create({
+      data: {
+        userId: post.userId,
+        content: "Someone upvoted your post",
+        type: NotificationType.POST_LIKE,
+        postId: postId,
+        relatedUserId: userId,
+      },
+    });
+    io.to(post.userId).emit("newNotification", {
+      type: NotificationType.POST_LIKE,
+      content: "Someone upvoted your post",
+    });
+
     res.status(201).json(like);
   } catch (error) {
     res.status(500).json({ error: "Failed to like the post" });
@@ -316,6 +363,15 @@ export const addComment = async (req, res) => {
         userId,
         content,
       },
+    });
+    console.log("comment => ", comment);
+    const taggedUsernames = extractTaggedUsernames(content);
+    console.log("taggedUsernames => ", taggedUsernames);
+    // Send notifications to tagged users
+    await sendNotificationsToTaggedUsers(taggedUsernames, userId, {
+      type: "COMMENT",
+      id: comment.id,
+      notificationType: "COMMENT_TAG",
     });
     res.status(201).json(comment);
   } catch (error) {

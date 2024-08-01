@@ -6,6 +6,7 @@ import ChatContent from "./ChatContent";
 import ChatSkeleton from "../skeleton/ChatSkeleton";
 import socket from "../../socket";
 import { useSelector } from "react-redux";
+import QuillEditor from "../utils/Editor";
 
 const Chat = ({ recept }) => {
   const chatContainerRef = useRef(null);
@@ -132,6 +133,7 @@ const Chat = ({ recept }) => {
             className="outline-none flex-1 text-sm"
             placeholder="Write a message..."
           />
+          {/* <QuillEditor height="" onChange={(e) => setContent(e.target.value)} /> */}
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 flex items-center justify-center border border-gray-300 rounded-full">
               <Smile size={16} />

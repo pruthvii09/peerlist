@@ -19,7 +19,10 @@ const CommentCard = ({ comment }) => {
             {timeAgo(comment?.createdAt)}
           </span>
         </h1>
-        <p className="text-sm">{comment.content}</p>
+        <p
+          className="text-sm"
+          dangerouslySetInnerHTML={{ __html: comment?.content }}
+        />
         <div className="flex items-center gap-4 py-1">
           <span className="text-[10px] font-semibold cursor-pointer hover:underline">
             Reply

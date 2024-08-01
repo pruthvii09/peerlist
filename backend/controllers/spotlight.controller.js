@@ -47,11 +47,9 @@ export const launchProjectOnSpotlight = async (req, res) => {
         .json({ error: "Project has already been launched on spotlight" });
     }
 
-    // Get the current spotlight week
     const currentWeek = await prisma.spotlightWeek.findFirst({
-      where: {
-        startDate: { lte: new Date() },
-        endDate: { gte: new Date() },
+      orderBy: {
+        startDate: "desc",
       },
     });
 

@@ -1,7 +1,8 @@
-import { ArrowUpRight, Bookmark, Share } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, Share } from "lucide-react";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Button from "../utils/ui/Button";
 
 const ViewProjectDetails = ({ project, isLoading }) => {
   if (isLoading) {
@@ -57,20 +58,31 @@ const ViewProjectDetails = ({ project, isLoading }) => {
                 <Share size={18} strokeWidth={1.5} />
               </div>
             </div>
-            <a
-              className="text-white flex items-center gap-1 font-medium bg-black rounded-full text-sm px-4 py-1.5"
-              href={
-                project.projectLink.startsWith("http") ||
-                project.projectLink.startsWith("https")
-                  ? project.projectLink
-                  : `https://${project.projectLink}`
-              }
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span>Visit</span>
-              <ArrowUpRight size={16} />
-            </a>
+            <div className="flex items-center gap-2">
+              <a
+                className="text-white flex items-center gap-1 font-medium bg-black rounded-full text-sm px-4 py-1.5"
+                href={
+                  project.projectLink.startsWith("http") ||
+                  project.projectLink.startsWith("https")
+                    ? project.projectLink
+                    : `https://${project.projectLink}`
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>Visit</span>
+                <ArrowUpRight size={16} />
+              </a>
+              {!project?.spotlightLaunchedAt && (
+                <Button
+                  className="text-green-600 flex items-center gap-1 font-medium bg-white border border-green-600 hover:text-white hover:bg-green-600 transition-all ease-in-out duration-200 rounded-full text-sm px-4 py-1.5"
+                  title="Launch"
+                  iconConfig={{
+                    icon: ArrowRight,
+                  }}
+                />
+              )}
+            </div>
           </div>
           <div className="px-6 py-4">
             <p dangerouslySetInnerHTML={{ __html: project.description }} />

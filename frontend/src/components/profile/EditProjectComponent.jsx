@@ -1,39 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useParams } from "react-router-dom";
-import useProjectById from "../../hooks/projects/useGetProject";
 import { useUpdateProjectMutation } from "../../hooks/projects/useUpdateProject";
 import { useModal } from "../../context/ModalContext";
 import { useDeleteProjectMutation } from "../../hooks/projects/useDeleteProject";
-import { Loader2 } from "lucide-react";
-const EditProjectComponent = () => {
-  const { id } = useParams();
+import { Loader2, X } from "lucide-react";
+import TagInput from "../utils/ui/TagInput";
+import useDebounce from "../../hooks/useDebounce";
+import useSearchProfile from "../../hooks/profile/useSearchProfile";
+const EditProjectComponent = ({ projectData, setProjectData, isLoading }) => {
   const { showModal } = useModal();
-  const { data: project, isLoading } = useProjectById(id);
+  const { id } = useParams();
   const deleteProjectMutation = useDeleteProjectMutation();
-
-  const [projectData, setProjectData] = useState({
-    title: project?.data?.title || "",
-    tagline: project?.data?.tagline || "",
-    description: project?.data?.description || "",
-    projectLink: project?.data?.projectLink || "",
-    opensource: project?.data?.opensource || false,
-  });
-  useEffect(() => {
-    if (project) {
-      setProjectData((prevData) => ({
-        ...prevData,
-        title: project?.data?.title || "",
-        tagline: project?.data?.tagline || "",
-        description: project?.data?.description || "",
-        projectLink: project?.data?.projectLink || "",
-        opensource: project?.data?.opensource || false,
-      }));
-    }
-  }, [project]);
   const modules = {
     toolbar: [
       ["bold", "italic", "underline"], // toggled buttons
@@ -50,6 +31,26 @@ const EditProjectComponent = () => {
   };
   const onConfirm = () => {
     deleteProjectMutation.mutate(id);
+  };
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
+
+  const { data, isLoading: searchLoad } = useSearchProfile(debouncedQuery);
+
+  const handleUserSelect = (user) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      collaborators: [...prevData.collaborators, user],
+    }));
+    setQuery("");
+  };
+  const handleRemoveUser = (userToRemove) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      collaborators: prevData.collaborators.filter(
+        (user) => user !== userToRemove
+      ),
+    }));
   };
 
   if (isLoading) {
@@ -112,6 +113,111 @@ const EditProjectComponent = () => {
             <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
               Provide a demo link where users can interact with your project or
               a download link. If unavailable, include codebase links.
+            </p>
+          </div>
+        </div>
+        <div className="flex gap-2 flex-col md:flex-row">
+          <div className="flex md:w-[200px] flex-shrink-0">
+            <p className=" text-primary font-medium text-sm flex-1">
+              Collabrators
+            </p>
+          </div>
+          <div className="w-full">
+            {projectData?.collaborators.length > 0 && (
+              <div className="flex items-center gap-2 mb-3">
+                {projectData?.collaborators?.map((user) => (
+                  <div className="flex items-center gap-1 border border-gray-300 px-3 py-0.5 rounded-full">
+                    <img
+                      className="w-4 h-4 rounded-full object-cover"
+                      src={user.profileImageUrl}
+                      alt=""
+                    />
+                    <span className="text-sm ">{user.firstname}</span>
+                    <X
+                      className="cursor-pointer"
+                      size={12}
+                      onClick={() => handleRemoveUser(user)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="relative">
+              <Input
+                // placeholder="Start Typing.."
+                value={query}
+                readOnly={projectData.collaborators.length >= 3}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
+                Add people who collaborated with you on this project.
+              </p>
+              {searchLoad ? (
+                <div className="w-[350px] absolute top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300 z-10">
+                  <div className="py-4 flex items-center justify-center">
+                    <Loader2 className="animate-spin text-green-600" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {data?.length <= 0 ? (
+                    <div className="w-[350px] absolute top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300 z-10">
+                      <div className="py-4 text-red-500 text-sm px-4">
+                        No user found
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {data?.map((user, i) => (
+                        <div
+                          key={i}
+                          className="w-[350px] z-10 absolute  top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300"
+                        >
+                          <div
+                            className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleUserSelect(user)}
+                          >
+                            <div className="">
+                              <img
+                                src={user?.profileImageUrl}
+                                className="w-8 h-8 rounded-full object-cover"
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                {user.firstname} {user.lastname}
+                              </h1>
+                              <p className="text-xs text-gray-600 paragraph-clamp">
+                                {user.bio}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2 flex-col md:flex-row">
+          <div className="flex md:w-[200px] flex-shrink-0">
+            <p className=" text-primary font-medium text-sm flex-1">Skills</p>
+          </div>
+          <div className="w-full">
+            <TagInput
+              skills={projectData.skills}
+              onChange={(newSkills) =>
+                setProjectData((prevData) => ({
+                  ...prevData,
+                  skills: newSkills,
+                }))
+              }
+            />
+            <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
+              Add minimum 3 skills
             </p>
           </div>
         </div>

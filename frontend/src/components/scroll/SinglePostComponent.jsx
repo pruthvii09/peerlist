@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import PostCard from "./PostCard";
 import { useSelector } from "react-redux";
 import { ArrowUp, Loader2, Smile } from "lucide-react";
@@ -6,9 +6,8 @@ import Skeleton from "react-loading-skeleton";
 import { useAddComment } from "../../hooks/post/useAddComment";
 import CommentCard from "./CommentCard";
 import UpvoteCard from "./UpvoteCard";
-import useDebounce from "../../hooks/useDebounce";
-import useSearchProfile from "../../hooks/profile/useSearchProfile";
 import { useModal } from "../../context/ModalContext";
+import QuillEditor from "../utils/Editor";
 
 const SinglePostComponent = ({ data, isLoading }) => {
   const { user } = useSelector((store) => store.user);
@@ -25,39 +24,17 @@ const SinglePostComponent = ({ data, isLoading }) => {
       setContent("");
     }
   };
-  const [showPopup, setShowPopup] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedQuery = useDebounce(searchTerm, 400);
-  const { data: users } = useSearchProfile(debouncedQuery);
-  const inputRef = useRef(null);
   const handleInputChange = (e) => {
     const value = e.target.value;
     setContent(value);
-
-    const lastAtIndex = value.lastIndexOf("@");
-    if (lastAtIndex !== -1 && lastAtIndex === value.length - 1) {
-      setShowPopup(true);
-      setSearchTerm("");
-    } else if (lastAtIndex !== -1) {
-      setSearchTerm(value.slice(lastAtIndex + 1));
-    } else {
-      setShowPopup(false);
-    }
-  };
-  const handleUserSelect = (user) => {
-    const lastAtIndex = content.lastIndexOf("@");
-    const newValue = content.slice(0, lastAtIndex) + `@${user.username} `;
-    setContent(newValue);
-    setShowPopup(false);
-    inputRef.current.focus();
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Prevents the default action (such as submitting a form)
-      handleComment();
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault(); // Prevents the default action (such as submitting a form)
+  //     handleComment();
+  //   }
+  // };
   if (isLoading) {
     return (
       <div className="mt-[52px] border-r border-gray-300 h-screen">
@@ -100,7 +77,7 @@ const SinglePostComponent = ({ data, isLoading }) => {
               }
               alt=""
             />
-            <input
+            {/* <input
               ref={inputRef}
               type="text"
               value={content}
@@ -108,34 +85,8 @@ const SinglePostComponent = ({ data, isLoading }) => {
               onChange={handleInputChange}
               className="text-sm outline-none"
               placeholder="Post your comment"
-            />
-            {showPopup && (
-              <div className="w-[300px] absolute shadow-2xl top-12 bg-white rounded border border-gray-300">
-                {users?.map((user, i) => (
-                  <div
-                    key={i}
-                    className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleUserSelect(user)}
-                  >
-                    <div className="">
-                      <img
-                        src={user?.profileImageUrl}
-                        className="w-8 h-8 rounded-full object-cover"
-                        alt=""
-                      />
-                    </div>
-                    <div>
-                      <h1 className="text-sm font-semibold">
-                        {user.firstname} {user.lastname}
-                      </h1>
-                      <p className="text-xs text-gray-600 paragraph-clamp">
-                        {user.bio}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            /> */}
+            <QuillEditor height="" onChange={handleInputChange} />
           </div>
           <div className="flex items-center gap-3">
             <div className="p-1 border border-gray-300 rounded-full">

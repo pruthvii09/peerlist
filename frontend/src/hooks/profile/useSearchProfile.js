@@ -3,7 +3,12 @@ import axios from "axios";
 
 const searchProfile = async (query) => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/users/search?query=${query}`
+    `${process.env.REACT_APP_BASE_URL}/users/search?query=${query}`,
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    }
   );
   return response.data;
 };

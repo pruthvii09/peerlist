@@ -1,5 +1,5 @@
 // hooks/useLoginMutation.js
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useModal } from "../../context/ModalContext";
@@ -20,10 +20,12 @@ const launchProject = async (data) => {
 
 export const useLaunchProjectMutation = () => {
   const { hideModal } = useModal();
+  const queryClient = useQueryClient();
   const { triggerConfetti } = useConfetti();
   return useMutation({
     mutationFn: launchProject,
     onSuccess: () => {
+      queryClient.invalidateQueries("fetchSpotlight");
       toast.success("Project Launched Successfully!");
       hideModal();
       triggerConfetti();

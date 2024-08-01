@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import PostInput from "./PostInput";
 import PostCard from "./PostCard";
 import useGetPosts from "../../hooks/post/useGetPosts";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useInView } from "react-intersection-observer";
+
 const Post = () => {
-  // const posts = useSelector((store) => store?.post.posts);
-  const { data, isLoading } = useGetPosts();
-  const posts = data?.data;
+  const { data, isLoading, isError, fetchNextPage, hasNextPage } =
+    useGetPosts();
+  console.log("data => ", data);
+  const posts = data?.pages.flatMap((page) => page.data) || [];
+  console.log("posts => ", posts);
+
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
   if (isLoading) {
     return (
       <div className="mt-14">
@@ -34,12 +46,23 @@ const Post = () => {
       </div>
     );
   }
+
+  if (isError) {
+    return (
+      <div className="pt-14 border-r border-gray-300 pb-24">
+        <PostInput />
+        <p>Error loading posts.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="pt-14 border-r border-gray-300 pb-24">
       <PostInput />
       {posts?.map((post) => {
         return <PostCard key={post?.id} post={post} />;
       })}
+      <div ref={ref} />
     </div>
   );
 };

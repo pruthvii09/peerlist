@@ -21,6 +21,7 @@ const LoginModal = () => {
     }
     loginMutation.mutate({ email, password });
   };
+  console.log("loginMutation.error() => ");
   return (
     <div
       onClick={(e) => e.stopPropagation()}
@@ -41,6 +42,12 @@ const LoginModal = () => {
           />
         </div>
         <div className="mt-4 w-full">
+          {loginMutation.error?.response.data.message && (
+            <div className="text-red-500 text-xs  mb-2">
+              {loginMutation.error?.response.data.message}
+            </div>
+          )}
+
           <Button
             className="text-white flex items-center justify-center text-center w-full font-medium bg-[#24292e] rounded-full px-6 py-2"
             title="Login"

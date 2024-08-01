@@ -16,6 +16,7 @@ const PostModal = () => {
 
   const handlePostClick = () => {
     if (!content) return;
+    console.log("content => ", content);
     addPost.mutate({ content });
   };
 
@@ -45,8 +46,11 @@ const PostModal = () => {
             }}
           />
         </div>
-        <div className="h-[300px] !px-0 mt-4">
-          <QuillEditor onChange={(e) => setContent(e.target.value)} />
+        <div className="h-[300px] px-4 mt-4">
+          <QuillEditor
+            onChange={(e) => setContent(e.target.value)}
+            height={200}
+          />
         </div>
         <div className="flex items-center justify-between ml-8">
           <div className="flex items-center gap-4">
@@ -60,8 +64,12 @@ const PostModal = () => {
             <div className="relative inline-block group">
               <Smile className="cursor-pointer" strokeWidth={1.5} size={20} />
             </div>
+            <div className="text-xs text-gray-600">
+              Type @ to mention people and companies.
+            </div>
           </div>
           <Button
+            loading={addPost.isPending}
             title="Post"
             onClick={handlePostClick}
             className="bg-[#00aa45] text-white border-2 border-[#219653] rounded-full px-3.5 py-0.5 hover:bg-[#219653] "

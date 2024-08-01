@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
 import React from "react";
-import Github from "../../assets/Github";
+import Github from "../../assets/icons/Github";
 import CalendarHeatmap from "react-calendar-heatmap";
 // import Heatmap from "../utils/Heatmap";
 import "react-calendar-heatmap/dist/styles.css";

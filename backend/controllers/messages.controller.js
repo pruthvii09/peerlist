@@ -103,15 +103,27 @@ export const getUserConversations = async (req, res) => {
       include: {
         user1: true,
         user2: true,
+        messages: {
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: 1, // Only take the most recent message
+          include: {
+            sender: true,
+          },
+        },
       },
     });
 
-    // Extract the other user's details from each conversation
+    // Extract the other user's details from each conversation and the last message
     const userConversations = conversations.map((conversation) => {
       const otherUser =
         conversation.user1Id === userId
           ? conversation.user2
           : conversation.user1;
+
+      const lastMessage = conversation.messages[0];
+
       return {
         id: otherUser.id,
         conversationId: conversation.id,
@@ -119,6 +131,15 @@ export const getUserConversations = async (req, res) => {
         lastname: otherUser.lastname,
         profileImageUrl: otherUser.profileImageUrl,
         bio: otherUser.bio,
+        lastMessage: lastMessage
+          ? {
+              content: lastMessage.content,
+              createdAt: lastMessage.createdAt,
+              firstname: lastMessage.sender.firstname,
+              senderId: lastMessage.sender.id,
+              senderUsername: lastMessage.sender.username,
+            }
+          : null,
       };
     });
 

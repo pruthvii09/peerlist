@@ -3,13 +3,21 @@ import prisma from "../prisma/prisma.js";
 
 export const addProject = async (req, res) => {
   try {
-    const { title, tagline, description, projectLink, opensource } = req.body;
+    const {
+      title,
+      tagline,
+      description,
+      projectLink,
+      opensource,
+      skills,
+      collaborators,
+    } = req.body;
     const userId = req.user.id; // Assuming you have user ID from the authentication middleware
     // Validate the required fields
-    if (!title || !tagline) {
+    if (!title || !tagline || !skills.length >= 3) {
       return res.status(400).json({
         status: "error",
-        error: "Title and tagline are required fields.",
+        error: "Title, tagline and skills are required fields.",
       });
     }
     // Create the project in the database
@@ -18,6 +26,8 @@ export const addProject = async (req, res) => {
         userId: userId,
         title: title,
         tagline: tagline,
+        skills: skills,
+        collaborators: collaborators,
         description: description || null,
         projectLink: projectLink || null,
         opensource: opensource,
@@ -79,6 +89,7 @@ export const getProjectById = async (req, res) => {
             firstname: true,
             lastname: true,
             bio: true,
+            emailVerified: true,
             website: true,
             profileImageUrl: true,
           },
@@ -110,7 +121,15 @@ export const getProjectById = async (req, res) => {
 export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, tagline, description, projectLink, opensource } = req.body;
+    const {
+      title,
+      tagline,
+      description,
+      projectLink,
+      opensource,
+      skills,
+      collaborators,
+    } = req.body;
     const userId = req.user.id;
     // Validate the required fields
     if (!title || !tagline) {
@@ -142,6 +161,8 @@ export const updateProject = async (req, res) => {
         description: description || null,
         projectLink: projectLink || null,
         opensource: opensource,
+        collaborators: collaborators,
+        skills: skills,
       },
     });
 

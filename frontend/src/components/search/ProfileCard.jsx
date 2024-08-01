@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ChevronDown, LucideLink, UserMinus } from "lucide-react";
 import { useFollowUser } from "../../hooks/profile/useAddFollow";
 import { useUnFollowUser } from "../../hooks/profile/useRemoveFollow";
-import Badge from "../../assets/Badge";
+import Badge from "../../assets/icons/Badge";
 
 const ProfileCard = ({ user, follow }) => {
   const [showDropdown, setShowDropdown] = useState(false);

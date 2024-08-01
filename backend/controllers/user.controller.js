@@ -205,6 +205,7 @@ export const getAllUsers = async (req, res) => {
 };
 export const searchUsersByUsername = async (req, res) => {
   const { query } = req.query; // Assume query parameter is named `query`
+  const userId = req.user.id; // User ID of the request sender
 
   if (!query) {
     return res.status(400).json({ message: "Query parameter is required" });
@@ -213,24 +214,33 @@ export const searchUsersByUsername = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
       where: {
-        OR: [
+        AND: [
           {
-            username: {
-              contains: query,
-              mode: "insensitive",
+            id: {
+              not: userId,
             },
           },
           {
-            firstname: {
-              contains: query,
-              mode: "insensitive",
-            },
-          },
-          {
-            lastname: {
-              contains: query,
-              mode: "insensitive",
-            },
+            OR: [
+              {
+                username: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+              {
+                firstname: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+              {
+                lastname: {
+                  contains: query,
+                  mode: "insensitive",
+                },
+              },
+            ],
           },
         ],
       },
@@ -238,6 +248,7 @@ export const searchUsersByUsername = async (req, res) => {
         profileImageUrl: true,
         firstname: true,
         lastname: true,
+        emailVerified: true,
         id: true,
         bio: true,
         username: true,

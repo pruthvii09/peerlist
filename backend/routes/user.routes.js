@@ -18,6 +18,7 @@ import {
   signup,
   verifyOtp,
 } from "../controllers/auth.controller.js";
+import { getViewReport, viewProfile } from "../controllers/view.controller.js";
 
 const router = express.Router();
 
@@ -28,11 +29,13 @@ router.post("/follow/:followerId", auth, addFollower);
 router.post("/unfollow/:followerId", auth, removeFollower);
 router.post("/send-verification-email", auth, sendVerificationEmail);
 router.post("/verify-otp", auth, verifyOtp);
+router.post("/profile-views/:profileId", auth, viewProfile);
 
 router.get("/getToken", auth, getAccessTokenGithub);
 router.get("/", getAllUsers);
 router.get("/allfollow/:username", getAllFollowerFollowing);
-router.get("/search/", searchUsersByUsername);
+router.get("/search/", auth, searchUsersByUsername);
+router.get("/profile-views", auth, getViewReport);
 router.get("/:username", getUserByUsername);
 
 router.patch("/", auth, primaryDetails);

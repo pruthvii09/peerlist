@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import TagInput from "../utils/ui/TagInput";
 import { useAddProjectMutation } from "../../hooks/projects/useAddProjectMutation";
-// import { Upload, X } from "lucide-react";
-// import useImageUpload from "../../hooks/useImageUpload";
+import useDebounce from "../../hooks/useDebounce";
+import useSearchProfile from "../../hooks/profile/useSearchProfile";
+import { Loader2, X } from "lucide-react";
+
 const ProjectDetails = ({ projectData, setProjectData }) => {
   const modules = {
     toolbar: [
@@ -21,42 +24,34 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
   const handleProject = () => {
     addProjectMutation.mutate(projectData);
   };
-  // const { imageUrl, uploading, error, uploadImage, getImage, removeImage } =
-  //   useImageUpload();
-  // const [file, setFile] = useState(null);
+  console.log(
+    "addProjectMutation => ",
+    addProjectMutation.error?.response.data.error
+  );
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
 
-  // useEffect(() => {
-  //   if (file) {
-  //     uploadImage(file);
-  //   }
-  // }, [file]);
-
-  // useEffect(() => {
-  //   if (imageUrl) {
-  //     const img = getImage(imageUrl);
-  //     if (img?.publicID) {
-  //       projectData.images.push(img?.publicID);
-  //       setFile(null);
-  //     }
-  //   }
-  // }, [imageUrl]);
-
-  // const handleFileChange = (e) => {
-  //   console.log(e.target.files);
-  //   setFile(e.target.files[0]);
-  // };
-
-  // if (error) {
-  //   console.log(error);
-  // }
-
-  // if (uploading) {
-  //   console.log(uploading);
-  // }
+  const { data, isLoading: searchLoad } = useSearchProfile(debouncedQuery);
+  const handleUserSelect = (user) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      collaborators: [...prevData.collaborators, user],
+    }));
+    setQuery("");
+  };
+  const handleRemoveUser = (userToRemove) => {
+    setProjectData((prevData) => ({
+      ...prevData,
+      collaborators: prevData.collaborators.filter(
+        (user) => user !== userToRemove
+      ),
+    }));
+  };
+  console.log("projectDatasss => ", projectData);
   return (
     <div className="mt-14 border-r h-full pb-14">
-      <div className="py-8 px-8 md:px-4 ms flex flex-col gap-6">
-        <div className="flex gap-2">
+      <div className="py-8 md:px-8 px-4 pb-24 ms flex flex-col gap-6">
+        <div className="flex gap-2 flex-col md:flex-row">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project name
@@ -72,7 +67,7 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
             />
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">Tagline</p>
           </div>
@@ -89,46 +84,7 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
             </p>
           </div>
         </div>
-        {/* <div className="flex gap-2">
-          <div className="flex md:w-[200px] flex-shrink-0">
-            <p className=" text-primary font-medium text-sm flex-1">
-              Cover Image(s)
-            </p>
-          </div>
-          <div className="w-full">
-            <div className="flex gap-4 mb-2">
-              {uploading && <>uploading..</>}
-              {projectData?.images?.map((image) => (
-                <div className="relative">
-                  <img
-                    className="h-8 w-12 object-cover rounded-md"
-                    src={image}
-                    alt=""
-                  />
-                  <div
-                    onClick={() => removeImage(image)}
-                    className="h-5 w-5 flex items-center justify-center rounded-full border border-gray-300 absolute -top-2 -right-2 bg-white"
-                  >
-                    <X size={14} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <label className="flex items-center gap-1 border border-gray-300 rounded-full w-fit cursor-pointer px-3 py-1">
-              <Upload size={16} />
-              <span className="text-xs">Upload Images</span>
-              <input
-                onClick={handleFileChange}
-                type="file"
-                className="hidden"
-              />
-            </label>
-            <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
-              Recommended: 1200 x 630px • Up to 4 images. • Max 5 MB each.
-            </p>
-          </div>
-        </div> */}
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Project URL
@@ -148,20 +104,112 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
             </p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Collabrators
             </p>
           </div>
           <div className="w-full">
-            <Input />
+            {projectData?.collaborators.length > 0 && (
+              <div className="flex items-center gap-2 mb-3">
+                {projectData?.collaborators?.map((user) => (
+                  <div className="flex items-center gap-1 border border-gray-300 px-3 py-0.5 rounded-full">
+                    <img
+                      className="w-4 h-4 rounded-full object-cover"
+                      src={user.profileImageUrl}
+                      alt=""
+                    />
+                    <span className="text-sm ">{user.firstname}</span>
+                    <X
+                      className="cursor-pointer"
+                      size={12}
+                      onClick={() => handleRemoveUser(user)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="relative">
+              <Input
+                // placeholder="Start Typing.."
+                value={query}
+                readOnly={projectData.collaborators.length >= 3}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
+                Add people who collaborated with you on this project.
+              </p>
+              {searchLoad ? (
+                <div className="w-[350px] absolute top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300 z-10">
+                  <div className="py-4 flex items-center justify-center">
+                    <Loader2 className="animate-spin text-green-600" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {data?.length <= 0 ? (
+                    <div className="w-[350px] absolute top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300 z-10">
+                      <div className="py-4 text-red-500 text-sm px-4">
+                        No user found
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {data?.map((user, i) => (
+                        <div
+                          key={i}
+                          className="w-[350px] z-10 absolute  top-[40px] md:right-4 right-0 bg-white rounded border border-gray-300"
+                        >
+                          <div
+                            className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleUserSelect(user)}
+                          >
+                            <div className="">
+                              <img
+                                src={user?.profileImageUrl}
+                                className="w-8 h-8 rounded-full object-cover"
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <h1 className="text-sm font-semibold">
+                                {user.firstname} {user.lastname}
+                              </h1>
+                              <p className="text-xs text-gray-600 paragraph-clamp">
+                                {user.bio}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2 flex-col md:flex-row">
+          <div className="flex md:w-[200px] flex-shrink-0">
+            <p className=" text-primary font-medium text-sm flex-1">Skills</p>
+          </div>
+          <div className="w-full">
+            <TagInput
+              skills={projectData.skills}
+              onChange={(newSkills) =>
+                setProjectData((prevData) => ({
+                  ...prevData,
+                  skills: newSkills,
+                }))
+              }
+            />
             <p className="text-[#6a737d] font-normal text-[10px] pt-0.5">
-              Add people who collaborated with you on this project.
+              Add minimum 3 skills
             </p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row">
           <div className="flex md:w-[200px] flex-shrink-0">
             <p className=" text-primary font-medium text-sm flex-1">
               Is this project open source?
@@ -201,13 +249,20 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
           />
         </div>
       </div>
-      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-end px-6 py-4 bg-[#f6f8fa] border-t border-r">
-        <Button
-          title="Save"
-          loading={addProjectMutation.isPending}
-          onClick={handleProject}
-          className="bg-[#00aa45] text-xs text-white border-2 border-[#219653] rounded-full px-3 py-0.5 hover:bg-[#219653]"
-        />
+      <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16  px-6 py-4 bg-[#f6f8fa] border-t border-r">
+        {addProjectMutation.error?.response.data.error && (
+          <p className="text-red-500 text-xs">
+            {addProjectMutation.error?.response.data.error}
+          </p>
+        )}
+        <div className="flex items-center justify-end">
+          <Button
+            title="Save"
+            loading={addProjectMutation.isPending}
+            onClick={handleProject}
+            className="bg-[#00aa45] text-xs text-white border-2 border-[#219653] rounded-full px-3 py-0.5 hover:bg-[#219653]"
+          />
+        </div>
       </div>
     </div>
   );

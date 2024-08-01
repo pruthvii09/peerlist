@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { MapPin, UserRoundCog, Link } from "lucide-react";
 import useUserProfile from "../../hooks/profile/useUserProfile";
-import Badge from "../../assets/Badge";
+import Badge from "../../assets/icons/Badge";
 
 const UserProfile = () => {
   const { id } = useParams();

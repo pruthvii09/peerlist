@@ -24,11 +24,7 @@ const AddProject = ({ projects, isOwnProfile }) => {
       <div className="grid grid-cols-2 gap-4 px-4">
         {projects?.map((project) => (
           <Link
-            to={
-              !isOwnProfile
-                ? `/projects/view/${project.id}`
-                : `/projects/edit-project/${project.id}`
-            }
+            to={`/projects/view/${project.id}`}
             key={project.id}
             className="flex group group-hover:shadow-2xl cursor-pointer flex-col border border-gray-300 rounded-lg"
           >

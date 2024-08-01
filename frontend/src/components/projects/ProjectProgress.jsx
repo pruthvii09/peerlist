@@ -3,10 +3,16 @@ import React from "react";
 import { motion } from "framer-motion";
 const ProjectProgress = ({ projectData }) => {
   const calculateCompletion = () => {
-    const fields = ["title", "tagline", "description", "projectLink"];
-    const filledFields = fields.filter(
-      (field) => projectData[field].trim() !== ""
-    );
+    const fields = ["title", "tagline", "description", "projectLink", "skills"];
+    const filledFields = fields.filter((field) => {
+      if (Array.isArray(projectData[field])) {
+        // Check if the array is not empty
+        return projectData[field].length > 0;
+      } else {
+        // Check if the string field is not empty
+        return projectData[field].trim() !== "";
+      }
+    });
     return (filledFields.length / fields.length) * 100;
   };
   const percent = calculateCompletion();
@@ -77,6 +83,20 @@ const ProjectProgress = ({ projectData }) => {
             )}
           </div>
           <span className="text-xs">Project URL</span>
+        </div>
+        <div className="flex gap-2 items-center">
+          <div
+            className={`h-4 w-4 flex items-center justify-center rounded-full border ${
+              projectData.skills.length >= 3
+                ? "bg-green-600 border-green-800"
+                : "border-gray-600"
+            } `}
+          >
+            {projectData.skills?.length >= 3 && (
+              <Check size={12} className="text-white" />
+            )}
+          </div>
+          <span className="text-xs">Skills Used</span>
         </div>
         <div className="flex gap-2 items-center">
           <div

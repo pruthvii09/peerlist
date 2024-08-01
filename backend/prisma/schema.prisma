@@ -43,6 +43,21 @@ model User {
   conversationsAsUser1 Conversation[] @relation("User1Conversations")
   conversationsAsUser2 Conversation[] @relation("User2Conversations")
   messages             Message[]
+  profileViews         ProfileView[]  @relation("ProfileViewsProfile")
+  viewedProfiles       ProfileView[]  @relation("ProfileViewsViewer")
+  notifications        Notification[] @relation("UserNotifications")
+  relatedNotifications Notification[] @relation("RelatedUserNotifications")
+  Notification         Notification[]
+}
+
+model ProfileView {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  profileId String   @db.ObjectId
+  viewerId  String   @db.ObjectId
+  viewedAt  DateTime @default(now())
+
+  profile User @relation("ProfileViewsProfile", fields: [profileId], references: [id])
+  viewer  User @relation("ProfileViewsViewer", fields: [viewerId], references: [id])
 }
 
 model Otp {
@@ -75,13 +90,14 @@ model Message {
 }
 
 model Post {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @db.ObjectId
-  content   String
-  createdAt DateTime  @default(now())
-  comments  Comment[]
-  likes     Like[]
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String         @db.ObjectId
+  content      String
+  createdAt    DateTime       @default(now())
+  comments     Comment[]
+  likes        Like[]
+  Notification Notification[]
 }
 
 model Like {
@@ -95,13 +111,14 @@ model Like {
 }
 
 model Comment {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    String   @db.ObjectId
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @db.ObjectId
-  content   String
-  createdAt DateTime @default(now())
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  post         Post           @relation(fields: [postId], references: [id])
+  postId       String         @db.ObjectId
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String         @db.ObjectId
+  content      String
+  createdAt    DateTime       @default(now())
+  Notification Notification[]
 }
 
 model Follow {
@@ -128,15 +145,17 @@ model Job {
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String   @db.ObjectId
-  title       String
-  tagline     String
-  description String?
-  projectLink String?
-  opensource  Boolean?
-  createdAt   DateTime @default(now())
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String   @db.ObjectId
+  title         String
+  tagline       String
+  description   String?
+  skills        Json?
+  collaborators Json?
+  projectLink   String?
+  opensource    Boolean?
+  createdAt     DateTime @default(now())
 
   // New fields for spotlight feature
   spotlightLaunchedAt DateTime?
@@ -194,4 +213,37 @@ model Education {
   study          String
   start_year     String
   end_year       String
+}
+
+model Notification {
+  id            String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String           @db.ObjectId
+  content       String
+  type          NotificationType
+  relatedUserId String?          @db.ObjectId
+  postId        String?          @db.ObjectId
+  commentId     String?          @db.ObjectId
+  isRead        Boolean          @default(false)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  user        User     @relation("UserNotifications", fields: [userId], references: [id])
+  relatedUser User?    @relation("RelatedUserNotifications", fields: [relatedUserId], references: [id])
+  post        Post?    @relation(fields: [postId], references: [id])
+  comment     Comment? @relation(fields: [commentId], references: [id])
+  User        User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([relatedUserId])
+  @@index([postId])
+  @@index([commentId])
+}
+
+enum NotificationType {
+  PROFILE_VIEW
+  POST_TAG
+  COMMENT_TAG
+  POST_LIKE
+  POST_COMMENT
+  COMMENT_REPLY
 }

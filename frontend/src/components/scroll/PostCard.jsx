@@ -8,7 +8,7 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
-import Upvote from "../../assets/Upvote";
+import Upvote from "../../assets/icons/Upvote";
 import { motion } from "framer-motion";
 import { timeAgo } from "../../utils/functions";
 import { Link } from "react-router-dom";
@@ -17,8 +17,10 @@ import { useModal } from "../../context/ModalContext";
 import { useDeletePostMutation } from "../../hooks/post/useDeletePost";
 import { useAddUpvotePost } from "../../hooks/post/useUpvotePost";
 import { useRemoveUpvotePost } from "../../hooks/post/useRemoveUpvotePost";
+// const PostCard = React.forwardRef(({ post }, ref) => {
 
-const PostCard = ({ post }) => {
+// });
+const PostCard = React.forwardRef(({ post }, ref) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(post?.likes.length || 0);
   const [animationKey, setAnimationKey] = useState(0);
@@ -126,6 +128,7 @@ const PostCard = ({ post }) => {
           <div className="overflow-hidden">
             {/* Ensure content doesn't overflow */}
             <p
+              onClick={(e) => e.stopPropagation()}
               className="whitespace-pre-line post-content text-sm" // Adjusting whitespace handling
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
@@ -186,7 +189,7 @@ const PostCard = ({ post }) => {
       </div>
     </Link>
   );
-};
+});
 
 const ActionButton = ({ Icon, count, hoverColor, animationProps }) => {
   // const [isClicked, setIsClicked] = useState(false);

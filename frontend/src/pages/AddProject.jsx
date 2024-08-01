@@ -12,6 +12,8 @@ const AddProject = () => {
     title: "",
     tagline: "",
     description: "",
+    skills: [],
+    collaborators: [],
     projectLink: "",
     opensource: false,
   });

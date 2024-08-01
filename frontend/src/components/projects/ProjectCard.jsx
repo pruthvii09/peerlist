@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Upvote from "../../assets/Upvote";
+import Upvote from "../../assets/icons/Upvote";
 import { motion } from "framer-motion";
 import { useAddUpvote } from "../../hooks/spotlight/useUpvote";
 import { useRemoveUpvote } from "../../hooks/spotlight/useRemoveUpvote";
@@ -47,7 +47,7 @@ const ProjectCard = ({ data, rank }) => {
       className="px-4 group/project py-4 mt-2 w-full hover:bg-[#F8FAFB] flex items-center justify-between"
     >
       <div className="flex items-center gap-2">
-        {rank && <p className="text-gray-600 text-xs">#{rank + 1}</p>}
+        {rank != null && <p className="text-gray-600 text-xs">#{rank + 1}</p>}
         <img
           height={63}
           width={120}

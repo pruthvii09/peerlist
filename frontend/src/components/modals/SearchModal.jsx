@@ -1,4 +1,4 @@
-import { Search, X } from "lucide-react";
+import { Loader2, Search, X } from "lucide-react";
 import React, { useState } from "react";
 import { useModal } from "../../context/ModalContext";
 import useSearchProfile from "../../hooks/profile/useSearchProfile";
@@ -9,7 +9,8 @@ const SearchModal = ({ setRecept }) => {
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
-  const { data } = useSearchProfile(debouncedQuery);
+  const { data, isLoading } = useSearchProfile(debouncedQuery);
+  console.log("data => ", data);
   const handleUserSelect = (user) => {
     setRecept(user);
     hideModal();
@@ -40,31 +41,49 @@ const SearchModal = ({ setRecept }) => {
           </div>
         </div>
         <div className="py-3">
-          <div className="w-[350px] absolute shadow-2xl top-[105px] md:right-4 right-0 bg-white rounded border border-gray-300">
-            {data?.map((user, i) => (
-              <div
-                key={i}
-                className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
-                onClick={() => handleUserSelect(user)}
-              >
-                <div className="">
-                  <img
-                    src={user?.profileImageUrl}
-                    className="w-8 h-8 rounded-full object-cover"
-                    alt=""
-                  />
+          {isLoading ? (
+            <div className="py-4 flex items-center justify-center">
+              <Loader2 className="animate-spin text-green-600" />
+            </div>
+          ) : (
+            <>
+              {data?.length <= 0 ? (
+                <div className="py-4 text-red-500 text-sm px-4">
+                  No user found
                 </div>
-                <div>
-                  <h1 className="text-sm font-semibold">
-                    {user.firstname} {user.lastname}
-                  </h1>
-                  <p className="text-xs text-gray-600 paragraph-clamp">
-                    {user.bio}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ) : (
+                <>
+                  {data?.map((user, i) => (
+                    <div
+                      key={i}
+                      className="w-[350px] absolute shadow-2xl top-[105px] md:right-4 right-0 bg-white rounded border border-gray-300"
+                    >
+                      <div
+                        className="px-4 py-2 flex items-start gap-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => handleUserSelect(user)}
+                      >
+                        <div className="">
+                          <img
+                            src={user?.profileImageUrl}
+                            className="w-8 h-8 rounded-full object-cover"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <h1 className="text-sm font-semibold">
+                            {user.firstname} {user.lastname}
+                          </h1>
+                          <p className="text-xs text-gray-600 paragraph-clamp">
+                            {user.bio}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ const TagInput = ({ skills, onChange, label }) => {
   };
 
   return (
-    <div className="relative w-full mt-4">
+    <div className="relative w-full">
       <label className="pb-0.5 text-xs">{label}</label>
       <div className="flex flex-wrap gap-1 p-2 rounded border border-gray-300 transition-all duration-100 hover:border-gray-500">
         {skills.map((tag) => (

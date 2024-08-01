@@ -55,3 +55,28 @@ export function formatChatTime(timestamp) {
 
   return { formattedDate, formattedTime };
 }
+export const getCurrentWeekNumber = () => {
+  const currentDate = new Date();
+  const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
+  const pastDaysOfYear = (currentDate - startOfYear) / 86400000;
+
+  return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
+};
+
+export const splitDataAndCalculateCounts = (data) => {
+  console.log("data => ", data);
+  const half = Math.ceil(data?.length / 2);
+  const part1 = data?.slice(0, half);
+  const part2 = data?.slice(half);
+
+  const totalCount = (part) => part?.reduce((sum, item) => sum + item.count, 0);
+
+  const part1Count = totalCount(part1);
+  const part2Count = totalCount(part2);
+  console.log("data => ", data);
+  return {
+    part1Count,
+    part2Count,
+    chartColor: part1Count > part2Count ? "red" : "green",
+  };
+};

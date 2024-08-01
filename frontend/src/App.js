@@ -32,6 +32,7 @@ import EditExperience from "./pages/EditExperience";
 import Account from "./pages/Account";
 import Inbox from "./pages/Inbox";
 import UserUpvoted from "./pages/UserUpvoted";
+import Analytics from "./pages/Analytics";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
   {
     path: "/user/upvotes",
     element: <UserUpvoted />,
+  },
+  {
+    path: "/user/profile-analytics",
+    element: <Analytics />,
   },
   {
     path: "/:id/resume",

@@ -1,5 +1,5 @@
 import React from "react";
-import Hand from "../../assets/Hand";
+import Hand from "../../assets/icons/Hand";
 import { BadgeCheck, Slash } from "lucide-react";
 import Chat from "./Chat";
 

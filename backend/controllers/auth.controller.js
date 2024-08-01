@@ -5,9 +5,7 @@ export const signup = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "All Fields Required" });
+      return res.status(400).json({ message: "All Fields Required" });
     }
     const exist = await prisma.user.findUnique({
       where: {
@@ -15,9 +13,7 @@ export const signup = async (req, res) => {
       },
     });
     if (exist) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "Already Registred" });
+      return res.status(400).json({ message: "Already Registred" });
     }
     const user = await prisma.user.create({
       data: {
