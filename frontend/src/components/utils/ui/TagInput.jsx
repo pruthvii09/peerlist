@@ -4,7 +4,7 @@ import useDebounce from "../../../hooks/useDebounce";
 import { useSkillSearch } from "../../../hooks/skills/useGetSkills";
 import "react-toastify";
 import { toast } from "react-toastify";
-const TagInput = ({ skills, onChange, label }) => {
+const TagInput = ({ skills, onChange, label, checkLength }) => {
   const [inputValue, setInputValue] = useState("");
   const debouncedInputValue = useDebounce(inputValue, 300);
 
@@ -12,7 +12,7 @@ const TagInput = ({ skills, onChange, label }) => {
   const suggestions = data?.data;
 
   const addTag = (skill) => {
-    if (skills.length >= 10) {
+    if (checkLength && skills.length >= 10) {
       toast.error("Maximum 10 skills allowed");
       return;
     }
@@ -24,7 +24,7 @@ const TagInput = ({ skills, onChange, label }) => {
   };
 
   const removeTag = (id) => {
-    if (skills.length <= 3) {
+    if (checkLength && skills.length <= 3) {
       toast.error("Minimum 3 skills required");
       return;
     }

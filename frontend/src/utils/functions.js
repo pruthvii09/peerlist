@@ -60,11 +60,12 @@ export const getCurrentWeekNumber = () => {
   const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
   const pastDaysOfYear = (currentDate - startOfYear) / 86400000;
 
-  return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
-};
+  // Adjust for Monday start (0 = Monday, 6 = Sunday)
+  const dayOfWeek = startOfYear.getDay() || 7;
 
+  return Math.ceil((pastDaysOfYear + dayOfWeek - 1) / 7);
+};
 export const splitDataAndCalculateCounts = (data) => {
-  console.log("data => ", data);
   const half = Math.ceil(data?.length / 2);
   const part1 = data?.slice(0, half);
   const part2 = data?.slice(half);
@@ -73,7 +74,6 @@ export const splitDataAndCalculateCounts = (data) => {
 
   const part1Count = totalCount(part1);
   const part2Count = totalCount(part2);
-  console.log("data => ", data);
   return {
     part1Count,
     part2Count,

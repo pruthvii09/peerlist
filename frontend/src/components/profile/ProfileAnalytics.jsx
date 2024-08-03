@@ -3,22 +3,20 @@ import React from "react";
 import useGetViewCount from "../../hooks/profile/useGetViewProfile";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { splitDataAndCalculateCounts } from "../../utils/functions";
+import { useNavigate } from "react-router-dom";
 const ProfileAnalytics = () => {
   const { data } = useGetViewCount(7);
   const report = data?.report;
-  console.log("report => ", report);
   //   const { part1Count, part2Count, chartColor } =
   const { part1Count, part2Count, chartColor } =
     splitDataAndCalculateCounts(report);
-  console.log(
-    "part1Count, part2Count, chartColor => ",
-    part1Count,
-    part2Count,
-    chartColor
-  );
+  const navigate = useNavigate();
   return (
     <div>
-      <div className="flex items-center justify-between group">
+      <div
+        onClick={() => navigate("/user/profile-analytics")}
+        className="flex items-center justify-between group"
+      >
         <h1 className="font-medium cursor-pointer flex items-center gap-1">
           <p className="group-hover:underline">Analytics</p>
           <span className="text-gray-600 text-xs">(last 7 days)</span>

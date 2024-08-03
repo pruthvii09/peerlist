@@ -21,7 +21,6 @@ export const useAddComment = () => {
   return useMutation({
     mutationFn: addComment,
     onSuccess: () => {
-      toast.success("Comment Added Successfully!");
       queryClient.invalidateQueries("userSinglePost");
     },
     onError: (error) => {

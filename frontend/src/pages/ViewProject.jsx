@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
-import { ArrowLeft, Edit } from "lucide-react";
+import { Edit } from "lucide-react";
 import { useSelector } from "react-redux";
 import ViewProjectDetails from "../components/projects/ViewProjectDetails";
 import useProjectById from "../hooks/projects/useGetProject";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ViewRightSheet from "../components/projects/ViewRightSheet";
 const ViewProject = () => {
   const { user } = useSelector((store) => store.user);

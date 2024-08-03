@@ -26,9 +26,6 @@ const Profile = () => {
   const user = data?.data;
   useEffect(() => {
     if (user) {
-      console.log("recoding");
-      // Record the profile view when the page loads
-      console.log("user.id => ", user.id);
       recordView(user?.id);
     }
   }, [user, loggedInUser, recordView]);

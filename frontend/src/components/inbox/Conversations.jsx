@@ -7,10 +7,9 @@ import { useSelector } from "react-redux";
 const Conversations = ({ setRecept }) => {
   const { data, isLoading } = useGetConversations();
   const { user: loggedUser } = useSelector((store) => store.user);
-  console.log("data => ", data);
+
   const truncateMessage = (message, wordLimit) => {
     const words = message.split(" ");
-    console.log("words => ", words);
     if (words.length > wordLimit) {
       return words.slice(0, wordLimit).join(" ") + "...";
     }

@@ -2,7 +2,7 @@ import { Trash2, X } from "lucide-react";
 import React from "react";
 import Button from "../utils/ui/Button";
 import { useModal } from "../../context/ModalContext";
-const ConfirmationModal = ({ onConfirm }) => {
+const ConfirmationModal = ({ onConfirm, title }) => {
   const { hideModal } = useModal();
   return (
     <div
@@ -14,7 +14,7 @@ const ConfirmationModal = ({ onConfirm }) => {
           <div>
             <Trash2 />
           </div>
-          <h1 className="text-sm font-semibold mt-4">Are you sure?</h1>
+          <h1 className="text-sm font-semibold mt-4">{title}</h1>
         </div>
         <div className="border-t px-4 py-2 w-full flex items-center justify-between">
           <Button

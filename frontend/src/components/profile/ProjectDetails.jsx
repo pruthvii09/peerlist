@@ -24,10 +24,6 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
   const handleProject = () => {
     addProjectMutation.mutate(projectData);
   };
-  console.log(
-    "addProjectMutation => ",
-    addProjectMutation.error?.response.data.error
-  );
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 
@@ -47,7 +43,6 @@ const ProjectDetails = ({ projectData, setProjectData }) => {
       ),
     }));
   };
-  console.log("projectDatasss => ", projectData);
   return (
     <div className="mt-14 border-r h-full pb-14">
       <div className="py-8 md:px-8 px-4 pb-24 ms flex flex-col gap-6">

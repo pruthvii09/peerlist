@@ -16,7 +16,6 @@ const PostModal = () => {
 
   const handlePostClick = () => {
     if (!content) return;
-    console.log("content => ", content);
     addPost.mutate({ content });
   };
 

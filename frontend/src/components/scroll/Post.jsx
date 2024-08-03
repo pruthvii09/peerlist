@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect } from "react";
 import PostInput from "./PostInput";
 import PostCard from "./PostCard";
 import useGetPosts from "../../hooks/post/useGetPosts";
@@ -9,9 +9,7 @@ import { useInView } from "react-intersection-observer";
 const Post = () => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage } =
     useGetPosts();
-  console.log("data => ", data);
   const posts = data?.pages.flatMap((page) => page.data) || [];
-  console.log("posts => ", posts);
 
   const { ref, inView } = useInView();
 

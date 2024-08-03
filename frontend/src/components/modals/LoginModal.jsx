@@ -21,7 +21,6 @@ const LoginModal = () => {
     }
     loginMutation.mutate({ email, password });
   };
-  console.log("loginMutation.error() => ");
   return (
     <div
       onClick={(e) => e.stopPropagation()}

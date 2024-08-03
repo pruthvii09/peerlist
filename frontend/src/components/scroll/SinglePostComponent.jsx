@@ -29,12 +29,12 @@ const SinglePostComponent = ({ data, isLoading }) => {
     setContent(value);
   };
 
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "Enter") {
-  //     e.preventDefault(); // Prevents the default action (such as submitting a form)
-  //     handleComment();
-  //   }
-  // };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevents the default action (such as submitting a form)
+      handleComment();
+    }
+  };
   if (isLoading) {
     return (
       <div className="mt-[52px] border-r border-gray-300 h-screen">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ImagePlus, Plus, Smile } from "lucide-react";
 import Button from "../utils/ui/Button";
 import { useSelector } from "react-redux";
@@ -14,9 +14,20 @@ const PostInput = () => {
       showModal("login");
     }
   };
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Adjust this value as needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
-      <div className="md:px-6 hidden px-3 md:py-4 py-3 hover:cursor-pointer border-b border-gray-300 md:flex flex-col gap-2 w-full">
+      <div className="md:px-6 top-0 bg-white hidden px-3 md:py-4 py-3 hover:cursor-pointer border-b border-gray-300 md:flex flex-col gap-2 w-full">
         <div onClick={handlePostClick} className="flex items-center gap-2">
           <img
             height={40}
@@ -39,15 +50,9 @@ const PostInput = () => {
                 strokeWidth={1.5}
                 size={20}
               />
-              {/* <div className="hidden group-hover:block absolute whitespace-nowrap bottom-full left-1/2 transform -translate-x-1/2 mt-1 px-2 py-1 bg-black/80 text-white text-xs rounded">
-              Add Image
-            </div> */}
             </div>
             <div className="relative inline-block group">
               <Smile className="cursor-pointer" strokeWidth={1.5} size={20} />
-              {/* <div className="hidden rounded-md text-xs group-hover:block absolute -top-8 bg-black/80 whitespace-nowrap text-white px-1 py-1 -left-6 mt-1">
-              Emoji
-            </div> */}
             </div>
           </div>
           <div className="mr-2">
@@ -60,7 +65,7 @@ const PostInput = () => {
       </div>
       <div
         onClick={handlePostClick}
-        className="fixed shadow-md h-12 w-12 flex items-center justify-center rounded-full border-2 bg-[#00aa45] border-[#219653] text-white right-4 bottom-20 md:hidden"
+        className="fixed shadow-md z-10 h-12 w-12 flex items-center justify-center rounded-full border-2 bg-[#00aa45] border-[#219653] text-white right-4 bottom-20 md:hidden"
       >
         <Plus strokeWidth={1.5} size={30} />
       </div>

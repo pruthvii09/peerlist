@@ -1,12 +1,12 @@
 import React from "react";
 import Sidebar from "../components/utils/Sidebar";
-import { Settings } from "lucide-react";
+import { Bell, Settings } from "lucide-react";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
 import JobCard from "../components/jobs/JobCard";
 import GradientCard2 from "../components/utils/GradientCard2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Jobs = () => {
@@ -21,6 +21,15 @@ const Jobs = () => {
             iconConfig={{ icon: Settings, text: "Job Preferences" }}
             onIconClick={() =>
               navigate(`/${user.username}/settings/job-preference`)
+            }
+            children={
+              <Link
+                to={"/notifications"}
+                // onClick={onIconClick}
+                className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex md:hidden items-center gap-1 h-[36px]"
+              >
+                <Bell size={18} />
+              </Link>
             }
           />
           <div className="mt-14 flex flex-col border-r border-gray-300">

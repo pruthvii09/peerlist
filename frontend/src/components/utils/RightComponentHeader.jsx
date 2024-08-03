@@ -23,7 +23,6 @@ const RightComponentHeader = ({
       socket.emit("noti_room", user?.id);
     }
     socket.on("newNotification", (data) => {
-      console.log("data => ", data);
       setNotification(true);
     });
   }, [socket, user]);

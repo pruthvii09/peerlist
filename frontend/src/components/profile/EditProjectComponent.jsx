@@ -264,7 +264,12 @@ const EditProjectComponent = ({ projectData, setProjectData, isLoading }) => {
       <div className="fixed max-w-[640px] w-full md:bottom-0 bottom-16 flex items-center justify-between px-6 py-4 bg-[#f6f8fa] border-t border-r">
         <Button
           title="Delete"
-          onClick={() => showModal("confirm", { onConfirm: onConfirm })}
+          onClick={() =>
+            showModal("confirm", {
+              onConfirm: onConfirm,
+              title: "Are you sure you want to delete project?",
+            })
+          }
           className=" text-xs text-red-500 border border-red-400 rounded-full px-3 py-0.5 hover:text-red-600"
         />
         <Button

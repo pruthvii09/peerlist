@@ -111,7 +111,10 @@ const PostCard = React.forwardRef(({ post }, ref) => {
                       onClick={(e) => {
                         e.preventDefault();
                         setShowDropdown(false);
-                        showModal("confirm", { onConfirm: onConfirm });
+                        showModal("confirm", {
+                          onConfirm: onConfirm,
+                          title: "Are you sure you want to delete post?",
+                        });
                       }}
                       className="flex items-center gap-2 px-4 py-3 cursor-pointer text-red-600 hover:bg-gray-100"
                     >

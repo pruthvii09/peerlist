@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/utils/Sidebar";
-import { SlidersHorizontal } from "lucide-react";
+import { Bell, SlidersHorizontal } from "lucide-react";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Post from "../components/scroll/Post";
 import Rightsidebar from "../components/utils/Rightsidebar";
@@ -8,6 +8,7 @@ import GradientCard from "../components/utils/GradientCard";
 import GradientCard2 from "../components/utils/GradientCard2";
 import { useModal } from "../context/ModalContext";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Scroll = () => {
   const { showModal } = useModal();
@@ -52,6 +53,15 @@ const Scroll = () => {
             title="Scroll"
             iconConfig={{ icon: SlidersHorizontal }}
             onIconClick={handleIconClick}
+            children={
+              <Link
+                to={"/notifications"}
+                // onClick={onIconClick}
+                className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex md:hidden items-center gap-1 h-[36px]"
+              >
+                <Bell size={18} />
+              </Link>
+            }
           />
           <Post />
         </div>

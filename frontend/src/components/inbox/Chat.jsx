@@ -6,8 +6,6 @@ import ChatContent from "./ChatContent";
 import ChatSkeleton from "../skeleton/ChatSkeleton";
 import socket from "../../socket";
 import { useSelector } from "react-redux";
-import QuillEditor from "../utils/Editor";
-
 const Chat = ({ recept }) => {
   const chatContainerRef = useRef(null);
   const [content, setContent] = useState("");

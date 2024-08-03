@@ -8,8 +8,8 @@ import GradientCard from "../components/utils/GradientCard";
 import GradientCard2 from "../components/utils/GradientCard2";
 import useGetSpotlight from "../hooks/spotlight/useGetSpotlight";
 import NoData from "../assets/nodata.svg";
-import { ArrowRight, CircleHelp, Loader2 } from "lucide-react";
-import { useParams } from "react-router-dom";
+import { ArrowRight, Bell, CircleHelp, Loader2 } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 import { formatDateRange } from "../utils/functions";
 import Button from "../components/utils/ui/Button";
 import { useModal } from "../context/ModalContext";
@@ -18,7 +18,6 @@ const Project = () => {
   const { showModal } = useModal();
   const { data, isLoading } = useGetSpotlight(week);
   const dateRange = formatDateRange(data?.startDate, data?.endDate);
-  console.log("datas => ", data);
   return (
     <Sidebar>
       <div className="flex">
@@ -26,10 +25,15 @@ const Project = () => {
           <div className="md:w-[640px] w-full ">
             <ComponentHeader
               title="Projects Spotlight"
+              iconConfig={{ icon: CircleHelp }}
               children={
-                <div className="cursor-pointer">
-                  <CircleHelp size={16} />
-                </div>
+                <Link
+                  to={"/notifications"}
+                  // onClick={onIconClick}
+                  className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex md:hidden items-center gap-1 h-[36px]"
+                >
+                  <Bell size={18} />
+                </Link>
               }
             />
           </div>

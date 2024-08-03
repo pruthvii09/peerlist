@@ -72,7 +72,7 @@ const ComponentHeader = ({
       className="px-2 cursor-pointer py-2 border border-gray-300 rounded-full flex items-center gap-1 h-[36px]"
     >
       <Icon size={size} />
-      {iconText && <span className="text-xs">{iconText}</span>}
+      {iconText && <span className="text-xs md:block hidden">{iconText}</span>}
     </div>
   );
 

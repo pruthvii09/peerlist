@@ -6,7 +6,7 @@ const Navlink = ({ title, icon: Icon, href }) => {
   return (
     <Link
       to={href}
-      className="flex md:flex-row flex-col group items-center gap-2 py-3 hover:cursor-pointer"
+      className="flex md:flex-row flex-col group items-center gap-2 py-2.5 hover:cursor-pointer"
     >
       <Icon strokeWidth={1.5} />
       <span

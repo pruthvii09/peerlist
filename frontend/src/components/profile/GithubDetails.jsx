@@ -43,7 +43,12 @@ const GithubDetails = ({ isOwnProfile, github }) => {
         </h1>
         {isOwnProfile && (
           <div
-            onClick={() => showModal("confirm", { onConfirm: onConfirm })}
+            onClick={() =>
+              showModal("confirm", {
+                onConfirm: onConfirm,
+                title: "Are you sure you want to remove github?",
+              })
+            }
             className="p-1 border border-gray-300 rounded-full cursor-pointer"
           >
             <Trash2 size={16} />

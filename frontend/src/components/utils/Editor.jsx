@@ -58,7 +58,6 @@ const QuillEditor = ({ value, onChange, initialContent, height }) => {
   const debouncedQuery = useDebounce(query, 300);
 
   const { data, isLoading: searchLoad } = useSearchProfile(debouncedQuery);
-  console.log("data => ", data);
   const handleChange = (html) => {
     setContent(html);
     onChange({ target: { value: html } });
@@ -77,7 +76,6 @@ const QuillEditor = ({ value, onChange, initialContent, height }) => {
       if (match) {
         const queryText = match[1];
         setQuery(queryText);
-        console.log("Query:", queryText);
         setShowSuggestions(true);
       } else {
         setShowSuggestions(false);
@@ -138,11 +136,23 @@ const QuillEditor = ({ value, onChange, initialContent, height }) => {
     setContent(quill.root.innerHTML);
     onChange({ target: { value: quill.root.innerHTML } });
   };
+  // const modules = {
+  //   toolbar: false, // Disable the toolbar if you don't need it
+  //   keyboard: {
+  //     bindings: {
+  //       enter: {
+  //         key: 13,
+  //         handler: () => false,
+  //       },
+  //     },
+  //   },
+  // };
 
   return (
     <div className="relative">
       <ReactQuill
         theme=""
+        // modules={modules}
         ref={quillRef}
         value={content}
         onChange={handleChange}

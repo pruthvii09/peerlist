@@ -50,13 +50,12 @@ const routes = [
 ];
 const Sidebar = ({ children }) => {
   const { user } = useSelector((store) => store.user);
-  console.log("user => ", user);
   return (
     <div className="md:flex block w-full">
       <div className="md:w-[212px] w-full fixed z-[99] md:h-screen h-auto border-r border-gray-300">
-        <div className="md:flex hidden flex-col gap-8">
+        <Link to={"/"} className="md:flex hidden flex-col gap-8">
           <img width={124} height={32} className="py-3" src={Logo} alt="" />
-        </div>
+        </Link>
         <div className="fixed overflow-y-auto bottom-0 right-0 left-0 grid grid-cols-5 w-full bg-white border-t border-gray-300 md:relative md:bottom-auto md:right-auto md:left-auto md:flex md:flex-col md:mt-5 md:h-auto md:bg-transparent md:border-t-0 px-2">
           {routes.map((route, i) => {
             if (route.authOnly && !user) {

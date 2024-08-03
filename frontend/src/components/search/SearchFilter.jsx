@@ -1,17 +1,13 @@
 import React from "react";
 import Button from "../utils/ui/Button";
-import Input from "../utils/ui/Input";
 import Select from "../utils/ui/Select";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
-const SearchFilter = ({ setShowSheet }) => {
+import TagInput from "../utils/ui/TagInput";
+const SearchFilter = ({ searchFilter, setSearchFilter }) => {
   const isMediumOrLarger = useMediaQuery({ query: "(min-width: 768px)" });
   return (
     <div className="px-4 py-4">
-      {/* <div
-        onClick={() => setShowSheet(false)}
-        className="fixed md:hidden inset-0 z-[999] bg-black bg-opacity-30"
-      ></div> */}
       <motion.div
         initial={isMediumOrLarger ? {} : { opacity: 0, x: 100 }}
         animate={isMediumOrLarger ? {} : { opacity: 1, x: 0 }}
@@ -22,18 +18,65 @@ const SearchFilter = ({ setShowSheet }) => {
           <div className="flex flex-col gap-6">
             <h1 className="text-sm font-semibold">Filter By</h1>
             <div className="grid grid-cols-2 gap-4">
-              <Select label="Country" />
-              <Select label="City" />
+              <Select
+                label="Country"
+                onChange={(e) =>
+                  setSearchFilter({ ...searchFilter, country: e.target.value })
+                }
+                options={[
+                  { id: 0, name: "Select" },
+                  { id: 1, name: "India" },
+                  { id: 2, name: "Australia" },
+                  { id: 3, name: "USA" },
+                  { id: 4, name: "England" },
+                  { id: 5, name: "Nepal" },
+                ]}
+              />
+              <Select
+                label="City"
+                onChange={(e) =>
+                  setSearchFilter({ ...searchFilter, city: e.target.value })
+                }
+                options={[
+                  { id: 0, name: "Select" },
+                  { id: 1, name: "Pune" },
+                  { id: 2, name: "Mumbai" },
+                  { id: 3, name: "Banglore" },
+                  { id: 4, name: "Delhi" },
+                  { id: 5, name: "Hydrabad" },
+                ]}
+              />
             </div>
             <div>
-              <Input label="Roles" />
+              <TagInput
+                onChange={(newSkills) =>
+                  setSearchFilter((prevskill) => ({
+                    ...prevskill,
+                    skills: newSkills,
+                  }))
+                }
+                skills={searchFilter.skills}
+              />
             </div>
           </div>
         </div>
-        <Button
-          title="Apply"
-          className="text-white mt-4 font-medium w-fit bg-black rounded-full text-xs px-3 py-1"
-        />
+        <div className="flex items-center justify-between">
+          <Button
+            title="Clear"
+            onClick={() =>
+              setSearchFilter({
+                country: "",
+                city: "",
+                skills: [],
+              })
+            }
+            className="text-gray-700 border border-gray-300  mt-4 font-medium w-fit rounded-full text-xs px-3 py-1"
+          />
+          <Button
+            title="Apply"
+            className="text-white mt-4 font-medium w-fit bg-black rounded-full text-xs px-3 py-1"
+          />
+        </div>
       </motion.div>
     </div>
   );

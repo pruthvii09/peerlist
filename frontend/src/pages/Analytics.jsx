@@ -33,7 +33,6 @@ const Analytics = () => {
     }
   }, [selectedOption]);
 
-  console.log("datsAgo => ", daysAgo);
   const { data, isLoading, refetch } = useGetViewCount(daysAgo);
   useEffect(() => {
     refetch(); // Refetch data when daysAgo changes
@@ -42,11 +41,8 @@ const Analytics = () => {
   const { user } = useSelector((store) => store.user);
   const [showSheet, setShowSheet] = useState(false);
 
-  console.log("data => ", data);
-
   const handleSelectOption = (option) => {
     setSelectedOption(option);
-    console.log("Selected:", option);
   };
   return (
     <Sidebar>

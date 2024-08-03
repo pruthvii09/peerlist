@@ -363,6 +363,9 @@ export const addComment = async (req, res) => {
         userId,
         content,
       },
+      include: {
+        post: true,
+      },
     });
     console.log("comment => ", comment);
     const taggedUsernames = extractTaggedUsernames(content);
@@ -372,6 +375,19 @@ export const addComment = async (req, res) => {
       type: "COMMENT",
       id: comment.id,
       notificationType: "COMMENT_TAG",
+    });
+    const noti = await prisma.notification.create({
+      data: {
+        userId: comment.post.userId,
+        content: "Someone commented on your post",
+        type: NotificationType.POST_COMMENT,
+        postId: postId,
+        relatedUserId: comment.userId,
+      },
+    });
+    io.to(comment.post.userId).emit("newNotification", {
+      type: NotificationType.POST_COMMENT,
+      content: "Someone commented on your post",
     });
     res.status(201).json(comment);
   } catch (error) {
