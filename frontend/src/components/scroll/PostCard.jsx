@@ -132,9 +132,24 @@ const PostCard = React.forwardRef(({ post }, ref) => {
             {/* Ensure content doesn't overflow */}
             <p
               onClick={(e) => e.stopPropagation()}
-              className="whitespace-pre-line post-content text-sm" // Adjusting whitespace handling
+              className="whitespace-pre-line post-content text-sm md:ml-[52px]" // Adjusting whitespace handling
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
+            {post?.images?.length > 0 && (
+              <div className={`md:ml-[52px] mt-4 grid grid-cols-2 gap-1`}>
+                {post?.images?.map((image) => (
+                  <img
+                    onClick={(e) => {
+                      e.preventDefault();
+                      showModal("image", { image: image });
+                    }}
+                    className=""
+                    key={image.id}
+                    src={image.url}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="mt-3 flex flex-wrap items-center justify-between">

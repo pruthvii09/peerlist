@@ -10,6 +10,7 @@ import LaunchProject from "../components/modals/LaunchProject";
 import IntegrationModal from "../components/modals/IntegrationModal";
 import SearchModal from "../components/modals/SearchModal";
 import VerifyOtpModal from "../components/modals/VerifyOtpModal";
+import ImageModal from "../components/modals/ImageModal";
 
 const ModalContext = createContext();
 
@@ -59,6 +60,8 @@ const ModalContainer = ({ modalType, modalProps }) => {
       return <SearchModal {...modalProps} />;
     case "verify":
       return <VerifyOtpModal {...modalProps} />;
+    case "image":
+      return <ImageModal {...modalProps} />;
     default:
       return null;
   }

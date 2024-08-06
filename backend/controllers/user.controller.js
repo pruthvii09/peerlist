@@ -83,8 +83,6 @@ export const getUserByUsername = async (req, res) => {
         username: true,
         email: true,
         emailVerified: true,
-        gitUsername: true,
-        githubToken: true,
         firstname: true,
         lastname: true,
         bio: true,
@@ -123,6 +121,15 @@ export const getUserByUsername = async (req, res) => {
             institute_name: true,
           },
         },
+        githubAccount: {
+          select: {
+            gitUsername: true,
+            githubToken: true,
+            githubRefreshToken: true,
+            githubTokenExpiresAt: true,
+          },
+        },
+
         projects: {
           select: {
             id: true,
@@ -146,11 +153,15 @@ export const getUserByUsername = async (req, res) => {
       });
     }
     let githubData;
-    if (user.gitUsername) {
-      githubData = await fetchGithubData(user.gitUsername, user.id);
+    if (user?.githubAccount?.gitUsername) {
+      githubData = await fetchGithubData(
+        user.githubAccount.gitUsername,
+        user.id
+      );
     } else {
       githubData = [];
     }
+    console.log("githubData => ", githubData);
     const responseData = {
       ...user,
       github: githubData,

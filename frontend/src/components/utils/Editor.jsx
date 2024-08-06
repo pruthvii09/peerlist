@@ -136,17 +136,6 @@ const QuillEditor = ({ value, onChange, initialContent, height }) => {
     setContent(quill.root.innerHTML);
     onChange({ target: { value: quill.root.innerHTML } });
   };
-  // const modules = {
-  //   toolbar: false, // Disable the toolbar if you don't need it
-  //   keyboard: {
-  //     bindings: {
-  //       enter: {
-  //         key: 13,
-  //         handler: () => false,
-  //       },
-  //     },
-  //   },
-  // };
 
   return (
     <div className="relative">

@@ -42,23 +42,30 @@ const query = `query ($username: String!) {
 
 export const fetchGithubData = async (username, userId) => {
   try {
-    const user = await prisma.user.findUnique({ where: { id: userId } });
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { githubAccount: true },
+    });
     if (!user) {
       throw new Error("User not found");
     }
+    console.log("user => ", user);
 
     // Check if the token is expired
-    let access_token = user.githubToken;
+    console.log("username => ", username);
+    let access_token = user.githubAccount.githubToken;
+    // const username
     console.log(
-      "user.githubTokenExpiresAt",
-      user.githubTokenExpiresAt,
-      "new date",
-      Math.floor(Date.now() / 1000),
-      user.githubTokenExpiresAt <= Math.floor(Date.now() / 1000)
+      "user.githubAccount.githubTokenExpiresAt => ",
+      user.githubAccount.githubTokenExpiresAt
+    );
+    console.log(
+      "Math.floor(Date.now() / 1000) => ",
+      Math.floor(Date.now() / 1000)
     );
     if (
-      user.githubTokenExpiresAt &&
-      user.githubTokenExpiresAt <= Math.floor(Date.now() / 1000)
+      user.githubAccount.githubTokenExpiresAt &&
+      user.githubAccount.githubTokenExpiresAt <= Math.floor(Date.now() / 1000)
     ) {
       // Token is expired, refresh it
       access_token = await refreshGithubToken(userId);

@@ -8,6 +8,7 @@ import GitProjectCard from "./GitProjectCard";
 import { useModal } from "../../context/ModalContext";
 import { useRemoveGit } from "../../hooks/profile/useRemoveGit";
 const GithubDetails = ({ isOwnProfile, github }) => {
+  console.log("github => ", github);
   const formatDate = (date) => {
     const d = new Date(date);
     const year = d.getFullYear();

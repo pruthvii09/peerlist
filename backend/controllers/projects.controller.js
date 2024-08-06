@@ -281,11 +281,16 @@ cloudinary.config({
 export const removeImage = async (req, res) => {
   const { publicId } = req.body;
 
+  if (!publicId) {
+    return res.status(400).json({ error: "Public ID is required" });
+  }
+
   try {
     const result = await cloudinary.uploader.destroy(publicId);
     console.log(result);
     res.json({ result });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Failed to remove image" });
   }
 };

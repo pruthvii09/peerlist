@@ -15,12 +15,13 @@ import { useModal } from "../context/ModalContext";
 import GithubDetails from "../components/profile/GithubDetails";
 import { useRecordView } from "../hooks/profile/useViewProfile";
 import ProfileAnalytics from "../components/profile/ProfileAnalytics";
+import CkEditor from "../components/utils/CkEditor";
 const Profile = () => {
   const { id } = useParams();
   const { mutate: recordView } = useRecordView();
 
   const { data, isLoading, isError } = useUserProfile(id);
-
+  console.log("data => ", data);
   const loggedInUser = useSelector((state) => state.user.user);
 
   const user = data?.data;
@@ -37,7 +38,7 @@ const Profile = () => {
   );
   function loginGithub() {
     window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=Iv23lidnCU7MshKkW99u`
+      `https://github.com/login/oauth/authorize?client_id=Iv23liHEcKJ3WpFrg3bA`
     );
   }
   if (isLoading) {
@@ -128,6 +129,7 @@ const Profile = () => {
                 github={user?.github}
               />
             )}
+            <CkEditor />
           </div>
         </div>
         <Rightsidebar>

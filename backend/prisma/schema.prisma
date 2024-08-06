@@ -13,20 +13,15 @@ model User {
   email                String         @unique
   emailVerified        Boolean?       @default(false)
   password             String
-  githubId             String?
-  githubToken          String?
-  gitUsername          String?
-  githubRefreshToken   String?
-  githubTokenExpiresAt Int?
   firstname            String?
   lastname             String?
+  profileImageUrl      String?
   bio                  String?
   website              String?
   gender               String?
   calendar             String?
   country              String?
   city                 String?
-  profileImageUrl      String?
   socialMedia          Json?
   skills               Json?
   createdAt            DateTime       @default(now())
@@ -48,6 +43,17 @@ model User {
   notifications        Notification[] @relation("UserNotifications")
   relatedNotifications Notification[] @relation("RelatedUserNotifications")
   Notification         Notification[]
+  githubAccount        GithubAccount?
+}
+
+model GithubAccount {
+  id                   String  @id @default(auto()) @map("_id") @db.ObjectId
+  user                 User    @relation(fields: [userId], references: [id])
+  userId               String  @unique @db.ObjectId
+  githubToken          String
+  gitUsername          String?
+  githubRefreshToken   String?
+  githubTokenExpiresAt Int?
 }
 
 model ProfileView {
@@ -95,6 +101,7 @@ model Post {
   userId       String         @db.ObjectId
   content      String
   createdAt    DateTime       @default(now())
+  images       Json[]         @default([])
   comments     Comment[]
   likes        Like[]
   Notification Notification[]

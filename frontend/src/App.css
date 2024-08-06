@@ -97,3 +97,42 @@
 .ql-editor {
   padding: 0 !important;
 }
+
+.ck.ck-voice-label {
+  display: none;
+}
+.ck-content a {
+  color: rgb(92, 92, 92);
+}
+.ck-content a:hover {
+  text-decoration: underline;
+  color: black;
+  cursor: pointer;
+}
+
+.ckeditor-container .ck-editor__main .ck-blurred,
+.ckeditor-container .ck-editor__main .ck-focused {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ckeditor-container .ck-editor__editable_inline {
+  border: none !important;
+}
+.ck-editor > div,
+.ck-content {
+  border: none !important;
+}
+.ck-editor__top {
+  display: none;
+}
+.ckeditor-container .ck-editor__editable_inline {
+  max-height: 200px;
+  overflow-y: auto;
+  border: none !important;
+  box-shadow: none !important;
+}
+.ckeditor-container .ck-editor__editable_inline img {
+  width: auto;
+  object-fit: cover;
+}

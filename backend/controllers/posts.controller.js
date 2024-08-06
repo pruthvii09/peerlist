@@ -5,11 +5,12 @@ import { sendNotificationsToTaggedUsers } from "./notification.controller.js";
 import { io } from "../app.js";
 export const createPost = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { content, images } = req.body;
     const userId = req.user.id; // Assuming the auth middleware adds user info to req
     const newPost = await prisma.post.create({
       data: {
         content,
+        images: images || [],
         userId,
       },
     });

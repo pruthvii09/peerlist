@@ -100,25 +100,30 @@ export const getAccessTokenGithub = async (req, res) => {
 
     const userData = await userResponse.json();
     console.log(userData);
-    const id = userData?.id?.toString();
     const userId = req.user.id;
     console.log("userId => ", userId);
     console.log("expires_in => ", expires_in);
-    const expiresAt = (await Math.floor(Date.now() / 1000)) + expires_in;
+    const expiresAt = Math.floor(Date.now() / 1000) + expires_in;
     console.log("Expires At => ", expiresAt);
-    const user = await prisma.user.update({
-      where: { id: userId },
-      data: {
+    const githubAccount = await prisma.githubAccount.upsert({
+      where: { userId: userId },
+      update: {
         gitUsername: userData.login,
-        githubId: id,
+        githubToken: access_token,
+        githubRefreshToken: refresh_token,
+        githubTokenExpiresAt: expiresAt,
+      },
+      create: {
+        userId: userId,
+        gitUsername: userData.login,
         githubToken: access_token,
         githubRefreshToken: refresh_token,
         githubTokenExpiresAt: expiresAt,
       },
     });
-    console.log(user);
+    console.log(githubAccount);
     console.log("accessToken send.. => ");
-    res.status(200).json({ access_token: user.githubToken });
+    res.status(200).json({ access_token: githubAccount.githubToken });
   } catch (error) {
     console.error("Error in getAccessTokenGithub:", error);
     res.status(500).json({ error: error });
@@ -129,14 +134,9 @@ export const deleteGithub = async (req, res) => {
   try {
     const userId = req.user.id;
     console.log(userId);
-    const user = await prisma.user.update({
+    const user = await prisma.githubAccount.delete({
       where: {
         id: userId,
-      },
-      data: {
-        githubId: null,
-        gitUsername: null,
-        githubToken: null,
       },
     });
     if (!user) {

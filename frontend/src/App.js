@@ -33,11 +33,16 @@ import Account from "./pages/Account";
 import Inbox from "./pages/Inbox";
 import UserUpvoted from "./pages/UserUpvoted";
 import Analytics from "./pages/Analytics";
+import Edit from "./pages/Edit";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/scroll" /> },
   {
     path: "/scroll",
     element: <Scroll />,
+  },
+  {
+    path: "/edit",
+    element: <Edit />,
   },
   {
     path: "/scroll/post/:id",

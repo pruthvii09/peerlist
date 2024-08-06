@@ -10,7 +10,7 @@ const Post = () => {
   const { data, isLoading, isError, fetchNextPage, hasNextPage } =
     useGetPosts();
   const posts = data?.pages.flatMap((page) => page.data) || [];
-
+  console.log("posts => ", posts);
   const { ref, inView } = useInView();
 
   useEffect(() => {
