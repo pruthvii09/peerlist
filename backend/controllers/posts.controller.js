@@ -221,6 +221,7 @@ export const getPostDetails = async (req, res) => {
     // Reshape the data to exclude sensitive information
     const postDetails = {
       id: post.id,
+      images: post.images,
       content: post.content,
       createdAt: post.createdAt,
       user: {

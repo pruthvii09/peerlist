@@ -32,8 +32,6 @@ const useImageUpload = () => {
 
       const data = await response.json();
       setImageUrl(data.secure_url);
-      console.log("imageUrl => ", imageUrl);
-      console.log("data => ", data);
       setUploading(false);
       return { url: data?.secure_url, id: data?.public_id };
     } catch (err) {

@@ -1,27 +1,25 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/utils/Sidebar";
-import { Edit, Plus } from "lucide-react";
-import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import UserProfile from "../components/profile/UserProfile";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import ComponentHeader from "../components/utils/ComponentHeader";
 import AddProject from "../components/profile/AddProject";
 import useUserProfile from "../hooks/profile/useUserProfile";
-import { useSelector } from "react-redux";
-import { integrations } from "../utils/data";
 import ProfileSkeleton from "../components/utils/ProfileSkeleton";
 import HighlightCard from "../components/profile/HighlightCard";
-import { useModal } from "../context/ModalContext";
 import GithubDetails from "../components/profile/GithubDetails";
-import { useRecordView } from "../hooks/profile/useViewProfile";
 import ProfileAnalytics from "../components/profile/ProfileAnalytics";
-import CkEditor from "../components/utils/CkEditor";
+import { useRecordView } from "../hooks/profile/useViewProfile";
+import { Edit, Plus } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { integrations } from "../utils/data";
+import { useModal } from "../context/ModalContext";
 const Profile = () => {
   const { id } = useParams();
   const { mutate: recordView } = useRecordView();
 
   const { data, isLoading, isError } = useUserProfile(id);
-  console.log("data => ", data);
   const loggedInUser = useSelector((state) => state.user.user);
 
   const user = data?.data;
@@ -129,7 +127,6 @@ const Profile = () => {
                 github={user?.github}
               />
             )}
-            <CkEditor />
           </div>
         </div>
         <Rightsidebar>

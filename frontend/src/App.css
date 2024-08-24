@@ -86,18 +86,13 @@
   fill: "#1e874b";
 }
 .mention {
-  color: green !important;
+  color: rgb(0 170 69) !important;
   font-weight: 500 !important;
   text-decoration: none !important;
 }
 .mention:hover {
-  border-bottom: 1.5px solid #1e874b !important;
+  border-bottom: 1.5px solid rgb(0 170 69) !important;
 }
-
-.ql-editor {
-  padding: 0 !important;
-}
-
 .ck.ck-voice-label {
   display: none;
 }
@@ -135,4 +130,12 @@
 .ckeditor-container .ck-editor__editable_inline img {
   width: auto;
   object-fit: cover;
+}
+.ck-content a[href^="/user"] {
+  color: rgb(0 170 69);
+  font-weight: 500;
+  text-decoration: none;
+}
+.ck-content a[href^="/user"]:hover {
+  border-bottom: 1.5px solid rgb(0 170 69);
 }

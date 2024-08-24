@@ -59,22 +59,15 @@ const Chat = ({ recept }) => {
           }
           const newConversationId = response.conversationId;
           setConversationId(newConversationId);
-          console.log(
-            "Received new conversationId from server => ",
-            newConversationId
-          );
           socket.emit("join_room", newConversationId);
         }
       );
     } else {
-      console.log("recept.conversationId => ", recept.conversationId);
       socket.emit("join_room", conversationId);
     }
 
     socket.on("receive_message", (data) => {
-      console.log("data => ", data);
       setChat((prevChat) => [...prevChat, data]);
-      console.log("chat => ", chat);
     });
     return () => {
       socket.off("receive_message");

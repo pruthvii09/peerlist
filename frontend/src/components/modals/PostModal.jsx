@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Button from "../utils/ui/Button";
 import { ImagePlus, Smile, X } from "lucide-react";
 import { useModal } from "../../context/ModalContext";
-import QuillEditor from "../utils/Editor";
+//import QuillEditor from "../utils/Editor";
 import { useAddPost } from "../../hooks/post/useAddPost";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import CkEditor from "../utils/CkEditor";
 import useImageUpload from "../../hooks/useImageUpload";
+import { toast } from "react-toastify";
 const PostModal = () => {
   const [content, setContent] = useState("");
   const [images, setImages] = useState([]);
@@ -18,7 +19,6 @@ const PostModal = () => {
   const addPost = useAddPost();
 
   const handlePostClick = () => {
-    console.log("content => ", content);
     if (!content) return;
     addPost.mutate({ content: content, images: images });
   };
@@ -27,11 +27,12 @@ const PostModal = () => {
   const { uploadImage, removeImage, uploading } = useImageUpload();
   const fileInputRef = useRef(null);
   const handleImageUpload = async (event) => {
+    if (images.length >= 4) {
+      return toast.error("Maximum 4 images can be uploaded");
+    }
     const file = event.target.files[0];
-    console.log("file => ", file);
     if (file) {
       const { url, id } = await uploadImage(file);
-      console.log(url, id);
       setImages((prevImages) => [...prevImages, { url, id }]);
     }
   };
@@ -68,7 +69,7 @@ const PostModal = () => {
             }}
           />
         </div>
-        <div className="h-[300px] px-4 mt-4">
+        <div className="h-[300px] px-0 md:px-4 mt-4">
           {/* <QuillEditor
             onChange={(e) => setContent(e.target.value)}
             height={200}
@@ -110,7 +111,7 @@ const PostModal = () => {
             <div className="relative inline-block group">
               <Smile className="cursor-pointer" strokeWidth={1.5} size={20} />
             </div>
-            <div className="text-xs text-gray-600">
+            <div className="text-xs hidden md:block text-gray-600">
               Type @ to mention people and companies.
             </div>
           </div>

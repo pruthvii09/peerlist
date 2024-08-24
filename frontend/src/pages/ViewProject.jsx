@@ -19,7 +19,6 @@ const ViewProject = () => {
   const { id } = useParams();
   const { data, isLoading } = useProjectById(id);
   const project = data?.data;
-  console.log("project => ", project);
   const isOwnProfile = user?.username === project?.user.username;
   return (
     <Sidebar>

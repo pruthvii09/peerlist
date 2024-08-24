@@ -11,7 +11,7 @@ import {
 import Upvote from "../../assets/icons/Upvote";
 import { motion } from "framer-motion";
 import { timeAgo } from "../../utils/functions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 import { useDeletePostMutation } from "../../hooks/post/useDeletePost";
@@ -26,6 +26,7 @@ const PostCard = React.forwardRef(({ post }, ref) => {
   const [animationKey, setAnimationKey] = useState(0);
 
   const { user } = useSelector((store) => store.user);
+  const navigate = useNavigate();
   const { showModal } = useModal();
 
   const isOwnProfile = post?.user?.username === user?.username;
@@ -68,7 +69,13 @@ const PostCard = React.forwardRef(({ post }, ref) => {
               alt="User avatar"
             />
             <div className="leading-tight">
-              <h1 className="font-medium text-sm hover:underline">
+              <h1
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/user/${post?.user.username}`);
+                }}
+                className="font-medium text-sm hover:underline"
+              >
                 {post?.user.firstname} {post?.user.lastname}
               </h1>
               <span className="text-xs text-gray-600">
@@ -132,21 +139,40 @@ const PostCard = React.forwardRef(({ post }, ref) => {
             {/* Ensure content doesn't overflow */}
             <p
               onClick={(e) => e.stopPropagation()}
-              className="whitespace-pre-line post-content text-sm md:ml-[52px]" // Adjusting whitespace handling
+              className="whitespace-pre-line post-content text-sm md:ml-[52px] ck-content" // Adjusting whitespace handling
               dangerouslySetInnerHTML={{ __html: post?.content }}
             />
             {post?.images?.length > 0 && (
-              <div className={`md:ml-[52px] mt-4 grid grid-cols-2 gap-1`}>
-                {post?.images?.map((image) => (
-                  <img
-                    onClick={(e) => {
-                      e.preventDefault();
-                      showModal("image", { image: image });
-                    }}
-                    className=""
+              <div
+                className={`md:ml-[52px] mt-4 ${
+                  post.images.length === 1
+                    ? "max-w-md mx-auto"
+                    : "grid grid-cols-2 gap-2"
+                }`}
+              >
+                {post?.images?.map((image, index) => (
+                  <div
                     key={image.id}
-                    src={image.url}
-                  />
+                    className={`relative overflow-hidden ${
+                      post.images.length === 1 ? "" : ""
+                    } rounded-lg shadow-md `}
+                  >
+                    <img
+                      className={`w-full h-full object-cover ${
+                        post.images.length > 1 ? "cursor-pointer" : ""
+                      }`}
+                      src={image.url}
+                      alt={`Post image ${index + 1}`}
+                    />
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showModal("image", { image: image });
+                      }}
+                      className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity duration-300"
+                    />
+                  </div>
                 ))}
               </div>
             )}
