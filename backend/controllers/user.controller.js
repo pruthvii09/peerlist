@@ -182,6 +182,11 @@ export const getUserByUsername = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany({
+      where: {
+        username: {
+          not: null,
+        },
+      },
       select: {
         firstname: true,
         lastname: true,
@@ -197,25 +202,29 @@ export const getAllUsers = async (req, res) => {
         profileImageUrl: true,
       },
     });
-    if (!users) {
+    console.log("users => ", users);
+
+    if (!users || users.length === 0) {
       return res.status(404).json({
         status: "error",
-        messaeg: "Users not found",
+        message: "Users not found",
       });
     }
+
     res.status(200).json({
       status: "success",
       data: users,
     });
   } catch (error) {
-    console.error("Error fetching user by username:", error);
+    console.error("Error fetching users:", error);
     res.status(500).json({
       status: "error",
       message:
-        "An error occurred while fetching the user profile. Please try again later.",
+        "An error occurred while fetching the user profiles. Please try again later.",
     });
   }
 };
+
 export const searchUsersByUsername = async (req, res) => {
   const { query } = req.query; // Assume query parameter is named `query`
   const userId = req.user.id; // User ID of the request sender

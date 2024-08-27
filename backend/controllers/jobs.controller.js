@@ -56,6 +56,7 @@ export const getJobs = async (req, res) => {
         description: true,
       },
     });
+    console.log("jobs => ", jobs);
     if (!jobs) {
       return res.status(404).json({ error: "Not Found" });
     }

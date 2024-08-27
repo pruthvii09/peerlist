@@ -109,7 +109,9 @@ export const getSpotlightDetails = async (req, res) => {
 export const createUpvote = async (req, res) => {
   const { projectId } = req.body;
   const userId = req.user.id;
+
   try {
+    // Check if the user has already upvoted this project
     const existingUpvote = await prisma.upvote.findUnique({
       where: {
         userId_projectId: {
@@ -132,22 +134,27 @@ export const createUpvote = async (req, res) => {
         projectId,
       },
     });
+    console.log("upvote => ", upvote);
 
-    // Optionally, you can also increment the upvote count on the project
-    await prisma.project.update({
+    // Increment the upvote count on the project
+    const updatedProject = await prisma.project.update({
       where: { id: projectId },
       data: {
         upvotes: { increment: 1 },
       },
     });
+    console.log("updatedProject => ", updatedProject);
 
-    res.status(201).json(upvote);
+    res.status(201).json({ message: "Upvote added successfully." });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred while creating the upvote.", error });
+    console.error("Error creating upvote:", error);
+    res.status(500).json({
+      message: "An error occurred while creating the upvote.",
+      error: error.message,
+    });
   }
 };
+
 export const removeUpvote = async (req, res) => {
   const { projectId } = req.body;
   const userId = req.user.id;

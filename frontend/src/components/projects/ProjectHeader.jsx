@@ -7,7 +7,7 @@ import { useModal } from "../../context/ModalContext";
 const ProjectHeader = ({ currentWeek, dateRange }) => {
   const { showModal } = useModal();
   const today = new Date().getDay();
-  const isMonday = today === 2;
+  const isMonday = today === 3;
 
   return (
     <>

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 
 const ProjectCard = ({ data, rank }) => {
+  console.log("data => ", data);
   const [animationKey, setAnimationKey] = useState(0);
   const [upvote, setUpvoted] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(data?.upvotes || 0);
@@ -31,11 +32,13 @@ const ProjectCard = ({ data, rank }) => {
       if (upvote) {
         setUpvoted(false);
         setUpvoteCount((prev) => prev - 1);
+        console.log("upvoteCount => ", upvoteCount);
         removeUpvoteMutation.mutate({ projectId: data?.id });
       } else {
         setUpvoted(true);
         setUpvoteCount((prev) => prev + 1);
         setAnimationKey((prev) => prev + 1);
+        console.log("upvoteCount2 => ", upvoteCount);
         upvoteMutation.mutate({ projectId: data?.id });
       }
     }

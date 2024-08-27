@@ -12,8 +12,8 @@ import useFetchJob from "../hooks/job/useGetJob";
 const Jobs = () => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  const { data, isLoading } = useFetchJob();
-  console.log("data => ", data);
+  const { data, isLoading, isError } = useFetchJob();
+
   return (
     <Sidebar>
       <div className="flex">
@@ -35,15 +35,23 @@ const Jobs = () => {
             }
           />
           <div className="mt-14 flex flex-col border-r border-gray-300 min-h-screen h-full">
-            {isLoading ? (
-              <div>
-                <Loader2 className="animate-spin text-green-500" />
+            {isError ? (
+              <div className="text-sm text-red-500 px-5 py-2">
+                Error Occoured Please try again later...
               </div>
             ) : (
               <>
-                {data.map((job) => (
-                  <JobCard job={job} key={job?.id} />
-                ))}
+                {isLoading ? (
+                  <div>
+                    <Loader2 className="animate-spin text-green-500" />
+                  </div>
+                ) : (
+                  <>
+                    {data.map((job) => (
+                      <JobCard job={job} key={job?.id} />
+                    ))}
+                  </>
+                )}
               </>
             )}
           </div>
