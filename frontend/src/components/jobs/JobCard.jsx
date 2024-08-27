@@ -7,10 +7,10 @@ const JobCard = ({ job }) => {
   return (
     <a
       href={
-        job.application_link.startsWith("http") ||
-        job.application_link.startsWith("https")
+        job?.application_link?.startsWith("http") ||
+        job?.application_link?.startsWith("https")
           ? job.application_link
-          : `https://${job.application_link}`
+          : `https://${job?.application_link}`
       }
       target="_blank"
       rel="noreferrer"
@@ -27,11 +27,11 @@ const JobCard = ({ job }) => {
       </div>
       <div className="flex flex-col">
         <p className="text-sm">
-          <span className="font-semibold">{job.title}</span> at {job.company}
+          <span className="font-semibold">{job?.title}</span> at {job?.company}
         </p>
         <p className="text-xs text-gray-600 flex gap-2">
           <span>{job.location}</span>
-          <span>{capitalizeFirstLetter(job.type)}</span>{" "}
+          <span>{capitalizeFirstLetter(job?.type)}</span>{" "}
           <span>{job.experience}+ years</span>
         </p>
         {job?.skills && (
@@ -48,7 +48,7 @@ const JobCard = ({ job }) => {
                   src={skill.logo}
                   alt=""
                 />
-                <span>{skill.name}</span>
+                <span>{skill?.name}</span>
               </div>
             ))}
           </div>
