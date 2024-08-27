@@ -43,7 +43,19 @@ export const addJob = async (req, res) => {
 
 export const getJobs = async (req, res) => {
   try {
-    const jobs = await prisma.job.findMany();
+    const jobs = await prisma.job.findMany({
+      select: {
+        id: true,
+        title: true,
+        application_link: true,
+        skills: true,
+        company: true,
+        createdAt: true,
+        experience: true,
+        type: true,
+        description: true,
+      },
+    });
     if (!jobs) {
       return res.status(404).json({ error: "Not Found" });
     }
