@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import Sidebar from "../components/utils/Sidebar";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
-import { Bell, Filter, X } from "lucide-react";
+import { Filter, X } from "lucide-react";
 import ProfileCard from "../components/search/ProfileCard";
 import useGetAllProfile from "../hooks/profile/usetGetAllProfile";
 import ProfileCardSkeleton from "../components/skeleton/ProfileCardSkeleton";

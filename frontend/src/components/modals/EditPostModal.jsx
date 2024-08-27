@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Button from "../utils/ui/Button";
 import { ImagePlus, Smile, X } from "lucide-react";
 import { useModal } from "../../context/ModalContext";
-import QuillEditor from "../utils/Editor";
 import { useSelector } from "react-redux";
 import { useUpdatePostMutation } from "../../hooks/post/useUpdatePost";
+import CkEditor from "../utils/CkEditor";
 
 const EditPostModal = ({ post }) => {
   const [content, setContent] = useState(post?.content);
@@ -45,10 +45,7 @@ const EditPostModal = ({ post }) => {
           />
         </div>
         <div className="h-[300px] !px-0 mt-4">
-          <QuillEditor
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+          <CkEditor setContent={setContent} content={content} />
         </div>
         <div className="flex items-center justify-between ml-8">
           <div className="flex items-center gap-4">

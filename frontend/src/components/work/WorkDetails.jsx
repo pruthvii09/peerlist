@@ -3,7 +3,7 @@ import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Select from "../utils/ui/Select";
+import Select from "react-select";
 import { months, years } from "../../utils/data";
 import TagInput from "../utils/ui/TagInput";
 import "../../hooks/work/useAddWork";
@@ -33,41 +33,43 @@ const WorkDetails = () => {
   };
 
   const handleStartMonthChange = (e) => {
-    setSelectedStartMonth(e.target.value);
+    setSelectedStartMonth(e.value);
     if (selectedStartYear) {
       setWorkData({
         ...workData,
-        start_date: `${e.target.value} ${selectedStartYear}`,
+        start_date: `${e.value} ${selectedStartYear}`,
       });
     }
   };
 
   const handleStartYearChange = (e) => {
-    setSelectedStartYear(e.target.value);
+    setSelectedStartYear(e.value);
     if (selectedStartMonth) {
       setWorkData({
         ...workData,
-        start_date: `${selectedStartMonth} ${e.target.value}`,
+        start_date: `${selectedStartMonth} ${e.value}`,
       });
     }
   };
 
   const handleEndMonthChange = (e) => {
-    setSelectedEndMonth(e.target.value);
+    setSelectedEndMonth(e.value);
     if (selectedEndYear) {
       setWorkData({
         ...workData,
-        end_date: `${e.target.value} ${selectedEndYear}`,
+        end_date: `${
+          e.value.charAt(0).toUpperCase() + e.value.slice(1)
+        } ${selectedEndYear}`,
       });
     }
   };
 
   const handleEndYearChange = (e) => {
-    setSelectedEndYear(e.target.value);
+    setSelectedEndYear(e.value);
     if (selectedEndMonth) {
       setWorkData({
         ...workData,
-        end_date: `${selectedEndMonth} ${e.target.value}`,
+        end_date: `${selectedEndMonth} ${e.value}`,
       });
     }
   };
@@ -130,16 +132,44 @@ const WorkDetails = () => {
             <div className="flex-1">
               <span className="text-xs">From Month</span>
               <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
                 options={months}
-                value={selectedStartMonth}
+                className="text-sm"
                 onChange={handleStartMonthChange}
               />
             </div>
             <div className="flex-1">
               <span className="text-xs">From Year</span>
               <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
+                className="text-sm"
                 options={years}
-                value={selectedStartYear}
                 onChange={handleStartYearChange}
               />
             </div>
@@ -154,8 +184,22 @@ const WorkDetails = () => {
               <div className="flex-1">
                 <span className="text-xs">To Month</span>
                 <Select
+                  styles={{
+                    control: (provided, state) => ({
+                      ...provided,
+                      boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                      "&:hover": {
+                        borderColor: state.isFocused
+                          ? "none"
+                          : provided.borderColor,
+                      },
+                    }),
+                  }}
+                  className="text-sm"
                   options={months}
-                  value={selectedEndMonth}
                   onChange={handleEndMonthChange}
                   isDisabled={currentlyWorking}
                 />
@@ -163,8 +207,22 @@ const WorkDetails = () => {
               <div className="flex-1">
                 <span className="text-xs">To Year</span>
                 <Select
+                  styles={{
+                    control: (provided, state) => ({
+                      ...provided,
+                      boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                      "&:hover": {
+                        borderColor: state.isFocused
+                          ? "none"
+                          : provided.borderColor,
+                      },
+                    }),
+                  }}
+                  className="text-sm"
                   options={years}
-                  value={selectedEndYear}
                   onChange={handleEndYearChange}
                   isDisabled={currentlyWorking}
                 />

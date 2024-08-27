@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../utils/ui/Input";
 import Button from "../utils/ui/Button";
 import "react-quill/dist/quill.snow.css";
-import Select from "../utils/ui/Select";
+import Select from "react-select";
 import { degrees, years } from "../../utils/data";
 import "../../hooks/work/useAddWork";
 import { useAddEducation } from "../../hooks/education/useAddEducation";
@@ -68,14 +68,26 @@ const EducationDetails = () => {
           </div>
           <div className="w-full">
             <Select
-              options={degrees}
-              value={educationDetails.degree}
-              onChange={(e) =>
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                  borderColor: state.isFocused ? "none" : provided.borderColor,
+                  "&:hover": {
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                  },
+                }),
+              }}
+              onChange={(selectedOption) => {
                 setEducationDetails({
                   ...educationDetails,
-                  degree: e.target.value,
-                })
-              }
+                  degree: selectedOption.value,
+                });
+              }}
+              options={degrees}
+              className="text-sm py-0 hover:border-gray-600 "
             />
           </div>
         </div>
@@ -108,12 +120,26 @@ const EducationDetails = () => {
             <div className="flex-1">
               <span className="text-xs">From (Year)</span>
               <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
                 options={years}
-                value={educationDetails.start_year}
-                onChange={(e) =>
+                className="text-sm py-0 hover:border-gray-600 "
+                onChange={(selectedOption) =>
                   setEducationDetails({
                     ...educationDetails,
-                    start_year: e.target.value,
+                    start_year: String(selectedOption.value),
                   })
                 }
               />
@@ -121,12 +147,26 @@ const EducationDetails = () => {
             <div className="flex-1">
               <span className="text-xs">To (Year)</span>
               <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
                 options={years}
-                value={educationDetails.end_year}
-                onChange={(e) =>
+                className="text-sm py-0 hover:border-gray-600 "
+                onChange={(selectedOption) =>
                   setEducationDetails({
                     ...educationDetails,
-                    end_year: e.target.value,
+                    end_year: String(selectedOption.value),
                   })
                 }
               />

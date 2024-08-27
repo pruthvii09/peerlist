@@ -12,7 +12,7 @@ const Select = ({ label, options, value, onChange }) => {
         onChange={onChange} // Set the onChange prop
       >
         {options?.map((option, i) => (
-          <option key={i} className="py-2" value={option.name}>
+          <option key={i} className="py-2 text-bl" value={option.name}>
             {option.name}
           </option>
         ))}

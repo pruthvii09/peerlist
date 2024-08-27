@@ -1,8 +1,10 @@
 import React from "react";
 import Button from "./ui/Button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const GradientCard = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -20,6 +22,7 @@ const GradientCard = () => {
       </p>
       <Button
         title="Post a Job"
+        onClick={() => navigate("/add-job")}
         className="bg-[#00aa45] text-white border-2 mt-3 border-[#219653] rounded-full text-sm px-3.5 py-0.5 hover:bg-[#219653]"
         iconConfig={{ icon: ArrowRight }}
       />

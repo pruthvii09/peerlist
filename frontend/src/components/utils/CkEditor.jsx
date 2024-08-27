@@ -4,7 +4,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import useDebounce from "../../hooks/useDebounce";
 import useSearchProfile from "../../hooks/profile/useSearchProfile";
 import { Loader2 } from "lucide-react";
-const CkEditor = ({ setContent }) => {
+const CkEditor = ({ content, setContent }) => {
   const editorRef = useRef(null);
   const [query, setQuery] = useState("");
   const [position, setPosition] = useState({
@@ -137,7 +137,7 @@ const CkEditor = ({ setContent }) => {
     <div className="ckeditor-container">
       <CKEditor
         editor={ClassicEditor}
-        data={"<p>Write Something....</p>"}
+        data={content}
         config={{
           toolbar: [],
           removePlugins: ["Toolbar", "Table"],

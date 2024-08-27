@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "../components/utils/Sidebar";
-import { Bell, Settings } from "lucide-react";
+import { Bell, Loader2, Settings } from "lucide-react";
 import ComponentHeader from "../components/utils/ComponentHeader";
 import Rightsidebar from "../components/utils/Rightsidebar";
 import GradientCard from "../components/utils/GradientCard";
@@ -8,10 +8,12 @@ import JobCard from "../components/jobs/JobCard";
 import GradientCard2 from "../components/utils/GradientCard2";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import useFetchJob from "../hooks/job/useGetJob";
 const Jobs = () => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
+  const { data, isLoading } = useFetchJob();
+  console.log("data => ", data);
   return (
     <Sidebar>
       <div className="flex">
@@ -32,15 +34,18 @@ const Jobs = () => {
               </Link>
             }
           />
-          <div className="mt-14 flex flex-col border-r border-gray-300">
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+          <div className="mt-14 flex flex-col border-r border-gray-300 min-h-screen h-full">
+            {isLoading ? (
+              <div>
+                <Loader2 className="animate-spin text-green-500" />
+              </div>
+            ) : (
+              <>
+                {data.map((job) => (
+                  <JobCard job={job} key={job?.id} />
+                ))}
+              </>
+            )}
           </div>
         </div>
         <Rightsidebar>

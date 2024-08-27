@@ -161,7 +161,6 @@ export const getUserByUsername = async (req, res) => {
     } else {
       githubData = [];
     }
-    console.log("githubData => ", githubData);
     const responseData = {
       ...user,
       github: githubData,

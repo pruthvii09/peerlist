@@ -1,11 +1,13 @@
 import React from "react";
 import Input from "../utils/ui/Input";
-import Select from "../utils/ui/Select";
+import Select from "react-select";
 import ProfileSaparator from "./ProfileSaparator";
 import { CircleUserRound, Tag } from "lucide-react";
 import TagInput from "../utils/ui/TagInput";
+import { city, country } from "../../utils/data";
 
 const BasicProfile = ({ basicProfile, setBasicProfile }) => {
+  console.log("basicProfile => ", basicProfile);
   return (
     <div className="p-6">
       <ProfileSaparator icon={CircleUserRound} title="BASIC PROFILE" />
@@ -54,47 +56,98 @@ const BasicProfile = ({ basicProfile, setBasicProfile }) => {
 
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-10">
           <div className="grid grid-cols-2 gap-3">
+            <div>
+              <span className="flex justify-between items-center pb-0.5 text-xs">
+                Country
+              </span>
+              <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
+                onChange={(selectedOption) =>
+                  setBasicProfile({
+                    ...basicProfile,
+                    country: selectedOption.value,
+                  })
+                }
+                className="text-sm"
+                options={country}
+                value={country.find(
+                  (option) => option.value === basicProfile.country
+                )}
+              />
+            </div>
+            <div>
+              <span className="flex justify-between items-center pb-0.5 text-xs">
+                City
+              </span>
+              <Select
+                styles={{
+                  control: (provided, state) => ({
+                    ...provided,
+                    boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                    "&:hover": {
+                      borderColor: state.isFocused
+                        ? "none"
+                        : provided.borderColor,
+                    },
+                  }),
+                }}
+                label="City"
+                onChange={(e) =>
+                  setBasicProfile({ ...basicProfile, city: e.value })
+                }
+                value={city.find(
+                  (option) => option.value === basicProfile.city
+                )} // Set default selected value
+                className="text-sm"
+                options={city}
+              />
+            </div>
+          </div>
+          <div>
+            <span className="flex justify-between items-center pb-0.5 text-xs">
+              Gender
+            </span>
             <Select
-              label="Country"
-              value={basicProfile.country}
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  boxShadow: state.isFocused ? "none" : provided.boxShadow,
+                  borderColor: state.isFocused ? "none" : provided.borderColor,
+                  "&:hover": {
+                    borderColor: state.isFocused
+                      ? "none"
+                      : provided.borderColor,
+                  },
+                }),
+              }}
               onChange={(e) =>
-                setBasicProfile({ ...basicProfile, country: e.target.value })
+                setBasicProfile({ ...basicProfile, gender: e.value })
               }
+              className="text-sm"
+              value={basicProfile.gender}
               options={[
-                { id: 1, name: "India" },
-                { id: 2, name: "Australia" },
-                { id: 3, name: "USA" },
-                { id: 4, name: "England" },
-                { id: 5, name: "Nepal" },
-              ]}
-            />
-            <Select
-              label="City"
-              value={basicProfile.city}
-              onChange={(e) =>
-                setBasicProfile({ ...basicProfile, city: e.target.value })
-              }
-              options={[
-                { id: 1, name: "Pune" },
-                { id: 2, name: "Mumbai" },
-                { id: 3, name: "Banglore" },
-                { id: 4, name: "Delhi" },
-                { id: 5, name: "Hydrabad" },
+                { value: "he/him", label: "he/him" },
+                { value: "she/her", label: "she/her" },
+                { value: "they/them", label: "they/them" },
               ]}
             />
           </div>
-          <Select
-            label="Country"
-            value={basicProfile.gender}
-            onChange={(e) =>
-              setBasicProfile({ ...basicProfile, gender: e.target.value })
-            }
-            options={[
-              { id: 1, name: "he/him" },
-              { id: 2, name: "she/her" },
-              { id: 3, name: "they/them" },
-            ]}
-          />
         </div>
         <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
           <Input

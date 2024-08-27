@@ -162,7 +162,7 @@ const PostCard = React.forwardRef(({ post }, ref) => {
                         post.images.length > 1 ? "cursor-pointer" : ""
                       }`}
                       src={image.url}
-                      alt={`Post image ${index + 1}`}
+                      alt={`Post ${index + 1}`}
                     />
                     <div
                       onClick={(e) => {

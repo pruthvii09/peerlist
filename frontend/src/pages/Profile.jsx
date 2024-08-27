@@ -121,11 +121,15 @@ const Profile = () => {
               </div>
             )}
             <AddProject projects={user?.projects} isOwnProfile={isOwnProfile} />
-            {user?.github.length !== 0 && (
-              <GithubDetails
-                isOwnProfile={isOwnProfile}
-                github={user?.github}
-              />
+            {user.github && (
+              <>
+                {user?.github.length !== 0 && (
+                  <GithubDetails
+                    isOwnProfile={isOwnProfile}
+                    github={user?.github}
+                  />
+                )}
+              </>
             )}
           </div>
         </div>

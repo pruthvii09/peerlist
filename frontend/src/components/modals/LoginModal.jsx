@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import Button from "../utils/ui/Button";
 import { ArrowRight, X } from "lucide-react";
 import Input from "../utils/ui/Input";
-import { useDispatch } from "react-redux";
 import { useModal } from "../../context/ModalContext";
 import { useLoginMutation } from "../../hooks/profile/useLoginMutation";
-import { closeLoginModal } from "../../store/modalSlice";
 import { toast } from "react-toastify";
 const LoginModal = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { hideModal } = useModal();
-  const dispatch = useDispatch();
   const loginMutation = useLoginMutation();
 
   const handleSubmit = async () => {
@@ -59,7 +55,6 @@ const LoginModal = () => {
           <X
             onClick={() => {
               hideModal();
-              dispatch(closeLoginModal());
             }}
             className="cursor-pointer"
             size={18}

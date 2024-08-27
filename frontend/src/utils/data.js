@@ -307,7 +307,12 @@ export const roles = [
   "Business Analyst",
   "Technical Writer",
 ];
-export const joboptions = ["Full-time", "Part-time", "Contract", "Internship"];
+export const joboptions = [
+  { value: "full-time", label: "Full-time" },
+  { value: "part-time", label: "Part-time" },
+  { value: "contract", label: "Contract" },
+  { value: "internship", label: "Internship" },
+];
 export const integrations = [
   {
     id: 1,
@@ -329,32 +334,50 @@ export const integrations = [
   },
 ];
 export const months = [
-  { id: 1, name: "Jan" },
-  { id: 2, name: "Feb" },
-  { id: 3, name: "Mar" },
-  { id: 4, name: "Apr" },
-  { id: 5, name: "May" },
-  { id: 6, name: "Jun" },
-  { id: 7, name: "July" },
-  { id: 8, name: "Aug" },
-  { id: 9, name: "Sept" },
-  { id: 10, name: "Oct" },
-  { id: 11, name: "Nov" },
-  { id: 12, name: "Dec" },
+  { value: "jan", label: "Jan" },
+  { value: "feb", label: "Feb" },
+  { value: "mar", label: "Mar" },
+  { value: "apr", label: "Apr" },
+  { value: "may", label: "May" },
+  { value: "jun", label: "Jun" },
+  { value: "jul", label: "July" },
+  { value: "aug", label: "Aug" },
+  { value: "sep", label: "Sept" },
+  { value: "oct", label: "Oct" },
+  { value: "nov", label: "Nov" },
+  { value: "dec", label: "Dec" },
 ];
+
 export const years = Array.from({ length: 2024 - 2000 + 1 }, (_, i) => ({
-  id: 2000 + i,
-  name: 2000 + i,
+  value: 2000 + i,
+  label: `${2000 + i}`,
 }));
+
 export const degrees = [
-  { id: 1, name: "Associate" },
-  { id: 2, name: "Bachelor" },
-  { id: 3, name: "Master" },
-  { id: 4, name: "Doctorate" },
-  { id: 5, name: "Professional" },
-  { id: 6, name: "Certificate" },
-  { id: 7, name: "Diploma" },
-  { id: 8, name: "Advanced Diploma" },
-  { id: 9, name: "Honours" },
-  { id: 10, name: "Fellowship" },
+  { value: "associate", label: "Associate" },
+  { value: "bachelor", label: "Bachelor" },
+  { value: "master", label: "Master" },
+  { value: "doctorate", label: "Doctorate" },
+  { value: "professional", label: "Professional" },
+  { value: "certificate", label: "Certificate" },
+  { value: "diploma", label: "Diploma" },
+  { value: "advanced-diploma", label: "Advanced Diploma" },
+  { value: "honours", label: "Honours" },
+  { value: "fellowship", label: "Fellowship" },
+];
+
+export const city = [
+  { value: "pune", label: "Pune" },
+  { value: "mumbai", label: "Mumbai" },
+  { value: "banglore", label: "Banglore" },
+  { value: "delhi", label: "Delhi" },
+  { value: "hydrabad", label: "Hydrabad" },
+];
+
+export const country = [
+  { value: "india", label: "India" },
+  { value: "australia", label: "Australia" },
+  { value: "usa", label: "USA" },
+  { value: "england", label: "England" },
+  { value: "nepal", label: "Nepal" },
 ];

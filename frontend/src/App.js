@@ -1,41 +1,41 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Scroll from "./pages/Scroll";
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce, ToastContainer } from "react-toastify";
-
-import Project from "./pages/Project";
-import Jobs from "./pages/Jobs";
-import Search from "./pages/Search";
-import Profile from "./pages/Profile";
-import EditProfile from "./pages/EditProfile";
 import DetailModal from "./components/modals/DetailModal";
+
+import {
+  Account,
+  AddEducation,
+  AddExperience,
+  AddJob,
+  AddProject,
+  Analytics,
+  Edit,
+  EditExperience,
+  EditProfile,
+  EditProject,
+  Home,
+  Inbox,
+  JobPreference,
+  Jobs,
+  MyNetwork,
+  NotFound,
+  Notifications,
+  Profile,
+  Project,
+  Scroll,
+  Search,
+  SinglePost,
+  UserPosts,
+  UserResume,
+  UserUpvoted,
+  ViewProject,
+} from "./pages";
 import { useSelector } from "react-redux";
-import AddProject from "./pages/AddProject";
-import EditProject from "./pages/EditProject";
-import ViewProject from "./pages/ViewProject";
-import JobPreference from "./pages/JobPreference";
-import UserPosts from "./pages/UserPosts";
-import UserResume from "./pages/UserResume";
-import AddExperience from "./pages/AddExperience";
-import AddEducation from "./pages/AddEducation";
-import NotFound from "./pages/NotFound";
-import SinglePost from "./pages/SinglePost";
-import Notification from "./pages/Notifications";
-import MyNetwork from "./pages/MyNetwork";
-import EditExperience from "./pages/EditExperience";
-import Account from "./pages/Account";
-import Inbox from "./pages/Inbox";
-import UserUpvoted from "./pages/UserUpvoted";
-import Analytics from "./pages/Analytics";
-import Edit from "./pages/Edit";
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate to="/scroll" /> },
+  { path: "/", element: <Home /> },
   {
     path: "/scroll",
     element: <Scroll />,
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/notifications",
-    element: <Notification />,
+    element: <Notifications />,
   },
   {
     path: "/my-network",
@@ -109,6 +109,10 @@ const router = createBrowserRouter([
     element: <AddExperience />,
   },
   {
+    path: "/add-job",
+    element: <AddJob />,
+  },
+  {
     path: "/:id/resume/edit-experience/:expId",
     element: <EditExperience />,
   },
@@ -136,7 +140,7 @@ const router = createBrowserRouter([
 function App() {
   const { user } = useSelector((store) => store.user);
   return (
-    <div className=" pl-0">
+    <div className="pl-0">
       <div className="lg:w-[1200px] w-full min-h-screen mx-auto flex font-body">
         <RouterProvider router={router} />
       </div>

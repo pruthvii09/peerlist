@@ -10,7 +10,7 @@ import CkEditor from "../utils/CkEditor";
 import useImageUpload from "../../hooks/useImageUpload";
 import { toast } from "react-toastify";
 const PostModal = () => {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("<p>Write something...</p>");
   const [images, setImages] = useState([]);
 
   const { user } = useSelector((store) => store.user);
@@ -74,7 +74,7 @@ const PostModal = () => {
             onChange={(e) => setContent(e.target.value)}
             height={200}
           /> */}
-          <CkEditor setContent={setContent} />
+          <CkEditor content={content} setContent={setContent} />
         </div>
         <div className="pb-4 px-4 flex gap-3">
           {images?.length > 0 && (
@@ -84,6 +84,7 @@ const PostModal = () => {
                   <img
                     src={image.url}
                     className="w-16 h-16 rounded-md border object-cover border-gray-300"
+                    alt="profile"
                   />
                   <div
                     onClick={() => handleRemoveImage(image?.id)}

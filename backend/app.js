@@ -31,6 +31,7 @@ import educationRoutes from "./routes/education.routes.js";
 import spotlightRoutes from "./routes/spotlight.routes.js";
 import messageRoutes from "./routes/messages.routes.js";
 import notificationRoutes from "./routes/notifications.routes.js";
+import jobRoutes from "./routes/jobs.routes.js";
 
 // Routes declaration
 app.use("/users", userRoutes);
@@ -42,5 +43,6 @@ app.use("/education", educationRoutes);
 app.use("/spotlight", spotlightRoutes);
 app.use("/messages", messageRoutes);
 app.use("/notifications", notificationRoutes);
+app.use("/jobs", jobRoutes);
 
 export { app, httpServer, io };

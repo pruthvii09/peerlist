@@ -25,7 +25,7 @@ const RightComponentHeader = ({
     socket.on("newNotification", (data) => {
       setNotification(true);
     });
-  }, [socket, user]);
+  }, [user]);
 
   return (
     <div className="w-[348px] h-[56px] border-r border-b border-gray-300">

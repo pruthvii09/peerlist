@@ -21,7 +21,7 @@ const RightSheet = ({ showSheet, setShowSheet }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("accessToken");
     dispatch(logoutUser());
-    navigate("/scroll");
+    navigate("/");
     setShowSheet(!showSheet);
   };
   const isMediumOrLarger = useMediaQuery({ query: "(min-width: 768px)" });

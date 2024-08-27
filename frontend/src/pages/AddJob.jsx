@@ -6,19 +6,19 @@ import GradientCard from "../components/utils/GradientCard";
 import { ArrowLeft } from "lucide-react";
 import GradientCard2 from "../components/utils/GradientCard2";
 import { useSelector } from "react-redux";
-import EducationDetails from "../components/education/EducationDetails";
-const AddEducation = () => {
+import JobDetails from "../components/job/JobDetails";
+const AddJob = () => {
   const { user } = useSelector((store) => store.user);
   return (
     <Sidebar>
       <div className="flex">
         <div className="md:w-[640px] w-full">
           <ComponentHeader
-            title="Add Education"
+            title="Add Job"
             iconConfig={{ icon: ArrowLeft }}
             href={`/user/${user.username}`}
           />
-          <EducationDetails />
+          <JobDetails />
         </div>
         <Rightsidebar>
           <div className="mt-8 flex flex-col gap-4 px-6">
@@ -31,4 +31,4 @@ const AddEducation = () => {
   );
 };
 
-export default AddEducation;
+export default AddJob;
