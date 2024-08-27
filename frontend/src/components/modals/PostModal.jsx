@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Button from "../utils/ui/Button";
 import { ImagePlus, Smile, X } from "lucide-react";
 import { useModal } from "../../context/ModalContext";
-//import QuillEditor from "../utils/Editor";
 import { useAddPost } from "../../hooks/post/useAddPost";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";

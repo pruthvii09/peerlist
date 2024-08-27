@@ -1,14 +1,11 @@
 import React from "react";
 import { timeAgo } from "../../utils/functions";
-import { useNavigate } from "react-router-dom";
 import {
   renderDescription,
   renderIcon,
   renderMessage,
 } from "./notificationHelper";
 const NotificationCard = ({ notification }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="px-4 py-4 flex gap-3 items-start border-b border-gray-300">
       <div>{renderIcon(notification)}</div>

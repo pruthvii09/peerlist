@@ -72,7 +72,7 @@ const Chat = ({ recept }) => {
     return () => {
       socket.off("receive_message");
     };
-  }, [socket, recept]);
+  }, [recept, conversationId, user?.id]);
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();

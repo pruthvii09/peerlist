@@ -1,4 +1,3 @@
-// LaunchProject.js
 import React, { useState } from "react";
 import useProjects from "../../hooks/projects/useGetProjects";
 import ProjectCard from "../soptlight/ProjectCard";

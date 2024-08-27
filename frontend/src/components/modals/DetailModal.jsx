@@ -22,7 +22,7 @@ const DetailModal = () => {
     if (file) {
       uploadImage(file);
     }
-  }, [file]);
+  }, [file, uploadImage]);
 
   useEffect(() => {
     if (imageUrl) {
@@ -34,7 +34,7 @@ const DetailModal = () => {
         }));
       }
     }
-  }, [imageUrl]);
+  }, [imageUrl, getImage]);
 
   const onSubmit = () => {
     updateMutation.mutate(updateData);

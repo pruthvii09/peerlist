@@ -139,3 +139,7 @@
 .ck-content a[href^="/user"]:hover {
   border-bottom: 1.5px solid rgb(0 170 69);
 }
+
+.ql-editor {
+  padding: 0 !important;
+}

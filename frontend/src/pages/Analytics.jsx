@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/utils/Sidebar";
-// import ComponentHeader from "../components/utils/ComponentHeader";
-// import Rightsidebar from "../components/utils/Rightsidebar";
-// import GradientCard from "../components/utils/GradientCard";
-// import GradientCard2 from "../components/utils/GradientCard2";
 import {
   LineChart,
   Line,

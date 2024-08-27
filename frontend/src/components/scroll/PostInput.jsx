@@ -15,6 +15,7 @@ const PostInput = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
