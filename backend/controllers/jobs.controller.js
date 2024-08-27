@@ -47,6 +47,7 @@ export const getJobs = async (req, res) => {
       select: {
         id: true,
         title: true,
+        location: true,
         application_link: true,
         skills: true,
         company: true,
