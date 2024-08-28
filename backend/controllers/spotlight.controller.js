@@ -89,6 +89,9 @@ export const getSpotlightDetails = async (req, res) => {
           include: {
             allupvotes: true,
           },
+          orderBy: {
+            upvotes: "desc",
+          },
         },
       },
     });

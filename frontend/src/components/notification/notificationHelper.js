@@ -34,9 +34,9 @@ export const renderDescription = (notification) => {
     case "POST_LIKE":
       return (
         <Link
-          to={`/scroll/post/${notification.post.id}`}
+          to={`/scroll/post/${notification?.post?.id}`}
           className="mt-2 text-sm border-l-2 border-gray-300 pl-4"
-          dangerouslySetInnerHTML={{ __html: notification.post.content }}
+          dangerouslySetInnerHTML={{ __html: notification?.post?.content }}
         />
       );
     case "POST_TAG":
